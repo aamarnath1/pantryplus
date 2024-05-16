@@ -1,27 +1,7 @@
-## pantryplus
-#Arya Amarnath, Ayad Wahed and Akram Mohamed
-#Pantry+ - Your Local Grocery Expiry and Meal Companion
+# Keep Fresh
 
-Overview
--------------------
+A new Flutter project.
 
+## Getting Started
 
-
--------------------
-
-
-Project Structure
--------------------
-
-
--------------------
-
-
-Future Work to be Implemented
--------------------
-
-
--------------------
-
-#License
-This project is licensed under the MIT License - see the LICENSE file for details.
+FlutterFlow projects are built to run on the Flutter _stable_ release.
