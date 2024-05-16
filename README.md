@@ -1,6 +1,7 @@
 ## pantryplus
-Arya Amarnath, Ayad Wahed and Akram Mohamed
-Pantry+ - Your Local Grocery Expiry and Meal Companion
+#Arya Amarnath, Ayad Wahed and Akram Mohamed
+#Pantry+ - Your Local Grocery Expiry and Meal Companion
+
 Overview
 -------------------
 
