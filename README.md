@@ -1,5 +1,4 @@
-# Pantry + 
-# Your Local Grocery Expiry and Meal Companion
+# 'Pantry +' : Your Local Grocery Expiry and Meal Companion
 
 Arya Amarnath, Ayad Wahed, and Akram Mohamed
 
