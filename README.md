@@ -23,7 +23,9 @@ https://www.canva.com/design/DAGFV48Z3vg/gWEQGwHTrIYUu4J49pS0iA/view?utm_content
 
 Future Work to be Implemented
 -------------------
-Key Features - Using Flutter + Gemini-API GEMINI API - mainly for google competition, this can be swapped out in the future for better models?
+Key Features:
+- Using Flutter + Gemini-API GEMINI API
+- mainly for google competition, this can be swapped out in the future for better models?
 
 User Authentication:
 - Sign in and create new accounts
@@ -39,7 +41,7 @@ Pantry Management:
 - Integration with barcode databases for easy item entry (firebase? api call?)
 
 Notifications:
-Send alerts before items reach their expiry dates
+- Send alerts before items reach their expiry dates
 
 -------------------
 
