@@ -3,16 +3,15 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 
 class CompanyInformationRecord extends FirestoreRecord {
   CompanyInformationRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
+    print('next to insitalize field');
     _initializeFields();
   }
 
@@ -71,7 +70,8 @@ class CompanyInformationRecord extends FirestoreRecord {
   String get termsURL => _termsURL ?? '';
   bool hasTermsURL() => _termsURL != null;
 
-  void _initializeFields() {
+  void _initializeFields() { 
+    print('-------inside initializeFields-------');
     _name = snapshotData['name'] as String?;
     _logo = snapshotData['logo'] as String?;
     _email = snapshotData['email'] as String?;

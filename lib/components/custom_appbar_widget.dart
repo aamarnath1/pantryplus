@@ -4,8 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'custom_appbar_model.dart';
 export 'custom_appbar_model.dart';
 
@@ -18,8 +16,8 @@ class CustomAppbarWidget extends StatefulWidget {
     this.actionButtonAction,
     bool? optionsButton,
     required this.optionsButtonAction,
-  })  : this.actionButton = actionButton ?? false,
-        this.optionsButton = optionsButton ?? false;
+  })  : actionButton = actionButton ?? false,
+        optionsButton = optionsButton ?? false;
 
   final bool? backButton;
   final bool actionButton;
@@ -96,9 +94,9 @@ class _CustomAppbarWidgetState extends State<CustomAppbarWidget> {
                 ),
                 options: FFButtonOptions(
                   height: 44.0,
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   iconPadding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).primary,
                   textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Inter',
@@ -107,7 +105,7 @@ class _CustomAppbarWidgetState extends State<CustomAppbarWidget> {
                         fontWeight: FontWeight.w600,
                       ),
                   elevation: 0.0,
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.transparent,
                     width: 1.0,
                   ),
@@ -132,7 +130,7 @@ class _CustomAppbarWidgetState extends State<CustomAppbarWidget> {
                   await widget.optionsButtonAction?.call();
                 },
               ),
-          ].divide(SizedBox(width: 8.0)),
+          ].divide(const SizedBox(width: 8.0)),
         ),
       ],
     );

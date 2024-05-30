@@ -165,14 +165,16 @@ Future<List<CompanyInformationRecord>> queryCompanyInformationRecordOnce({
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
+}) {
+    print('querybuilder $queryBuilder');
+    return queryCollectionOnce(
       CompanyInformationRecord.collection,
       CompanyInformationRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
     );
+}
 
 /// Functions to query FeedbackRecords (as a Stream and as a Future).
 Future<int> queryFeedbackRecordCount({
@@ -367,7 +369,7 @@ Future<FFFirestorePage<T>> queryCollectionPage<T>(
   } else {
     docSnapshot = await query.get();
   }
-  final getDocs = (QuerySnapshot s) => s.docs
+  getDocs(QuerySnapshot s) => s.docs
       .map(
         (d) => safeGet(
           () => recordBuilder(d),

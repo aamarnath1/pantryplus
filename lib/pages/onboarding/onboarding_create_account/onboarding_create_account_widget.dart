@@ -4,11 +4,8 @@ import '/components/custom_appbar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'onboarding_create_account_model.dart';
 export 'onboarding_create_account_model.dart';
 
@@ -64,9 +61,9 @@ class _OnboardingCreateAccountWidgetState
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.0, 0.0),
+            alignment: const AlignmentDirectional(0.0, 0.0),
             child: Padding(
-              padding: EdgeInsets.all(24.0),
+              padding: const EdgeInsets.all(24.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -84,7 +81,7 @@ class _OnboardingCreateAccountWidgetState
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                     child: Text(
                       'Create an account',
                       style: FlutterFlowTheme.of(context).displaySmall.override(
@@ -100,14 +97,14 @@ class _OnboardingCreateAccountWidgetState
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 18.0, 0.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 4.0),
                                 child: Text(
                                   'Full Name',
@@ -123,7 +120,7 @@ class _OnboardingCreateAccountWidgetState
                                 controller: _model.fullNameTextController,
                                 focusNode: _model.fullNameFocusNode,
                                 autofocus: false,
-                                autofillHints: [AutofillHints.name],
+                                autofillHints: const [AutofillHints.name],
                                 textCapitalization: TextCapitalization.words,
                                 textInputAction: TextInputAction.next,
                                 obscureText: false,
@@ -182,14 +179,14 @@ class _OnboardingCreateAccountWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 18.0, 0.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 4.0),
                                 child: Text(
                                   'Email',
@@ -205,7 +202,7 @@ class _OnboardingCreateAccountWidgetState
                                 controller: _model.emailAddressTextController,
                                 focusNode: _model.emailAddressFocusNode,
                                 autofocus: false,
-                                autofillHints: [AutofillHints.email],
+                                autofillHints: const [AutofillHints.email],
                                 textInputAction: TextInputAction.next,
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -264,14 +261,14 @@ class _OnboardingCreateAccountWidgetState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 18.0, 0.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 4.0),
                                 child: Text(
                                   'Password',
@@ -287,7 +284,7 @@ class _OnboardingCreateAccountWidgetState
                                 controller: _model.passwordTextController,
                                 focusNode: _model.passwordFocusNode,
                                 autofocus: false,
-                                autofillHints: [AutofillHints.newPassword],
+                                autofillHints: const [AutofillHints.newPassword],
                                 textInputAction: TextInputAction.done,
                                 obscureText: !_model.passwordVisibility,
                                 decoration: InputDecoration(
@@ -363,7 +360,7 @@ class _OnboardingCreateAccountWidgetState
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         logFirebaseEvent(
@@ -410,9 +407,9 @@ class _OnboardingCreateAccountWidgetState
                         width: double.infinity,
                         height: 50.0,
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).alternate,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -420,7 +417,7 @@ class _OnboardingCreateAccountWidgetState
                                   letterSpacing: 0.0,
                                 ),
                         elevation: 0.0,
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),
@@ -430,7 +427,7 @@ class _OnboardingCreateAccountWidgetState
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -506,7 +503,7 @@ class _OnboardingCreateAccountWidgetState
                                                   TextDecoration.underline,
                                             ),
                                       ),
-                                      TextSpan(
+                                      const TextSpan(
                                         text: '.',
                                         style: TextStyle(),
                                       )

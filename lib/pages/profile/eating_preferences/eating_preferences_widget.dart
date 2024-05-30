@@ -2,10 +2,7 @@ import '/backend/backend.dart';
 import '/components/custom_appbar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'eating_preferences_model.dart';
 export 'eating_preferences_model.dart';
 
@@ -51,9 +48,9 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.0, 0.0),
+            alignment: const AlignmentDirectional(0.0, 0.0),
             child: Padding(
-              padding: EdgeInsets.all(24.0),
+              padding: const EdgeInsets.all(24.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -71,7 +68,7 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                     child: Text(
                       'Eating Preferences',
                       style: FlutterFlowTheme.of(context).displaySmall.override(
@@ -82,7 +79,7 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                     child: StreamBuilder<List<CompanyInformationRecord>>(
                       stream: queryCompanyInformationRecord(
                         singleRecord: true,
@@ -139,9 +136,9 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                                     );
                                   },
                                   child: Container(
-                                    decoration: BoxDecoration(),
+                                    decoration: const BoxDecoration(),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 12.0, 0.0, 12.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -156,7 +153,7 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                                               shape: BoxShape.circle,
                                             ),
                                             child: Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Icon(
                                                 Icons.fastfood_outlined,
@@ -169,7 +166,7 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                                           ),
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     18.0, 0.0, 0.0, 0.0),
                                             child: Text(
                                               'Diet',
@@ -218,9 +215,9 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                                     );
                                   },
                                   child: Container(
-                                    decoration: BoxDecoration(),
+                                    decoration: const BoxDecoration(),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 12.0, 0.0, 12.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -235,7 +232,7 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                                               shape: BoxShape.circle,
                                             ),
                                             child: Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Icon(
                                                 Icons.error_outline_sharp,
@@ -248,7 +245,7 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                                           ),
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     18.0, 0.0, 0.0, 0.0),
                                             child: Text(
                                               'Allergens',
@@ -297,9 +294,9 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                                     );
                                   },
                                   child: Container(
-                                    decoration: BoxDecoration(),
+                                    decoration: const BoxDecoration(),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 12.0, 0.0, 12.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -314,7 +311,7 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                                               shape: BoxShape.circle,
                                             ),
                                             child: Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Icon(
                                                 Icons.thumb_down_outlined,
@@ -327,7 +324,7 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                                           ),
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     18.0, 0.0, 0.0, 0.0),
                                             child: Text(
                                               'Disliked Ingredients',

@@ -4,8 +4,6 @@ import '/components/empty_state/empty_state_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'accordion_section_model.dart';
 export 'accordion_section_model.dart';
 
@@ -62,7 +60,7 @@ class _AccordionSectionWidgetState extends State<AccordionSectionWidget> {
         List<SupportCenterRecord> columnSupportCenterRecordList =
             snapshot.data!;
         if (columnSupportCenterRecordList.isEmpty) {
-          return Container(
+          return SizedBox(
             width: double.infinity,
             child: EmptyStateWidget(
               icon: Icon(

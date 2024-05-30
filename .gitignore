@@ -1,0 +1,81 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+
+# Dart tooling and build artifacts
+.dart_tool/
+.packages
+.pub/
+/build/
+# If you're using Flutter, you might also want to ignore the /ios/Flutter/Flutter.framework directory.
+# Uncomment the following line to do so.
+# /ios/Flutter/Flutter.framework/
+
+# IntelliJ related
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Visual Studio Code related
+.vscode/
+
+# Android related
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.*
+
+# iOS related
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/*sync/
+**/ios/**/.swn
+**/ios/**/.swp
+**/ios/**/.swm
+**/ios/**/.DS_Store
+**/ios/.generated/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/Flutter.podspec
+
+# macOS related
+**/macos/Flutter/ephemeral/
+
+# Web related
+**/web/favicon.png
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Packages
+.packages
+
+# Flutter/Dart/Pub related
+**/lib/generated_plugin_registrant.dart
+**/flutter_export_environment.sh
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-assets
+.flutter-plugins
+.pub-cache/

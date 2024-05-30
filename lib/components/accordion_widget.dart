@@ -1,8 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'accordion_model.dart';
 export 'accordion_model.dart';
 
@@ -53,7 +51,7 @@ class _AccordionWidgetState extends State<AccordionWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -61,7 +59,7 @@ class _AccordionWidgetState extends State<AccordionWidget> {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
-          padding: EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(12.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,7 +79,7 @@ class _AccordionWidgetState extends State<AccordionWidget> {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
                       child: Container(
                         width: 40.0,
                         height: 40.0,
@@ -94,7 +92,7 @@ class _AccordionWidgetState extends State<AccordionWidget> {
                             if (widget.expandedAccordionIndex !=
                                 widget.accordionIndex)
                               Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: Icon(
                                   Icons.add_sharp,
                                   color:
@@ -105,7 +103,7 @@ class _AccordionWidgetState extends State<AccordionWidget> {
                             if (widget.expandedAccordionIndex ==
                                 widget.accordionIndex)
                               Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: Icon(
                                   Icons.remove_sharp,
                                   color:
@@ -134,7 +132,7 @@ class _AccordionWidgetState extends State<AccordionWidget> {
               ),
               if (widget.expandedAccordionIndex == widget.accordionIndex)
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 6.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 6.0),
                   child: Text(
                     widget.answer!,
                     style: FlutterFlowTheme.of(context).labelLarge.override(

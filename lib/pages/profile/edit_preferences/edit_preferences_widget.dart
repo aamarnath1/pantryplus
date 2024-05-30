@@ -1,18 +1,14 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/custom_appbar_widget.dart';
 import '/components/diet_item/diet_item_widget.dart';
 import '/components/preference_item/preference_item_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'edit_preferences_model.dart';
 export 'edit_preferences_model.dart';
 
@@ -46,12 +42,12 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
       logFirebaseEvent('EditPreferences_update_page_state');
       setState(() {
         _model.allergenSelection =
-            (currentUserDocument?.allergens?.toList() ?? [])
+            (currentUserDocument?.allergens.toList() ?? [])
                 .toList()
                 .cast<String>();
         _model.dietSelection = valueOrDefault(currentUserDocument?.diet, '');
         _model.ingredientSelection =
-            (currentUserDocument?.ingredientDislikes?.toList() ?? [])
+            (currentUserDocument?.ingredientDislikes.toList() ?? [])
                 .toList()
                 .cast<String>();
       });
@@ -115,9 +111,9 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                 children: [
                   Expanded(
                     child: Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Padding(
-                        padding: EdgeInsets.all(24.0),
+                        padding: const EdgeInsets.all(24.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -135,7 +131,7 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                               ),
                             ),
                             Expanded(
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 height: 500.0,
                                 child: PageView(
@@ -159,7 +155,7 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 24.0, 0.0, 0.0),
                                           child: Text(
                                             'Update diet',
@@ -173,14 +169,14 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 18.0, 0.0, 0.0),
                                           child: Builder(
                                             builder: (context) {
                                               final diet =
                                                   editPreferencesOnboardingOptionsRecord
                                                           ?.dietOptions
-                                                          ?.toList() ??
+                                                          .toList() ??
                                                       [];
                                               return Column(
                                                 mainAxisSize: MainAxisSize.min,
@@ -214,7 +210,7 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                                                     },
                                                   );
                                                 }).divide(
-                                                    SizedBox(height: 8.0)),
+                                                    const SizedBox(height: 8.0)),
                                               );
                                             },
                                           ),
@@ -228,7 +224,7 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 24.0, 0.0, 0.0),
                                           child: Text(
                                             'Update allergies',
@@ -242,7 +238,7 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 18.0, 0.0, 0.0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.min,
@@ -254,7 +250,7 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                                                   final allergens =
                                                       editPreferencesOnboardingOptionsRecord
                                                               ?.allergenOptions
-                                                              ?.toList() ??
+                                                              .toList() ??
                                                           [];
                                                   return Wrap(
                                                     spacing: 8.0,
@@ -329,7 +325,7 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 24.0, 0.0, 0.0),
                                           child: Text(
                                             'Update dislikes',
@@ -343,7 +339,7 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 18.0, 0.0, 0.0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.min,
@@ -355,7 +351,7 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                                                   final dislikes =
                                                       editPreferencesOnboardingOptionsRecord
                                                               ?.ingredientOptions
-                                                              ?.toList() ??
+                                                              .toList() ??
                                                           [];
                                                   return Wrap(
                                                     spacing: 8.0,
@@ -434,7 +430,7 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 12.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 12.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         logFirebaseEvent(
@@ -462,9 +458,9 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                         width: double.infinity,
                         height: 50.0,
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -472,7 +468,7 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                                   letterSpacing: 0.0,
                                 ),
                         elevation: 0.0,
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),

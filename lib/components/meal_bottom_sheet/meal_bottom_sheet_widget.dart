@@ -3,8 +3,6 @@ import '/components/feedback_bottom_sheet/feedback_bottom_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'meal_bottom_sheet_model.dart';
 export 'meal_bottom_sheet_model.dart';
@@ -48,7 +46,7 @@ class _MealBottomSheetWidgetState extends State<MealBottomSheetWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.end,
@@ -58,7 +56,7 @@ class _MealBottomSheetWidgetState extends State<MealBottomSheetWidget> {
             height: 200.0,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).primaryBackground,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(0.0),
                 bottomRight: Radius.circular(0.0),
                 topLeft: Radius.circular(24.0),
@@ -66,7 +64,7 @@ class _MealBottomSheetWidgetState extends State<MealBottomSheetWidget> {
               ),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 0.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -79,7 +77,7 @@ class _MealBottomSheetWidgetState extends State<MealBottomSheetWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -103,7 +101,7 @@ class _MealBottomSheetWidgetState extends State<MealBottomSheetWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 12.0, 0.0, 12.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -118,7 +116,7 @@ class _MealBottomSheetWidgetState extends State<MealBottomSheetWidget> {
                                         ),
                                         child: Align(
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              const AlignmentDirectional(0.0, 0.0),
                                           child: Icon(
                                             Icons.share_outlined,
                                             color: FlutterFlowTheme.of(context)
@@ -128,7 +126,7 @@ class _MealBottomSheetWidgetState extends State<MealBottomSheetWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             18.0, 0.0, 0.0, 0.0),
                                         child: Text(
                                           'Share meal details',
@@ -166,7 +164,7 @@ class _MealBottomSheetWidgetState extends State<MealBottomSheetWidget> {
                               isScrollControlled: true,
                               backgroundColor:
                                   FlutterFlowTheme.of(context).accent4,
-                              barrierColor: Color(0x00000000),
+                              barrierColor: const Color(0x00000000),
                               context: context,
                               builder: (context) {
                                 return Padding(
@@ -182,7 +180,7 @@ class _MealBottomSheetWidgetState extends State<MealBottomSheetWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 12.0, 0.0, 12.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -197,7 +195,7 @@ class _MealBottomSheetWidgetState extends State<MealBottomSheetWidget> {
                                       ),
                                       child: Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            const AlignmentDirectional(0.0, 0.0),
                                         child: Icon(
                                           Icons.chat_bubble_outline_rounded,
                                           color: FlutterFlowTheme.of(context)
@@ -207,7 +205,7 @@ class _MealBottomSheetWidgetState extends State<MealBottomSheetWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           18.0, 0.0, 0.0, 0.0),
                                       child: Text(
                                         'Send feedback',

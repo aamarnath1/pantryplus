@@ -1,12 +1,8 @@
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/custom_appbar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'about_us_model.dart';
 export 'about_us_model.dart';
 
@@ -54,9 +50,9 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Padding(
-                    padding: EdgeInsets.all(24.0),
+                    padding: const EdgeInsets.all(24.0),
                     child: StreamBuilder<List<CompanyInformationRecord>>(
                       stream: queryCompanyInformationRecord(
                         singleRecord: true,
@@ -102,7 +98,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 24.0, 0.0, 24.0),
                               child: Text(
                                 'About Us',
@@ -119,7 +115,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                 columnCompanyInformationRecord?.coverImage !=
                                     '')
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 18.0),
                                 child: Container(
                                   width: double.infinity,
@@ -147,9 +143,9 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                             '',
                                     child: Align(
                                       alignment:
-                                          AlignmentDirectional(-1.0, -1.0),
+                                          const AlignmentDirectional(-1.0, -1.0),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             12.0, 12.0, 0.0, 0.0),
                                         child: Container(
                                           width: 80.0,
@@ -180,9 +176,9 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                             ?.coverImage ==
                                         ''))
                               Align(
-                                alignment: AlignmentDirectional(-1.0, -1.0),
+                                alignment: const AlignmentDirectional(-1.0, -1.0),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 18.0),
                                   child: Container(
                                     width: 120.0,
@@ -204,7 +200,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                 ),
                               ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 6.0),
                               child: Text(
                                 valueOrDefault<String>(
@@ -229,11 +225,10 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                     lineHeight: 1.4,
                                   ),
                             ),
-                            if (columnCompanyInformationRecord!
-                                    .chefInfo.length >
-                                0)
+                            if (columnCompanyInformationRecord
+                                    .chefInfo.isNotEmpty)
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 32.0, 0.0, 0.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -249,14 +244,14 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                           ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 12.0, 0.0, 0.0),
                                       child: Builder(
                                         builder: (context) {
                                           final chefs =
                                               columnCompanyInformationRecord
-                                                      ?.chefInfo
-                                                      ?.toList() ??
+                                                      .chefInfo
+                                                      .toList() ??
                                                   [];
                                           return Column(
                                             mainAxisSize: MainAxisSize.max,
@@ -265,7 +260,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                               final chefsItem =
                                                   chefs[chefsIndex];
                                               return Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 12.0),
                                                 child: Row(
@@ -273,9 +268,6 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                                       MainAxisSize.min,
                                                   children: [
                                                     if (chefsItem
-                                                                .profilePicture !=
-                                                            null &&
-                                                        chefsItem
                                                                 .profilePicture !=
                                                             '')
                                                       Container(
@@ -304,7 +296,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                                     Expanded(
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     12.0,
                                                                     0.0,
@@ -330,12 +322,10 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                                                   ),
                                                             ),
                                                             if (chefsItem.bio !=
-                                                                    null &&
-                                                                chefsItem.bio !=
                                                                     '')
                                                               Padding(
                                                                 padding:
-                                                                    EdgeInsetsDirectional
+                                                                    const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             6.0,

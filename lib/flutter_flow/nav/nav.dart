@@ -1,21 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
 import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/lat_lng.dart';
-import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -80,41 +74,41 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? NavBarPage() : SplashWidget(),
+          appStateNotifier.loggedIn ? const NavBarPage() : const SplashWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? NavBarPage() : SplashWidget(),
+              appStateNotifier.loggedIn ? const NavBarPage() : const SplashWidget(),
           routes: [
             FFRoute(
               name: 'Splash',
               path: 'splash',
-              builder: (context, params) => SplashWidget(),
+              builder: (context, params) => const SplashWidget(),
             ),
             FFRoute(
               name: 'SignIn',
               path: 'sign-in',
-              builder: (context, params) => SignInWidget(),
+              builder: (context, params) => const SignInWidget(),
             ),
             FFRoute(
               name: 'Onboarding_Slideshow',
               path: 'onboarding',
-              builder: (context, params) => OnboardingSlideshowWidget(),
+              builder: (context, params) => const OnboardingSlideshowWidget(),
             ),
             FFRoute(
               name: 'Onboarding_CreateAccount',
               path: 'create-account',
-              builder: (context, params) => OnboardingCreateAccountWidget(),
+              builder: (context, params) => const OnboardingCreateAccountWidget(),
             ),
             FFRoute(
               name: 'Dashboard',
               path: 'dashboard',
               requireAuth: true,
               builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'Dashboard')
-                  : DashboardWidget(),
+                  ? const NavBarPage(initialPage: 'Dashboard')
+                  : const DashboardWidget(),
             ),
             FFRoute(
               name: 'MealDetails',
@@ -135,37 +129,37 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'profile',
               requireAuth: true,
               builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'Profile')
-                  : ProfileWidget(),
+                  ? const NavBarPage(initialPage: 'Profile')
+                  : const ProfileWidget(),
             ),
             FFRoute(
               name: 'EditProfile',
               path: 'edit-profile',
               requireAuth: true,
-              builder: (context, params) => EditProfileWidget(),
+              builder: (context, params) => const EditProfileWidget(),
             ),
             FFRoute(
               name: 'AboutUs',
               path: 'about-us',
               requireAuth: true,
-              builder: (context, params) => AboutUsWidget(),
+              builder: (context, params) => const AboutUsWidget(),
             ),
             FFRoute(
               name: 'EatingPreferences',
               path: 'eating-preferences',
               requireAuth: true,
-              builder: (context, params) => EatingPreferencesWidget(),
+              builder: (context, params) => const EatingPreferencesWidget(),
             ),
             FFRoute(
               name: 'SupportCenter',
               path: 'support-center',
               requireAuth: true,
-              builder: (context, params) => SupportCenterWidget(),
+              builder: (context, params) => const SupportCenterWidget(),
             ),
             FFRoute(
               name: 'ForgotPassword',
               path: 'forgot-password',
-              builder: (context, params) => ForgotPasswordWidget(),
+              builder: (context, params) => const ForgotPasswordWidget(),
             ),
             FFRoute(
               name: 'EditPreferences',
@@ -181,19 +175,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'Onboarding',
               path: 'preferences-onboarding',
-              builder: (context, params) => OnboardingWidget(),
+              builder: (context, params) => const OnboardingWidget(),
             ),
             FFRoute(
               name: 'NewPantry',
               path: 'NewPantry',
               builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'NewPantry')
-                  : NewPantryWidget(),
+                  ? const NavBarPage(initialPage: 'NewPantry')
+                  : const NewPantryWidget(),
             ),
             FFRoute(
               name: 'Camera_test',
               path: 'cameraTest',
-              builder: (context, params) => CameraTestWidget(),
+              builder: (context, params) => const CameraTestWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
@@ -434,7 +428,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {

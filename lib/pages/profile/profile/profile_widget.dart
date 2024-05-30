@@ -2,13 +2,10 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'profile_model.dart';
@@ -65,17 +62,17 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 24.0, 0.0, 6.0),
                           child: Text(
                             valueOrDefault<String>(
@@ -92,7 +89,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           ),
                         ),
                         AuthUserStreamWidget(
-                          builder: (context) => Text(
+                          builder: (context) { 
+                            return Text(
                             currentUserDisplayName,
                             style: FlutterFlowTheme.of(context)
                                 .displaySmall
@@ -100,10 +98,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   fontFamily: 'Readex Pro',
                                   letterSpacing: 0.0,
                                 ),
-                          ),
+                          );},
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 24.0, 0.0, 0.0),
                           child: Container(
                             width: double.infinity,
@@ -115,7 +113,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                               ),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.all(18.0),
+                              padding: const EdgeInsets.all(18.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -130,7 +128,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                         ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 6.0, 0.0, 0.0),
                                     child: Text(
                                       'As a local business, we thank you for supporting us and hope you enjoy.',
@@ -150,13 +148,14 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 12.0, 0.0, 0.0),
                           child: StreamBuilder<List<CompanyInformationRecord>>(
                             stream: queryCompanyInformationRecord(
                               singleRecord: true,
                             ),
                             builder: (context, snapshot) {
+                              print('snapshot $snapshot');
                               // Customize what your widget looks like when it's loading.
                               if (!snapshot.hasData) {
                                 return Center(
@@ -176,6 +175,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   snapshot.data!;
                               // Return an empty Container when the item does not exist.
                               if (snapshot.data!.isEmpty) {
+                                print('-----inside the container code------');
                                 return Container();
                               }
                               final columnCompanyInformationRecord =
@@ -203,7 +203,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 12.0, 0.0, 12.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
@@ -232,7 +232,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                   ),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsets.all(4.0),
+                                                        const EdgeInsets.all(4.0),
                                                     child: Icon(
                                                       Icons
                                                           .person_outline_rounded,
@@ -245,7 +245,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           18.0, 0.0, 0.0, 0.0),
                                                   child: Text(
@@ -289,7 +289,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 12.0, 0.0, 12.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -304,7 +304,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                   shape: BoxShape.circle,
                                                 ),
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(4.0),
+                                                  padding: const EdgeInsets.all(4.0),
                                                   child: Icon(
                                                     Icons.restaurant_rounded,
                                                     color: FlutterFlowTheme.of(
@@ -315,7 +315,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         18.0, 0.0, 0.0, 0.0),
                                                 child: Text(
@@ -369,7 +369,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 12.0, 0.0, 12.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -385,7 +385,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                   ),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsets.all(4.0),
+                                                        const EdgeInsets.all(4.0),
                                                     child: Icon(
                                                       Icons.info_outlined,
                                                       color:
@@ -397,7 +397,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           18.0, 0.0, 0.0, 0.0),
                                                   child: Text(
@@ -440,7 +440,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 12.0, 0.0, 12.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -455,7 +455,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                   shape: BoxShape.circle,
                                                 ),
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(4.0),
+                                                  padding: const EdgeInsets.all(4.0),
                                                   child: Icon(
                                                     Icons.support_rounded,
                                                     color: FlutterFlowTheme.of(
@@ -466,7 +466,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         18.0, 0.0, 0.0, 0.0),
                                                 child: Text(
@@ -539,7 +539,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 12.0, 0.0, 12.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -555,7 +555,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                   ),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsets.all(4.0),
+                                                        const EdgeInsets.all(4.0),
                                                     child: Icon(
                                                       Icons.mail_outlined,
                                                       color:
@@ -567,7 +567,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           18.0, 0.0, 0.0, 0.0),
                                                   child: Text(
@@ -644,7 +644,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 12.0, 0.0, 12.0),
                                               child: Row(
@@ -662,7 +662,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsets.all(4.0),
+                                                          const EdgeInsets.all(4.0),
                                                       child: Icon(
                                                         Icons.share_outlined,
                                                         color:
@@ -675,7 +675,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(18.0, 0.0,
                                                                 0.0, 0.0),
                                                     child: Text(
@@ -750,7 +750,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 12.0, 0.0, 12.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -766,7 +766,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                   ),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsets.all(4.0),
+                                                        const EdgeInsets.all(4.0),
                                                     child: Icon(
                                                       Icons.star_border_rounded,
                                                       color:
@@ -778,7 +778,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           18.0, 0.0, 0.0, 0.0),
                                                   child: Text(
@@ -806,7 +806,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                       ),
                                     ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 0.0, 12.0),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
@@ -838,7 +838,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               shape: BoxShape.circle,
                                             ),
                                             child: Padding(
-                                              padding: EdgeInsets.all(4.0),
+                                              padding: const EdgeInsets.all(4.0),
                                               child: Icon(
                                                 Icons.logout,
                                                 color:
@@ -850,7 +850,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           ),
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     18.0, 0.0, 0.0, 0.0),
                                             child: Text(
                                               'Log out',
@@ -872,7 +872,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             },
                           ),
                         ),
-                      ].addToEnd(SizedBox(height: 44.0)),
+                      ].addToEnd(const SizedBox(height: 44.0)),
                     ),
                   ),
                 ),
