@@ -92,14 +92,12 @@ class _AccordionSectionWidgetState extends State<AccordionSectionWidget> {
                 logFirebaseEvent('ACCORDION_SECTION_Container_gq10ioan_CAL');
                 if (columnIndex == _model.accordionSectionExpanded) {
                   logFirebaseEvent('accordion_update_component_state');
-                  setState(() {
-                    _model.accordionSectionExpanded = -1;
-                  });
+                  _model.accordionSectionExpanded = -1;
+                  setState(() {});
                 } else {
                   logFirebaseEvent('accordion_update_component_state');
-                  setState(() {
-                    _model.accordionSectionExpanded = columnIndex;
-                  });
+                  _model.accordionSectionExpanded = columnIndex;
+                  setState(() {});
                 }
               },
             );

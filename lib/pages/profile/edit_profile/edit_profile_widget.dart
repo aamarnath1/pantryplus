@@ -86,9 +86,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           displayName: _model.fullNameTextController.text,
                         ));
                         logFirebaseEvent('customAppbar_update_page_state');
-                        setState(() {
-                          _model.unsavedChanges = false;
-                        });
+                        _model.unsavedChanges = false;
+                        setState(() {});
                       },
                       optionsButtonAction: () async {},
                     ),
@@ -143,9 +142,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                           'EDIT_PROFILE_fullName_ON_TEXTFIELD_CHANG');
                                       logFirebaseEvent(
                                           'fullName_update_page_state');
-                                      setState(() {
-                                        _model.unsavedChanges = true;
-                                      });
+                                      _model.unsavedChanges = true;
+                                      setState(() {});
                                     },
                                   ),
                                   autofocus: false,

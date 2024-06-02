@@ -44,17 +44,16 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('EDIT_PREFERENCES_EditPreferences_ON_INIT');
       logFirebaseEvent('EditPreferences_update_page_state');
-      setState(() {
-        _model.allergenSelection =
-            (currentUserDocument?.allergens?.toList() ?? [])
-                .toList()
-                .cast<String>();
-        _model.dietSelection = valueOrDefault(currentUserDocument?.diet, '');
-        _model.ingredientSelection =
-            (currentUserDocument?.ingredientDislikes?.toList() ?? [])
-                .toList()
-                .cast<String>();
-      });
+      _model.allergenSelection =
+          (currentUserDocument?.allergens?.toList() ?? [])
+              .toList()
+              .cast<String>();
+      _model.dietSelection = valueOrDefault(currentUserDocument?.diet, '');
+      _model.ingredientSelection =
+          (currentUserDocument?.ingredientDislikes?.toList() ?? [])
+              .toList()
+              .cast<String>();
+      setState(() {});
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -207,10 +206,9 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                                                           .selectionClick();
                                                       logFirebaseEvent(
                                                           'dietItem_update_page_state');
-                                                      setState(() {
-                                                        _model.dietSelection =
-                                                            dietItem.dietName;
-                                                      });
+                                                      _model.dietSelection =
+                                                          dietItem.dietName;
+                                                      setState(() {});
                                                     },
                                                   );
                                                 }).divide(
@@ -295,10 +293,9 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                                                                 .selectionClick();
                                                             logFirebaseEvent(
                                                                 'preferenceItem_update_page_state');
-                                                            setState(() {
-                                                              _model.removeFromAllergenSelection(
-                                                                  allergensItem);
-                                                            });
+                                                            _model.removeFromAllergenSelection(
+                                                                allergensItem);
+                                                            setState(() {});
                                                           } else {
                                                             logFirebaseEvent(
                                                                 'preferenceItem_haptic_feedback');
@@ -306,10 +303,9 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                                                                 .selectionClick();
                                                             logFirebaseEvent(
                                                                 'preferenceItem_update_page_state');
-                                                            setState(() {
-                                                              _model.addToAllergenSelection(
-                                                                  allergensItem);
-                                                            });
+                                                            _model.addToAllergenSelection(
+                                                                allergensItem);
+                                                            setState(() {});
                                                           }
                                                         },
                                                       );
@@ -396,10 +392,9 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                                                                 .selectionClick();
                                                             logFirebaseEvent(
                                                                 'preferenceItem_update_page_state');
-                                                            setState(() {
-                                                              _model.removeFromIngredientSelection(
-                                                                  dislikesItem);
-                                                            });
+                                                            _model.removeFromIngredientSelection(
+                                                                dislikesItem);
+                                                            setState(() {});
                                                           } else {
                                                             logFirebaseEvent(
                                                                 'preferenceItem_haptic_feedback');
@@ -407,10 +402,9 @@ class _EditPreferencesWidgetState extends State<EditPreferencesWidget> {
                                                                 .selectionClick();
                                                             logFirebaseEvent(
                                                                 'preferenceItem_update_page_state');
-                                                            setState(() {
-                                                              _model.addToIngredientSelection(
-                                                                  dislikesItem);
-                                                            });
+                                                            _model.addToIngredientSelection(
+                                                                dislikesItem);
+                                                            setState(() {});
                                                           }
                                                         },
                                                       );

@@ -37,17 +37,16 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('ONBOARDING_PAGE_Onboarding_ON_INIT_STATE');
       logFirebaseEvent('Onboarding_update_page_state');
-      setState(() {
-        _model.allergenSelection =
-            (currentUserDocument?.allergens?.toList() ?? [])
-                .toList()
-                .cast<String>();
-        _model.dietSelection = valueOrDefault(currentUserDocument?.diet, '');
-        _model.ingredientSelection =
-            (currentUserDocument?.ingredientDislikes?.toList() ?? [])
-                .toList()
-                .cast<String>();
-      });
+      _model.allergenSelection =
+          (currentUserDocument?.allergens?.toList() ?? [])
+              .toList()
+              .cast<String>();
+      _model.dietSelection = valueOrDefault(currentUserDocument?.diet, '');
+      _model.ingredientSelection =
+          (currentUserDocument?.ingredientDislikes?.toList() ?? [])
+              .toList()
+              .cast<String>();
+      setState(() {});
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -192,10 +191,9 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                           .selectionClick();
                                                       logFirebaseEvent(
                                                           'dietItem_update_page_state');
-                                                      setState(() {
-                                                        _model.dietSelection =
-                                                            dietItem.dietName;
-                                                      });
+                                                      _model.dietSelection =
+                                                          dietItem.dietName;
+                                                      setState(() {});
                                                     },
                                                   );
                                                 }).divide(
@@ -280,10 +278,9 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                 .selectionClick();
                                                             logFirebaseEvent(
                                                                 'preferenceItem_update_page_state');
-                                                            setState(() {
-                                                              _model.removeFromAllergenSelection(
-                                                                  allergensItem);
-                                                            });
+                                                            _model.removeFromAllergenSelection(
+                                                                allergensItem);
+                                                            setState(() {});
                                                           } else {
                                                             logFirebaseEvent(
                                                                 'preferenceItem_haptic_feedback');
@@ -291,10 +288,9 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                 .selectionClick();
                                                             logFirebaseEvent(
                                                                 'preferenceItem_update_page_state');
-                                                            setState(() {
-                                                              _model.addToAllergenSelection(
-                                                                  allergensItem);
-                                                            });
+                                                            _model.addToAllergenSelection(
+                                                                allergensItem);
+                                                            setState(() {});
                                                           }
                                                         },
                                                       );
@@ -381,10 +377,9 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                 .selectionClick();
                                                             logFirebaseEvent(
                                                                 'preferenceItem_update_page_state');
-                                                            setState(() {
-                                                              _model.removeFromIngredientSelection(
-                                                                  dislikesItem);
-                                                            });
+                                                            _model.removeFromIngredientSelection(
+                                                                dislikesItem);
+                                                            setState(() {});
                                                           } else {
                                                             logFirebaseEvent(
                                                                 'preferenceItem_haptic_feedback');
@@ -392,10 +387,9 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                 .selectionClick();
                                                             logFirebaseEvent(
                                                                 'preferenceItem_update_page_state');
-                                                            setState(() {
-                                                              _model.addToIngredientSelection(
-                                                                  dislikesItem);
-                                                            });
+                                                            _model.addToIngredientSelection(
+                                                                dislikesItem);
+                                                            setState(() {});
                                                           }
                                                         },
                                                       );
@@ -426,15 +420,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                         logFirebaseEvent('Button_haptic_feedback');
                         HapticFeedback.lightImpact();
                         logFirebaseEvent('Button_update_app_state');
-                        setState(() {
-                          FFAppState().userDiet = _model.dietSelection!;
-                          FFAppState().userAllergens =
-                              _model.allergenSelection.toList().cast<String>();
-                          FFAppState().userIngredientDislikes = _model
-                              .ingredientSelection
-                              .toList()
-                              .cast<String>();
-                        });
+                        FFAppState().userDiet = _model.dietSelection!;
+                        FFAppState().userAllergens =
+                            _model.allergenSelection.toList().cast<String>();
+                        FFAppState().userIngredientDislikes =
+                            _model.ingredientSelection.toList().cast<String>();
+                        setState(() {});
                         if (_model.pageViewCurrentIndex == 2) {
                           logFirebaseEvent('Button_navigate_to');
 
