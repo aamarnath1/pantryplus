@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,9 @@ import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'index.dart';
 
+
+late CameraDescription firstCamera;
+Map<dynamic, Future<CameraDescription>> cameraMap = {};
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   GoRouter.optionURLReflectsImperativeAPIs = true;
@@ -19,6 +23,13 @@ void main() async {
   await initFirebase();
 
   await FlutterFlowTheme.initialize();
+   WidgetsFlutterBinding.ensureInitialized();
+
+  // Obtain a list of the available cameras on the device.
+  final cameras = await availableCameras();
+
+  // Get a specific camera from the list of available cameras.
+  firstCamera = cameras.first;
 
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
@@ -139,6 +150,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'Profile': const ProfileWidget(),
       'NewPantry': const NewPantryWidget(),
       'Dashboard': const DashboardWidget(),
+      'Camera':  CameraTestWidget(cameraMap,camera:firstCamera)
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -183,7 +195,15 @@ class _NavBarPageState extends State<NavBarPage> {
             ),
             label: 'Meals',
             tooltip: '',
+          ), BottomNavigationBarItem(
+            icon: Icon(
+              Icons.restaurant_sharp,
+              size: 24.0,
+            ),
+            label: 'Camera',
+            tooltip: '',
           )
+
         ],
       ),
     );
