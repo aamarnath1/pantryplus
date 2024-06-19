@@ -1,4 +1,7 @@
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -17,19 +20,24 @@ import 'index.dart';
 late CameraDescription firstCamera;
 Map<dynamic, Future<CameraDescription>> cameraMap = {};
 void main() async {
+  Gemini.init(apiKey:'AIzaSyAQcK7SrU3qP7znukuW5RapadrnGuscHlc');
   WidgetsFlutterBinding.ensureInitialized();
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
   await initFirebase();
 
   await FlutterFlowTheme.initialize();
-   WidgetsFlutterBinding.ensureInitialized();
 
   // Obtain a list of the available cameras on the device.
   final cameras = await availableCameras();
 
+  print('check cmaeras $cameras');
   // Get a specific camera from the list of available cameras.
+  if (cameras.isNotEmpty) {
   firstCamera = cameras.first;
+  }else{
+    print('no cameras found');
+  }
 
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
@@ -75,8 +83,25 @@ class _MyAppState extends State<MyApp> {
       const Duration(milliseconds: 1000),
       () => _appStateNotifier.stopShowingSplashImage(),
     );
+    requestStoragePermission();
   }
 
+void requestStoragePermission() async {
+    // Check if the platform is not web, as web has no permissions
+    if (!kIsWeb) {
+      // Request storage permission
+      var status = await Permission.storage.status;
+      if (!status.isGranted) {
+        await Permission.storage.request();
+      }
+
+      // Request camera permission
+      var cameraStatus = await Permission.camera.status;
+      if (!cameraStatus.isGranted) {
+        await Permission.camera.request();
+      }
+    }
+  }
   @override
   void dispose() {
     authUserSub.cancel();
@@ -150,7 +175,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'Profile': const ProfileWidget(),
       'NewPantry': const NewPantryWidget(),
       'Dashboard': const DashboardWidget(),
-      'Camera':  CameraTestWidget(cameraMap,camera:firstCamera)
+      'Camera': CameraTestWidget(cameraMap, camera:firstCamera)
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -185,7 +210,7 @@ class _NavBarPageState extends State<NavBarPage> {
             icon: Icon(
               Icons.kitchen,
             ),
-            label: '',
+            label: 'Pantry',
             tooltip: '',
           ),
           BottomNavigationBarItem(
@@ -197,13 +222,12 @@ class _NavBarPageState extends State<NavBarPage> {
             tooltip: '',
           ), BottomNavigationBarItem(
             icon: Icon(
-              Icons.restaurant_sharp,
+              Icons.camera,
               size: 24.0,
             ),
             label: 'Camera',
             tooltip: '',
           )
-
         ],
       ),
     );

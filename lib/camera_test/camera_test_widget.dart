@@ -11,16 +11,7 @@ import 'camera_test_model.dart';
 export 'camera_test_model.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:image_picker/image_picker.dart';
-
-
-Future<CameraDescription> returnCamera() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final cameras = await availableCameras();
-  print('check camreras $cameras');
-  final firstCamera = cameras.first;
-  return firstCamera;
-}
-
+import 'camera_screen.dart';
 
 class CameraTestWidget extends StatefulWidget {
 
@@ -50,6 +41,23 @@ class _CameraTestWidgetState extends State<CameraTestWidget> {
     _controller = CameraController(
       widget.camera,
        ResolutionPreset.high);
+    _controller.initialize().then((_) {
+                      if (!mounted) {
+                        return;
+                      }
+                      setState(() {});
+                    }).catchError((Object e) {
+                      if (e is CameraException) {
+                        switch (e.code) {
+                          case 'CameraAccessDenied':
+                            // Handle access errors here.
+                            break;
+                          default:
+                            // Handle other errors here.
+                            break;
+                        }
+                      }
+                    });
     _initializeControllerFuture = _controller.initialize();
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Camera_test'});
@@ -162,23 +170,8 @@ class _CameraTestWidgetState extends State<CameraTestWidget> {
                 padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
-                      try{
-                        await _initializeControllerFuture;
-                          // _controller.initialize();
-                        final image = await _controller.takePicture();
-
-                        if(!context.mounted) return;
-
-                        await Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => DisplayPictureScreen(
-                              imagePath: image.path
-                            ),
-                          ),
-                        );
-                      } catch(e){
-                        print(e);
-                      }
+                    Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CameraScreen(camera: widget.camera)));
                   },
                   text: 'Open Camera',
                   options: FFButtonOptions(

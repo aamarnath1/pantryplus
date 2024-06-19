@@ -53,7 +53,7 @@ dependencies:
   google_fonts: 6.1.0
   google_sign_in: 6.1.5
   google_sign_in_android: 6.1.20
-  google_sign_in_ios: 5.6.4
+  google_sign_in_ios: ^5.6.4
   google_sign_in_platform_interface: 2.4.2
   google_sign_in_web: 0.12.1
   intl: ^0.19.0
@@ -95,6 +95,8 @@ dependencies:
   permission_handler: ^11.3.1
   image: ^4.2.0
   path: ^1.9.0
+  flutter_gemini: ^2.0.3
+  google_generative_ai: ^0.4.3
 
 dependency_overrides:
   http: 1.2.0
