@@ -1,3 +1,5 @@
+import 'package:google_fonts/google_fonts.dart';
+
 import '/auth/firebase_auth/auth_util.dart';
 import '/components/custom_appbar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -69,7 +71,7 @@ class _SignInWidgetState extends State<SignInWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: Color(0xFFEDE8DF),
         body: SafeArea(
           top: true,
           child: Column(
@@ -99,12 +101,16 @@ class _SignInWidgetState extends State<SignInWidget> {
                             const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                         child: Text(
                           'Sign In',
-                          style: FlutterFlowTheme.of(context)
-                              .displaySmall
-                              .override(
-                                fontFamily: 'Readex Pro',
-                                letterSpacing: 0.0,
-                              ),
+                           textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context)
+                                .headlineMedium
+                                .override(
+                                  fontFamily: 'Comfortaa',
+                                  letterSpacing: 0,
+                                  color: const Color(0xFF000000),
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                                  .containsKey('Comfortaa'),   
+                                ),
                         ),
                       ),
                       Form(
@@ -120,7 +126,9 @@ class _SignInWidgetState extends State<SignInWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
+                                  Align(
+                                    alignment: AlignmentDirectional(0, -1),
+                                    child:Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 4.0),
                                     child: Text(
@@ -130,9 +138,11 @@ class _SignInWidgetState extends State<SignInWidget> {
                                           .override(
                                             fontFamily: 'Inter',
                                             letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w600,
+                                            color: const Color(0xFF000000),
+                                            // fontWeight: FontWeight.w600,
                                           ),
                                     ),
+                                  )
                                   ),
                                   TextFormField(
                                     controller:
@@ -176,8 +186,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                             BorderRadius.circular(8.0),
                                       ),
                                       filled: true,
-                                      fillColor: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
+                                      fillColor: Color.fromARGB(255, 255, 255, 255),
                                     ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -185,6 +194,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                           fontFamily: 'Inter',
                                           fontSize: 16.0,
                                           letterSpacing: 0.0,
+                                          color: const Color(0xFF000000),
                                           fontWeight: FontWeight.w500,
                                           lineHeight: 1.0,
                                         ),
@@ -206,7 +216,9 @@ class _SignInWidgetState extends State<SignInWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
+                                  Align(
+                                    alignment: AlignmentDirectional(0, -1),
+                                    child: Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 4.0),
                                     child: Text(
@@ -216,9 +228,11 @@ class _SignInWidgetState extends State<SignInWidget> {
                                           .override(
                                             fontFamily: 'Inter',
                                             letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w600,
+                                            color: const Color(0xFF000000),
+                                            // fontWeight: FontWeight.w600,
                                           ),
                                     ),
+                                  ),
                                   ),
                                   TextFormField(
                                     controller: _model.passwordTextController,
@@ -261,8 +275,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                             BorderRadius.circular(8.0),
                                       ),
                                       filled: true,
-                                      fillColor: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
+                                      fillColor:Color.fromARGB(255, 255, 255, 255),
                                       suffixIcon: InkWell(
                                         onTap: () => setState(
                                           () => _model.passwordVisibility =
@@ -286,6 +299,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                           fontFamily: 'Inter',
                                           fontSize: 16.0,
                                           letterSpacing: 0.0,
+                                          color: const Color(0xFF000000),
                                           fontWeight: FontWeight.w500,
                                           lineHeight: 1.0,
                                         ),
@@ -331,7 +345,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                 0.0, 0.0, 0.0, 0.0),
                             iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            color: const Color(0xFF8B4513),
+                            color: Color(0xFF04A559),
                             textStyle: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
@@ -376,6 +390,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                       .override(
                                         fontFamily: 'Inter',
                                         letterSpacing: 0.0,
+                                        color: const Color(0xFF000000)
                                       ),
                                 ),
                               ),
@@ -396,10 +411,10 @@ class _SignInWidgetState extends State<SignInWidget> {
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: Color.fromARGB(255, 222, 217, 209),
                       borderRadius: BorderRadius.circular(8.0),
                       border: Border.all(
-                        color: FlutterFlowTheme.of(context).alternate,
+                        color: Color.fromARGB(255, 222, 217, 209),
                         width: 1.0,
                       ),
                     ),
@@ -420,6 +435,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                   .override(
                                     fontFamily: 'Inter',
                                     letterSpacing: 0.0,
+                                    color: const Color(0xFF000000)
                                   ),
                             ),
                           ),
@@ -439,7 +455,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                   0.0, 0.0, 0.0, 0.0),
                               iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: FlutterFlowTheme.of(context).accent1,
+                              color: FlutterFlowTheme.of(context).accent2,
                               textStyle: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -448,7 +464,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                   ),
                               elevation: 0.0,
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: Color(0xFF04A559),
                                 width: 2.0,
                               ),
                               borderRadius: BorderRadius.circular(25.0),

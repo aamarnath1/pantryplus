@@ -62,11 +62,11 @@ class _CustomAppbarWidgetState extends State<CustomAppbarWidget> {
       children: [
         if (widget.backButton ?? true)
           FlutterFlowIconButton(
-            borderColor: FlutterFlowTheme.of(context).secondaryBackground,
+            borderColor: FlutterFlowTheme.of(context).secondary,
             borderRadius: 24.0,
             borderWidth: 1.0,
             buttonSize: 44.0,
-            fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+            fillColor: FlutterFlowTheme.of(context).secondary,
             icon: Icon(
               Icons.keyboard_arrow_left,
               color: FlutterFlowTheme.of(context).primaryText,

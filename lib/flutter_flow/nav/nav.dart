@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
+import 'package:camera/camera.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -15,6 +16,33 @@ export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
 
 const kTransitionInfoKey = '__transition_info__';
+
+late CameraDescription firstCamera;
+Map<dynamic, Future<CameraDescription>> cameraMap = {};
+Future<void> main() async {
+  // Ensure that plugin services are initialized so that `availableCameras()`
+  // can be called before `runApp()`
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Obtain a list of the available cameras on the device.
+  final cameras = await availableCameras();
+
+  // Get a specific camera from the list of available cameras.
+  firstCamera = cameras.first;
+
+  // Create a map with your required values
+  Map<dynamic, Future<CameraDescription>> map = {};
+
+  runApp(
+    MaterialApp(
+      theme: ThemeData.dark(),
+      home: CameraTestWidget(
+        map,  // Pass the map
+        camera: firstCamera,  // Pass the camera
+      ),
+    ),
+  );
+}
 
 class AppStateNotifier extends ChangeNotifier {
   AppStateNotifier._();
@@ -69,7 +97,7 @@ class AppStateNotifier extends ChangeNotifier {
   }
 }
 
-GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
+GoRouter createRouter(AppStateNotifier appStateNotifier) =>  GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
@@ -108,7 +136,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? const NavBarPage(initialPage: 'Dashboard')
-                  : const DashboardWidget(),
+                  : DashboardWidget( cameraMap: cameraMap ,camera: firstCamera),
             ),
             FFRoute(
               name: 'MealDetails',
@@ -187,12 +215,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'Camera_test',
               path: 'cameraTest',
-              builder: (context, params) => const CameraTestWidget(),
+              builder: (context, params) { return CameraTestWidget(cameraMap, camera: firstCamera);},
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
-    );
+    );  
 
 extension NavParamExtensions on Map<String, String?> {
   Map<String, String> get withoutNulls => Map.fromEntries(

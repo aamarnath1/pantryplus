@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/custom_appbar_widget.dart';
@@ -33,6 +34,12 @@ class _OnboardingCreateAccountWidgetState
     _model.fullNameTextController ??= TextEditingController();
     _model.fullNameFocusNode ??= FocusNode();
 
+    _model.firstNameTextController ??= TextEditingController();
+    _model.firstNameFocusNode ??= FocusNode();
+
+    _model.lastNameTextController ??= TextEditingController();
+    _model.lastNameFocusNode ??= FocusNode();
+
     _model.emailAddressTextController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
 
@@ -57,7 +64,7 @@ class _OnboardingCreateAccountWidgetState
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+       backgroundColor: Color(0xFFEDE8DF),
         body: SafeArea(
           top: true,
           child: Align(
@@ -83,11 +90,17 @@ class _OnboardingCreateAccountWidgetState
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                     child: Text(
-                      'Create an account',
-                      style: FlutterFlowTheme.of(context).displaySmall.override(
-                            fontFamily: 'Readex Pro',
-                            letterSpacing: 0.0,
-                          ),
+                            'Create An Account Today!',
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context)
+                                .headlineMedium
+                                .override(
+                                  fontFamily: 'Comfortaa',
+                                  letterSpacing: 0,
+                                  color: const Color(0xFF000000),
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                                  .containsKey('Comfortaa'),   
+                                ),
                     ),
                   ),
                   Form(
@@ -103,22 +116,29 @@ class _OnboardingCreateAccountWidgetState
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 4.0),
-                                child: Text(
-                                  'Full Name',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        letterSpacing: 0.0,
+                               Align(
+                                    alignment: AlignmentDirectional(0, -1),
+                                    child:
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 4.0),
+                                      child: Text(
+                                        'First Name',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color: const Color(0xFF000000),
+                                              letterSpacing: 0.0,
+                                            ),
+                                            
                                       ),
-                                ),
+                                    )
                               ),
                               TextFormField(
-                                controller: _model.fullNameTextController,
-                                focusNode: _model.fullNameFocusNode,
+                                controller: _model.firstNameTextController,
+                                focusNode: _model.firstNameFocusNode,
                                 autofocus: false,
                                 autofillHints: const [AutofillHints.name],
                                 textCapitalization: TextCapitalization.words,
@@ -127,8 +147,7 @@ class _OnboardingCreateAccountWidgetState
                                 decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
+                                      color: const Color.fromARGB(255, 255, 255, 255),
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -156,14 +175,14 @@ class _OnboardingCreateAccountWidgetState
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  fillColor:  Color.fromARGB(255, 255, 255, 255),
                                 ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Inter',
                                       fontSize: 16.0,
+                                      color: const Color(0xFF000000),
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
                                       lineHeight: 1.0,
@@ -172,7 +191,7 @@ class _OnboardingCreateAccountWidgetState
                                 cursorColor:
                                     FlutterFlowTheme.of(context).primary,
                                 validator: _model
-                                    .fullNameTextControllerValidator
+                                    .firstNameTextControllerValidator
                                     .asValidator(context),
                               ),
                             ],
@@ -185,31 +204,37 @@ class _OnboardingCreateAccountWidgetState
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 4.0),
-                                child: Text(
-                                  'Email',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        letterSpacing: 0.0,
+                               Align(
+                                    alignment: AlignmentDirectional(0, -1),
+                                    child:Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 4.0),
+                                      child: Text(
+                                        'Last name',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color: const Color(0xFF000000),
+                                              letterSpacing: 0.0,
+                                            ),
+                                            
                                       ),
-                                ),
+                                    )
                               ),
                               TextFormField(
-                                controller: _model.emailAddressTextController,
-                                focusNode: _model.emailAddressFocusNode,
+                                controller: _model.lastNameTextController,
+                                focusNode: _model.lastNameFocusNode,
                                 autofocus: false,
-                                autofillHints: const [AutofillHints.email],
+                                autofillHints: const [AutofillHints.name],
+                                textCapitalization: TextCapitalization.words,
                                 textInputAction: TextInputAction.next,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
+                                      color: const Color.fromARGB(255, 255, 255, 255),
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -237,8 +262,7 @@ class _OnboardingCreateAccountWidgetState
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  fillColor:  Color.fromARGB(255, 255, 255, 255),
                                 ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
@@ -246,6 +270,93 @@ class _OnboardingCreateAccountWidgetState
                                       fontFamily: 'Inter',
                                       fontSize: 16.0,
                                       letterSpacing: 0.0,
+                                      color: const Color(0xFF000000),
+                                      fontWeight: FontWeight.w500,
+                                      lineHeight: 1.0,
+                                    ),
+                                minLines: 1,
+                                cursorColor:
+                                    FlutterFlowTheme.of(context).primary,
+                                    validator: null,
+                                // validator: _model
+                                //     .fullNameTextControllerValidator
+                                //     .asValidator(context),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 18.0, 0.0, 0.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Align(
+                                    alignment: AlignmentDirectional(0, -1),
+                                    child:Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 4.0),
+                                child: Text(
+                                  'Email',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        color: const Color(0xFF000000),
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ),
+                              ),
+                              TextFormField(
+                                controller: _model.emailAddressTextController,
+                                focusNode: _model.emailAddressFocusNode,
+                                autofocus: false,
+                                autofillHints: const [AutofillHints.email],
+                                textInputAction: TextInputAction.next,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  filled: true,
+                                  fillColor: Color.fromARGB(255, 255, 255, 255) ,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      color: const Color(0xFF000000),
                                       fontWeight: FontWeight.w500,
                                       lineHeight: 1.0,
                                     ),
@@ -267,7 +378,9 @@ class _OnboardingCreateAccountWidgetState
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
+                              Align(
+                                    alignment: AlignmentDirectional(0, -1),
+                                    child: Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 4.0),
                                 child: Text(
@@ -276,9 +389,11 @@ class _OnboardingCreateAccountWidgetState
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Inter',
+                                        color: const Color(0xFF000000),
                                         letterSpacing: 0.0,
                                       ),
                                 ),
+                              ),
                               ),
                               TextFormField(
                                 controller: _model.passwordTextController,
@@ -290,8 +405,7 @@ class _OnboardingCreateAccountWidgetState
                                 decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
+                                      color: Color.fromARGB(255, 255, 255, 255),
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -319,8 +433,7 @@ class _OnboardingCreateAccountWidgetState
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  fillColor: Color.fromARGB(255, 255, 255, 255),
                                   suffixIcon: InkWell(
                                     onTap: () => setState(
                                       () => _model.passwordVisibility =
@@ -343,6 +456,7 @@ class _OnboardingCreateAccountWidgetState
                                       fontFamily: 'Inter',
                                       fontSize: 16.0,
                                       letterSpacing: 0.0,
+                                      color: const Color(0xFF000000),
                                       fontWeight: FontWeight.w500,
                                       lineHeight: 1.0,
                                     ),
@@ -383,10 +497,11 @@ class _OnboardingCreateAccountWidgetState
                         if (user == null) {
                           return;
                         }
-
                         await UsersRecord.collection.doc(user.uid).update({
                           ...createUsersRecordData(
-                            displayName: _model.fullNameTextController.text,
+                            firstName: _model.firstNameTextController.text,
+                            lastName: _model.lastNameTextController.text,
+                            displayName: "${_model.firstNameTextController.text} ${_model.lastNameTextController.text}",
                             diet: FFAppState().userDiet,
                           ),
                           ...mapToFirestore(
@@ -397,6 +512,8 @@ class _OnboardingCreateAccountWidgetState
                             },
                           ),
                         });
+                        print('userData $user');
+
 
                         logFirebaseEvent('Button_navigate_to');
 
@@ -410,7 +527,7 @@ class _OnboardingCreateAccountWidgetState
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         iconPadding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).alternate,
+                        color: Color(0xFF04A559),
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
                                   fontFamily: 'Inter',
@@ -418,7 +535,7 @@ class _OnboardingCreateAccountWidgetState
                                 ),
                         elevation: 0.0,
                         borderSide: const BorderSide(
-                          color: Colors.transparent,
+                          color: Color(0xFF04A559),
                           width: 1.0,
                         ),
                         borderRadius: BorderRadius.circular(25.0),
@@ -490,6 +607,7 @@ class _OnboardingCreateAccountWidgetState
                                             .override(
                                               fontFamily: 'Inter',
                                               letterSpacing: 0.0,
+                                              color: const Color(0xFF000000),
                                             ),
                                       ),
                                       TextSpan(
@@ -499,6 +617,7 @@ class _OnboardingCreateAccountWidgetState
                                             .override(
                                               fontFamily: 'Inter',
                                               letterSpacing: 0.0,
+                                              color: const Color(0xFF000000),
                                               decoration:
                                                   TextDecoration.underline,
                                             ),

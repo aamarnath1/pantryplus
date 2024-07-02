@@ -1,3 +1,5 @@
+import 'package:google_fonts/google_fonts.dart';
+
 import '/components/accordion_section/accordion_section_widget.dart';
 import '/components/custom_appbar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -43,7 +45,7 @@ class _SupportCenterWidgetState extends State<SupportCenterWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor:Color(0xFFEDE8DF),
         body: SafeArea(
           top: true,
           child: Align(
@@ -70,10 +72,15 @@ class _SupportCenterWidgetState extends State<SupportCenterWidget> {
                         const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                     child: Text(
                       'Support Center',
-                      style: FlutterFlowTheme.of(context).displaySmall.override(
-                            fontFamily: 'Readex Pro',
-                            letterSpacing: 0.0,
-                          ),
+                      style: FlutterFlowTheme.of(context)
+                                .displaySmall
+                                .override(
+                                  fontFamily: 'Comfortaa',
+                                  letterSpacing: 0,
+                                  color: const Color(0xFF000000),
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                                  .containsKey('Comfortaa'),   
+                                ),
                     ),
                   ),
                   Expanded(

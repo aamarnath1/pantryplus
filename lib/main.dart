@@ -1,3 +1,7 @@
+import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -12,13 +16,28 @@ import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'index.dart';
 
+
+late CameraDescription firstCamera;
+Map<dynamic, Future<CameraDescription>> cameraMap = {};
 void main() async {
+  Gemini.init(apiKey:'AIzaSyAQcK7SrU3qP7znukuW5RapadrnGuscHlc');
   WidgetsFlutterBinding.ensureInitialized();
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
   await initFirebase();
 
   await FlutterFlowTheme.initialize();
+
+  // Obtain a list of the available cameras on the device.
+  final cameras = await availableCameras();
+
+  print('check cmaeras $cameras');
+  // Get a specific camera from the list of available cameras.
+  if (cameras.isNotEmpty) {
+  firstCamera = cameras.first;
+  }else{
+    print('no cameras found');
+  }
 
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
@@ -64,8 +83,25 @@ class _MyAppState extends State<MyApp> {
       const Duration(milliseconds: 1000),
       () => _appStateNotifier.stopShowingSplashImage(),
     );
+    requestStoragePermission();
   }
 
+void requestStoragePermission() async {
+    // Check if the platform is not web, as web has no permissions
+    if (!kIsWeb) {
+      // Request storage permission
+      var status = await Permission.storage.status;
+      if (!status.isGranted) {
+        await Permission.storage.request();
+      }
+
+      // Request camera permission
+      var cameraStatus = await Permission.camera.status;
+      if (!cameraStatus.isGranted) {
+        await Permission.camera.request();
+      }
+    }
+  }
   @override
   void dispose() {
     authUserSub.cancel();
@@ -135,57 +171,67 @@ class _NavBarPageState extends State<NavBarPage> {
 
   @override
   Widget build(BuildContext context) {
+  
     final tabs = {
-      'Profile': const ProfileWidget(),
-      'NewPantry': const NewPantryWidget(),
-      'Dashboard': const DashboardWidget(),
+      // 'Profile': const ProfileWidget(),
+      // 'NewPantry': const NewPantryWidget(),
+      'Dashboard': DashboardWidget(cameraMap: cameraMap, camera: firstCamera),
+      'Camera': CameraTestWidget(cameraMap, camera:firstCamera)
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
     return Scaffold(
-      body: _currentPage ?? tabs[_currentPageName],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (i) => setState(() {
-          _currentPage = null;
-          _currentPageName = tabs.keys.toList()[i];
-        }),
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        selectedItemColor: FlutterFlowTheme.of(context).primary,
-        unselectedItemColor: FlutterFlowTheme.of(context).secondaryText,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person_outline_rounded,
-              size: 24.0,
-            ),
-            activeIcon: Icon(
-              Icons.person_rounded,
-              size: 24.0,
-            ),
-            label: 'Profile',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.kitchen,
-            ),
-            label: '',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.restaurant_sharp,
-              size: 24.0,
-            ),
-            label: 'Meals',
-            tooltip: '',
-          )
-        ],
-      ),
+      body: _currentPage ?? tabs[_currentPageName]
+    //   bottomNavigationBar: BottomNavigationBar(
+    //     currentIndex: currentIndex,
+    //     onTap: (i) => setState(() {
+    //       _currentPage = null;
+    //       _currentPageName = tabs.keys.toList()[i];
+    //     }),
+    //     backgroundColor: Color(0xFFEDE8DF),
+    //     selectedItemColor: FlutterFlowTheme.of(context).primary,
+    //     unselectedItemColor: FlutterFlowTheme.of(context).secondaryText,
+    //     showSelectedLabels: true,
+    //     showUnselectedLabels: true,
+    //     type: BottomNavigationBarType.fixed,
+    //     items: const <BottomNavigationBarItem>[
+    //       // BottomNavigationBarItem(
+    //       //   icon: Icon(
+    //       //     Icons.person_outline_rounded,
+    //       //     size: 24.0,
+    //       //   ),
+    //       //   activeIcon: Icon(
+    //       //     Icons.person_rounded,
+    //       //     size: 24.0,
+    //       //   ),
+    //       //   label: 'Profile',
+    //       //   tooltip: '',
+    //       // ),
+    //       // BottomNavigationBarItem(
+    //       //   icon: Icon(
+    //       //     Icons.kitchen,
+    //       //   ),
+    //       //   label: 'Pantry',
+    //       //   tooltip: '',
+    //       // ),
+    //       BottomNavigationBarItem(
+    //         icon: Icon(
+    //           Icons.restaurant_sharp,
+    //           size: 24.0,
+    //         ),
+    //         label: 'Meals',
+    //         tooltip: '',
+    //       ),
+    //        BottomNavigationBarItem(
+    //         icon: Icon(
+    //           Icons.camera,
+    //           size: 24.0,
+    //         ),
+    //         label: 'Camera',
+    //         tooltip: '',
+    //       )
+    //     ],
+    //   ),
     );
   }
 }

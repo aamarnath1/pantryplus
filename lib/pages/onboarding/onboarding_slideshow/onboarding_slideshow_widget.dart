@@ -1,3 +1,5 @@
+import 'package:google_fonts/google_fonts.dart';
+
 import '/components/custom_appbar_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -229,7 +231,7 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: Color(0xFFEDE8DF),
         body: SafeArea(
           top: true,
           child: Column(
@@ -279,49 +281,57 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 32.0),
                                             child: Text(
-                                              'Fresh, Easy \n Grocery Tracking',
+                                              'Your Simple \n Expiry Tracker',
                                               textAlign: TextAlign.center,
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .displaySmall
                                                   .override(
-                                                    fontFamily: 'Readex Pro',
+                                                    fontFamily: 'Comfortaa',
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .tertiary,
+                                                        .secondary,
                                                     letterSpacing: 0.0,
+                                                    useGoogleFonts: 
+                                                        GoogleFonts.asMap()
+                                                          .containsKey(
+                                                            'Comfortaa'
+                                                          )
                                                   ),
                                             ).animateOnPageLoad(animationsMap[
                                                 'textOnPageLoadAnimation1']!),
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    24.0, 0.0, 24.0, 0.0),
-                                            child: Image.network(
-                                              'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/meal-planner-3nia1o/assets/2pdvx24wzpi2/Food1.png',
-                                              height: 250.0,
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    24, 0, 24, 0),
+                                            child: Image.asset(
+                                              'assets/images/flowerpng.png',
                                               fit: BoxFit.fill,
                                             ).animateOnPageLoad(animationsMap[
                                                 'imageOnPageLoadAnimation1']!),
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 48.0, 0.0, 0.0),
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 48, 0, 0),
                                             child: Text(
-                                              'Create your own  grocery tracking list & recieve personalized meal plans from our selection of world class chefs!',
+                                              'Effortlessly scan and upload your items to keep track of expiry dates and never worry about your food expiring again!',
                                               textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        color:
-                                                            const Color(0xFF783B10),
-                                                        fontSize: 14.0,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelLarge
+                                                  .override(
+                                                    fontFamily: 'Comfortaa',
+                                                    color: Color(0xFF783B10),
+                                                    fontSize: 18,
+                                                    letterSpacing: 0,
+                                                    fontWeight: FontWeight.w800,
+                                                    useGoogleFonts:
+                                                        GoogleFonts.asMap()
+                                                            .containsKey(
+                                                                'Comfortaa'),
+                                                  ),
                                             ).animateOnPageLoad(animationsMap[
                                                 'textOnPageLoadAnimation2']!),
                                           ),
@@ -334,19 +344,26 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
                                         children: [
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 32.0),
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 0, 32),
                                             child: Text(
                                               'Delicious and Nutritious Fresh Meals',
                                               textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .displaySmall
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .displaySmall
+                                                  .override(
+                                                    fontFamily: 'Comfortaa',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                    letterSpacing: 0.0,
+                                                    useGoogleFonts: 
+                                                        GoogleFonts.asMap()
+                                                          .containsKey(
+                                                            'Comfortaa'
+                                                          )
+                                                  ),
                                             ).animateOnPageLoad(animationsMap[
                                                 'textOnPageLoadAnimation3']!),
                                           ),
@@ -366,15 +383,22 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 48.0, 0.0, 0.0),
                                             child: Text(
-                                              'Enjoy healthy and delicious meals delivered to your doorstep, prepared with fresh, high-quality ingredients.',
+                                              'Enjoy decadent recipes curated by our world-class chefs tailored specifically to YOUR pantry and the ingredients YOU have on hand!',
                                               textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelLarge
+                                                  .override(
+                                                    fontFamily: 'Comfortaa',
+                                                    color: Color(0xFF783B10),
+                                                    fontSize: 18,
+                                                    letterSpacing: 0,
+                                                    fontWeight: FontWeight.w800,
+                                                    useGoogleFonts:
+                                                        GoogleFonts.asMap()
+                                                            .containsKey(
+                                                                'Comfortaa'),
+                                                  ),
                                             ).animateOnPageLoad(animationsMap[
                                                 'textOnPageLoadAnimation4']!),
                                           ),
@@ -390,16 +414,23 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 32.0),
                                             child: Text(
-                                              'Gourmet Quality,\nHassle-Free',
+                                              'Simple as 1, 2, & 3',
                                               textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .displaySmall
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .displaySmall
+                                                  .override(
+                                                    fontFamily: 'Comfortaa',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                    letterSpacing: 0.0,
+                                                    useGoogleFonts: 
+                                                        GoogleFonts.asMap()
+                                                          .containsKey(
+                                                            'Comfortaa'
+                                                          )
+                                                  ),
                                             ).animateOnPageLoad(animationsMap[
                                                 'textOnPageLoadAnimation5']!),
                                           ),
@@ -419,15 +450,22 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 48.0, 0.0, 0.0),
                                             child: Text(
-                                              'Savor chef-inspired meals without the hassle of cooking or cleaning up, with our gourmet meal delivery service.',
+                                              '1. Scan products with your item\'s barcode, receipt, or our Gemini-Powered camera!\n\n2. View, track, & create grocery lists to stay on top of your expiration dates!\n\n3. Enjoy personalized recipes made for YOU utilizing items in your pantry!',
                                               textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelLarge
+                                                  .override(
+                                                    fontFamily: 'Comfortaa',
+                                                    color: Color(0xFF783B10),
+                                                    fontSize: 18,
+                                                    letterSpacing: 0,
+                                                    fontWeight: FontWeight.w800,
+                                                    useGoogleFonts:
+                                                        GoogleFonts.asMap()
+                                                            .containsKey(
+                                                                'Comfortaa'),
+                                                  ),
                                             ).animateOnPageLoad(animationsMap[
                                                 'textOnPageLoadAnimation6']!),
                                           ),
@@ -518,7 +556,7 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
                               0.0, 0.0, 0.0, 0.0),
                           iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          color: FlutterFlowTheme.of(context).tertiary,
+                          color: FlutterFlowTheme.of(context).secondary,
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     fontFamily: 'Inter',

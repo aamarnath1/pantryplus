@@ -1,3 +1,5 @@
+import 'package:google_fonts/google_fonts.dart';
+
 import '/backend/backend.dart';
 import '/components/custom_appbar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -44,7 +46,7 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor:Color(0xFFEDE8DF),
         body: SafeArea(
           top: true,
           child: Align(
@@ -71,10 +73,15 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                         const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                     child: Text(
                       'Eating Preferences',
-                      style: FlutterFlowTheme.of(context).displaySmall.override(
-                            fontFamily: 'Readex Pro',
-                            letterSpacing: 0.0,
-                          ),
+                      style: FlutterFlowTheme.of(context)
+                                .displaySmall
+                                .override(
+                                  fontFamily: 'Comfortaa',
+                                  letterSpacing: 0,
+                                  color: const Color(0xFF000000),
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                                  .containsKey('Comfortaa'),   
+                                ),
                     ),
                   ),
                   Padding(
@@ -169,25 +176,22 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     18.0, 0.0, 0.0, 0.0),
                                             child: Text(
-                                              'Diet',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                              'Diet',                                      
+                                              style: FlutterFlowTheme.of(context)
+                                                                      .bodyLarge
+                                                                      .override(
+                                                                        fontFamily: 'Comfortaa',
+                                                                        letterSpacing: 0,
+                                                                        color: const Color(0xFF000000),
+                                                                        useGoogleFonts: GoogleFonts.asMap()
+                                                                                        .containsKey('Comfortaa'),   
+                                                                      ),
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
                                   ),
-                                ),
-                                Divider(
-                                  height: 1.0,
-                                  thickness: 1.0,
-                                  color: FlutterFlowTheme.of(context).accent4,
                                 ),
                               ],
                             ),
@@ -249,24 +253,21 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                                                     18.0, 0.0, 0.0, 0.0),
                                             child: Text(
                                               'Allergens',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                              style: FlutterFlowTheme.of(context)
+                                                                      .bodyLarge
+                                                                      .override(
+                                                                        fontFamily: 'Comfortaa',
+                                                                        letterSpacing: 0,
+                                                                        color: const Color(0xFF000000),
+                                                                        useGoogleFonts: GoogleFonts.asMap()
+                                                                                        .containsKey('Comfortaa'),   
+                                                                      ),
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
                                   ),
-                                ),
-                                Divider(
-                                  height: 1.0,
-                                  thickness: 1.0,
-                                  color: FlutterFlowTheme.of(context).accent4,
                                 ),
                               ],
                             ),
@@ -328,13 +329,15 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                                                     18.0, 0.0, 0.0, 0.0),
                                             child: Text(
                                               'Disliked Ingredients',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                              style: FlutterFlowTheme.of(context)
+                                                                      .bodyLarge
+                                                                      .override(
+                                                                        fontFamily: 'Comfortaa',
+                                                                        letterSpacing: 0,
+                                                                        color: const Color(0xFF000000),
+                                                                        useGoogleFonts: GoogleFonts.asMap()
+                                                                                        .containsKey('Comfortaa'),   
+                                                                      ),
                                             ),
                                           ),
                                         ],
@@ -342,11 +345,11 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                                     ),
                                   ),
                                 ),
-                                Divider(
-                                  height: 1.0,
-                                  thickness: 1.0,
-                                  color: FlutterFlowTheme.of(context).accent4,
-                                ),
+                                // Divider(
+                                //   height: 1.0,
+                                //   thickness: 1.0,
+                                //   color: FlutterFlowTheme.of(context).accent4,
+                                // ),
                               ],
                             ),
                           ],

@@ -1,3 +1,6 @@
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -42,7 +45,7 @@ class _NewPantryWidgetState extends State<NewPantryWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+         backgroundColor: Color(0xFFEDE8DF),
         body: SafeArea(
           top: true,
           child: Padding(
@@ -58,8 +61,8 @@ class _NewPantryWidgetState extends State<NewPantryWidget> {
                       'My Pantry',
                       style:
                           FlutterFlowTheme.of(context).headlineMedium.override(
-                                fontFamily: 'Readex Pro',
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                fontFamily: 'Comfortaa',
+                                color: Color(0xFF000000),
                                 letterSpacing: 0.0,
                               ),
                     ),
@@ -68,11 +71,9 @@ class _NewPantryWidgetState extends State<NewPantryWidget> {
                           const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
                       child: FlutterFlowIconButton(
                         buttonSize: 40.0,
-                        fillColor:
-                            FlutterFlowTheme.of(context).primaryBackground,
                         icon: Icon(
                           Icons.add_rounded,
-                          color: FlutterFlowTheme.of(context).primaryText,
+                          color: Color(0xFF000000),
                           size: 24.0,
                         ),
                         onPressed: () {
@@ -88,7 +89,7 @@ class _NewPantryWidgetState extends State<NewPantryWidget> {
                     width: double.infinity,
                     height: 200.0,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      color:Color.fromARGB(255, 255, 255, 255),
                       boxShadow: const [
                         BoxShadow(
                           blurRadius: 4.0,
@@ -112,18 +113,20 @@ class _NewPantryWidgetState extends State<NewPantryWidget> {
                             'Your Pantry is Empty',
                             style:
                                 FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Inter',
+                                      fontFamily: 'Comfortaa',
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
                                       letterSpacing: 0.0,
                                     ),
                           ),
+                          const Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10)),
                           Text(
                             'Start adding items to your pantry by scanning receipts or barcodes.',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Inter',
+                                  fontFamily: 'Comfortaa',
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryText,
                                   letterSpacing: 0.0,
@@ -135,8 +138,11 @@ class _NewPantryWidgetState extends State<NewPantryWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                  child: FFButtonWidget(
+                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                  child:Container(
+                    child: Align(
+                      alignment:  Alignment(0.2, 0.6),
+                       child: FFButtonWidget(
                     onPressed: () {
                       print('Button pressed ...');
                     },
@@ -148,10 +154,10 @@ class _NewPantryWidgetState extends State<NewPantryWidget> {
                           const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       iconPadding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: const Color(0xFF4B986C),
+                      color: FlutterFlowTheme.of(context).secondary,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Inter',
+                                fontFamily: 'Comfortaa',
                                 color: Colors.white,
                                 letterSpacing: 0.0,
                               ),
@@ -159,6 +165,8 @@ class _NewPantryWidgetState extends State<NewPantryWidget> {
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                   ),
+                  ),
+                ),
                 ),
               ],
             ),
