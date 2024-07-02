@@ -54,7 +54,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: Color(0xFFEDE8DF),
         body: SafeArea(
           top: true,
           child: SingleChildScrollView(
@@ -95,8 +95,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .displaySmall
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'Comfortaa',
                                   letterSpacing: 0.0,
+                                  color: Color.fromARGB(255, 62, 62, 62),
                                 ),
                           );},
                         ),
@@ -254,7 +255,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                             context)
                                                         .bodyLarge
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          fontFamily: 'Comfortaa',
+                                                          color: const Color(0xFF101518),
                                                           letterSpacing: 0.0,
                                                         ),
                                                   ),
@@ -263,11 +265,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                             ),
                                           ),
                                         ),
-                                        Divider(
-                                          thickness: 1.0,
-                                          color: FlutterFlowTheme.of(context)
-                                              .accent4,
-                                        ),
+                                    
                                       ],
                                     ),
                                   ),
@@ -324,19 +322,16 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                           context)
                                                       .bodyLarge
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        fontFamily: 'Comfortaa',
                                                         letterSpacing: 0.0,
+                                                        color: const Color(0xFF101518)
                                                       ),
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
-                                        Divider(
-                                          thickness: 1.0,
-                                          color: FlutterFlowTheme.of(context)
-                                              .accent4,
-                                        ),
+                                       
                                       ],
                                     ),
                                   ),
@@ -406,18 +401,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                             context)
                                                         .bodyLarge
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          fontFamily: 'Comfortaa',
                                                           letterSpacing: 0.0,
                                                         ),
                                                   ),
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                          Divider(
-                                            thickness: 1.0,
-                                            color: FlutterFlowTheme.of(context)
-                                                .accent4,
                                           ),
                                         ],
                                       ),
@@ -475,18 +465,14 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                           context)
                                                       .bodyLarge
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        fontFamily: 'Comfortaa',
                                                         letterSpacing: 0.0,
+                                                        color: const Color(0xFF101518)
                                                       ),
                                                 ),
                                               ),
                                             ],
                                           ),
-                                        ),
-                                        Divider(
-                                          thickness: 1.0,
-                                          color: FlutterFlowTheme.of(context)
-                                              .accent4,
                                         ),
                                       ],
                                     ),
@@ -576,18 +562,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                             context)
                                                         .bodyLarge
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          fontFamily: 'Comfortaa',
                                                           letterSpacing: 0.0,
                                                         ),
                                                   ),
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                          Divider(
-                                            thickness: 1.0,
-                                            color: FlutterFlowTheme.of(context)
-                                                .accent4,
                                           ),
                                         ],
                                       ),
@@ -684,19 +665,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                               .of(context)
                                                           .bodyLarge
                                                           .override(
-                                                            fontFamily: 'Inter',
+                                                            fontFamily: 'Comfortaa',
                                                             letterSpacing: 0.0,
                                                           ),
                                                     ),
                                                   ),
                                                 ],
                                               ),
-                                            ),
-                                            Divider(
-                                              thickness: 1.0,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .accent4,
                                             ),
                                           ],
                                         ),
@@ -788,7 +763,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                         .headlineSmall
                                                         .override(
                                                           fontFamily:
-                                                              'Readex Pro',
+                                                              'Comfortaa',
                                                           fontSize: 16.0,
                                                           letterSpacing: 0.0,
                                                         ),
@@ -858,8 +833,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .bodyLarge
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        fontFamily: 'Comfortaa',
                                                         letterSpacing: 0.0,
+                                                        color: const Color(0xFF101518)
                                                       ),
                                             ),
                                           ),

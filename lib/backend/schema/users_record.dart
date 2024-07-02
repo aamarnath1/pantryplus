@@ -24,6 +24,16 @@ class UsersRecord extends FirestoreRecord {
   String get displayName => _displayName ?? '';
   bool hasDisplayName() => _displayName != null;
 
+  // "first_name" field.
+  String? _firstName;
+  String get firstName => _firstName ?? '';
+  bool hasFirstName() => _firstName != null;
+
+// "last_name" field.
+  String? _lastName;
+  String get lastName => _lastName ?? '';
+  bool hasLastName() => _lastName != null;
+
   // "photo_url" field.
   String? _photoUrl;
   String get photoUrl => _photoUrl ?? '';
@@ -62,6 +72,8 @@ class UsersRecord extends FirestoreRecord {
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
+    _firstName = snapshotData['first_name'] as String?;
+    _lastName = snapshotData['last_name'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
     _uid = snapshotData['uid'] as String?;
     _createdTime = snapshotData['created_time'] as DateTime?;
@@ -107,6 +119,8 @@ class UsersRecord extends FirestoreRecord {
 Map<String, dynamic> createUsersRecordData({
   String? email,
   String? displayName,
+  String? firstName,
+  String? lastName,
   String? photoUrl,
   String? uid,
   DateTime? createdTime,
@@ -117,6 +131,8 @@ Map<String, dynamic> createUsersRecordData({
     <String, dynamic>{
       'email': email,
       'display_name': displayName,
+      'first_name': firstName,
+      'last_name': lastName,
       'photo_url': photoUrl,
       'uid': uid,
       'created_time': createdTime,
