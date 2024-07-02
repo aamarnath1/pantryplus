@@ -1,3 +1,5 @@
+import 'package:google_fonts/google_fonts.dart';
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -42,39 +44,35 @@ class _SplashWidgetState extends State<SplashWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: const Color(0xFF4B986C),
-        body: SafeArea(
-          top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Expanded(
-                child: Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
+        backgroundColor: const Color(0xFFF2E6D5),
+        body: Stack(
+          children: [
+            Stack(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: Stack(
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.asset(
-                          'assets/images/white_logo_color_background.jpg',
-                          width: 338.0,
-                          height: 169.0,
-                          fit: BoxFit.cover,
+                      Align(
+                        alignment: const AlignmentDirectional(0, -2.1),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset(
+                            'assets/images/mainscreentop5.png',
+                            width: 426,
+                            height: 786,
+                            fit: BoxFit.fitWidth,
+                          ),
                         ),
-                      ),
+                      )
                     ],
-                  ),
+                  )
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 12.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    FFButtonWidget(
-                      onPressed: () async {
+                Align(
+                  alignment: AlignmentDirectional(-0.01, 0.21),
+                  child:FFButtonWidget( 
+                    onPressed: () async {
                         logFirebaseEvent('SPLASH_PAGE_GET_STARTED_BTN_ON_TAP');
                         logFirebaseEvent('Button_haptic_feedback');
                         HapticFeedback.lightImpact();
@@ -82,92 +80,190 @@ class _SplashWidgetState extends State<SplashWidget> {
 
                         context.pushNamed('Onboarding_Slideshow');
                       },
-                      text: 'Get Started',
-                      options: FFButtonOptions(
-                        width: double.infinity,
-                        height: 50.0,
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).tertiary,
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                ),
-                        elevation: 0.0,
-                        borderSide: const BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(25.0),
+                    text: 'Create your Pantry',
+                    options: FFButtonOptions(
+                      height:40,
+                      padding: EdgeInsetsDirectional.fromSTEB(24,0,24,0),
+                      color: Color(0xFF04A559),
+                      textStyle: FlutterFlowTheme.of(context)
+                      .titleSmall
+                      .override(
+                        fontFamily:'Comfortaa',
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.bold,
+                        useGoogleFonts: GoogleFonts.asMap().containsKey('Comfortaa'),
                       ),
+                      elevation: 2,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 0.5
+                        ),
+                      borderRadius: BorderRadius.circular(24),
                     ),
-                    InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
+                  )
+                ),
+                Align(
+                  alignment: AlignmentDirectional(-0.01, 0.35),
+                  child: FFButtonWidget(
+                    onPressed: () async {
                         logFirebaseEvent('SPLASH_PAGE_Column_9mc7ub12_ON_TAP');
                         logFirebaseEvent('Column_navigate_to');
 
                         context.pushNamed('SignIn');
                       },
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 24.0, 0.0, 24.0),
-                            child: RichText(
-                              textScaler: MediaQuery.of(context).textScaler,
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: 'Already a member?  ',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodySmall
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          letterSpacing: 0.0,
-                                        ),
-                                  ),
-                                  TextSpan(
-                                    text: 'Sign In',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w600,
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                  )
-                                ],
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      letterSpacing: 0.0,
-                                    ),
-                              ),
-                            ),
+                    text: 'Login',
+                    options: FFButtonOptions(
+                      height: 40,
+                      padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
+                      iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                      color: Color(0xFF04A559),
+                      textStyle: FlutterFlowTheme.of(context)
+                          .titleSmall
+                          .override(
+                            fontFamily: 'Comfortaa',
+                            letterSpacing: 0,
+                            fontWeight: FontWeight.w900,
+                            useGoogleFonts:
+                                GoogleFonts.asMap().containsKey('Comfortaa'),
                           ),
-                        ],
+                      elevation: 2,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 0.5,
                       ),
+                      borderRadius: BorderRadius.circular(24),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            )
+          ],
         ),
+        // body: SafeArea(
+        //   top: true,
+        //   child: Column(
+        //     mainAxisSize: MainAxisSize.max,
+        //     children: [
+        //       Expanded(
+        //         child: Align(
+        //           alignment: const AlignmentDirectional(0.0, 0.0),
+        //           child: Column(
+        //             mainAxisSize: MainAxisSize.max,
+        //             mainAxisAlignment: MainAxisAlignment.center,
+        //             children: [
+        //               ClipRRect(
+        //                 borderRadius: BorderRadius.circular(8.0),
+        //                 child: Image.asset(
+        //                   'assets/images/white_logo_color_background.jpg',
+        //                   width: 338.0,
+        //                   height: 169.0,
+        //                   fit: BoxFit.cover,
+        //                 ),
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       ),
+        //       Padding(
+        //         padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 12.0),
+        //         child: Column(
+        //           mainAxisSize: MainAxisSize.max,
+        //           children: [
+        //             FFButtonWidget(
+        //               onPressed: () async {
+        //                 logFirebaseEvent('SPLASH_PAGE_GET_STARTED_BTN_ON_TAP');
+        //                 logFirebaseEvent('Button_haptic_feedback');
+        //                 HapticFeedback.lightImpact();
+        //                 logFirebaseEvent('Button_navigate_to');
+
+        //                 context.pushNamed('Onboarding_Slideshow');
+        //               },
+        //               text: 'Get Started',
+        //               options: FFButtonOptions(
+        //                 width: double.infinity,
+        //                 height: 50.0,
+        //                 padding:
+        //                     const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+        //                 iconPadding:
+        //                     const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+        //                 color: FlutterFlowTheme.of(context).tertiary,
+        //                 textStyle:
+        //                     FlutterFlowTheme.of(context).titleSmall.override(
+        //                           fontFamily: 'Inter',
+        //                           letterSpacing: 0.0,
+        //                         ),
+        //                 elevation: 0.0,
+        //                 borderSide: const BorderSide(
+        //                   color: Colors.transparent,
+        //                   width: 1.0,
+        //                 ),
+        //                 borderRadius: BorderRadius.circular(25.0),
+        //               ),
+        //             ),
+        //             InkWell(
+        //               splashColor: Colors.transparent,
+        //               focusColor: Colors.transparent,
+        //               hoverColor: Colors.transparent,
+        //               highlightColor: Colors.transparent,
+        //               onTap: () async {
+        //                 logFirebaseEvent('SPLASH_PAGE_Column_9mc7ub12_ON_TAP');
+        //                 logFirebaseEvent('Column_navigate_to');
+
+        //                 context.pushNamed('SignIn');
+        //               },
+        //               child: Column(
+        //                 mainAxisSize: MainAxisSize.max,
+        //                 children: [
+        //                   Padding(
+        //                     padding: const EdgeInsetsDirectional.fromSTEB(
+        //                         0.0, 24.0, 0.0, 24.0),
+        //                     child: RichText(
+        //                       textScaler: MediaQuery.of(context).textScaler,
+        //                       text: TextSpan(
+        //                         children: [
+        //                           TextSpan(
+        //                             text: 'Already a member?  ',
+        //                             style: FlutterFlowTheme.of(context)
+        //                                 .bodySmall
+        //                                 .override(
+        //                                   fontFamily: 'Inter',
+        //                                   color: FlutterFlowTheme.of(context)
+        //                                       .alternate,
+        //                                   letterSpacing: 0.0,
+        //                                 ),
+        //                           ),
+        //                           TextSpan(
+        //                             text: 'Sign In',
+        //                             style: FlutterFlowTheme.of(context)
+        //                                 .bodyMedium
+        //                                 .override(
+        //                                   fontFamily: 'Inter',
+        //                                   color: FlutterFlowTheme.of(context)
+        //                                       .alternate,
+        //                                   letterSpacing: 0.0,
+        //                                   fontWeight: FontWeight.w600,
+        //                                   decoration: TextDecoration.underline,
+        //                                 ),
+        //                           )
+        //                         ],
+        //                         style: FlutterFlowTheme.of(context)
+        //                             .bodyMedium
+        //                             .override(
+        //                               fontFamily: 'Inter',
+        //                               letterSpacing: 0.0,
+        //                             ),
+        //                       ),
+        //                     ),
+        //                   ),
+        //                 ],
+        //               ),
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }

@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+
 import '/components/custom_appbar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'onboarding_create_account_widget.dart'
@@ -16,6 +19,19 @@ class OnboardingCreateAccountModel
   FocusNode? fullNameFocusNode;
   TextEditingController? fullNameTextController;
   String? Function(BuildContext, String?)? fullNameTextControllerValidator;
+  FocusNode? firstNameFocusNode;
+  TextEditingController? firstNameTextController;
+  String? Function(BuildContext, String?)? firstNameTextControllerValidator;
+  String? _firstNameTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'First name is required.';
+    }
+
+    return null;
+  }
+  FocusNode? lastNameFocusNode;
+  TextEditingController? lastNameTextController;
+  
   String? _fullNameTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Full name is required.';
@@ -57,6 +73,7 @@ class OnboardingCreateAccountModel
   void initState(BuildContext context) {
     customAppbarModel = createModel(context, () => CustomAppbarModel());
     fullNameTextControllerValidator = _fullNameTextControllerValidator;
+    firstNameTextControllerValidator = _firstNameTextControllerValidator;
     emailAddressTextControllerValidator = _emailAddressTextControllerValidator;
     passwordVisibility = false;
     passwordTextControllerValidator = _passwordTextControllerValidator;
@@ -68,6 +85,12 @@ class OnboardingCreateAccountModel
     customAppbarModel.dispose();
     fullNameFocusNode?.dispose();
     fullNameTextController?.dispose();
+
+    firstNameFocusNode?.dispose();
+    firstNameTextController?.dispose();
+
+    lastNameFocusNode?.dispose();
+    lastNameTextController?.dispose();
 
     emailAddressFocusNode?.dispose();
     emailAddressTextController?.dispose();

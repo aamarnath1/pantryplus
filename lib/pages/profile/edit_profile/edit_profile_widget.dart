@@ -1,3 +1,6 @@
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/custom_appbar_widget.dart';
@@ -54,7 +57,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor:Color(0xFFEDE8DF),
         body: SafeArea(
           top: true,
           child: Align(
@@ -95,10 +98,15 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                     child: Text(
                       'Edit Profile',
-                      style: FlutterFlowTheme.of(context).displaySmall.override(
-                            fontFamily: 'Readex Pro',
-                            letterSpacing: 0.0,
-                          ),
+                      style: FlutterFlowTheme.of(context)
+                                .displaySmall
+                                .override(
+                                  fontFamily: 'Comfortaa',
+                                  letterSpacing: 0,
+                                  color: const Color(0xFF000000),
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                                  .containsKey('Comfortaa'),   
+                                ),
                     ),
                   ),
                   Column(
@@ -120,7 +128,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      fontFamily: 'Comfortaa',
+                                      color: const Color(0xFF000000),
                                       letterSpacing: 0.0,
                                     ),
                               ),
@@ -153,8 +162,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
+                                        color: const Color.fromARGB(255, 255, 255, 255),
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
@@ -184,8 +192,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     filled: true,
-                                    fillColor: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
+                                    fillColor:  Color.fromARGB(255, 255, 255, 255),
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -193,6 +200,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                         fontFamily: 'Inter',
                                         fontSize: 16.0,
                                         letterSpacing: 0.0,
+                                        color: Color(0xFF000000),
                                         fontWeight: FontWeight.w500,
                                         lineHeight: 1.0,
                                       ),
@@ -213,8 +221,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                   wrapWithModel(
                     model: _model.titleWithSubtitleModel1,
                     updateCallback: () => setState(() {}),
-                    child: const TitleWithSubtitleWidget(
-                      title: 'Reset Password',
+                    child: const  TitleWithSubtitleWidget(
+                      title:'Reset Password',
                       subtitle:
                           'Recieve a link via email to reset your password.',
                     ),
@@ -250,7 +258,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         iconPadding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: FlutterFlowTheme.of(context).secondary,
                         textStyle:
                             FlutterFlowTheme.of(context).bodyMedium.override(
                                   fontFamily: 'Inter',

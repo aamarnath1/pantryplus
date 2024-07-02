@@ -136,7 +136,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) =>  GoRouter(
               requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? const NavBarPage(initialPage: 'Dashboard')
-                  : const DashboardWidget(),
+                  : DashboardWidget( cameraMap: cameraMap ,camera: firstCamera),
             ),
             FFRoute(
               name: 'MealDetails',

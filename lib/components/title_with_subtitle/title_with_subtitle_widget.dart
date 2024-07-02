@@ -56,12 +56,13 @@ class _TitleWithSubtitleWidgetState extends State<TitleWithSubtitleWidget> {
               widget.title,
               'Test title',
             ),
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Inter',
-                  fontSize: 16.0,
-                  letterSpacing: 0.0,
-                  fontWeight: FontWeight.w600,
-                ),
+            style: FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .override(
+                                      fontFamily: 'Comfortaa',
+                                      color: const Color(0xFF000000),
+                                      letterSpacing: 0.0,
+                                    ),
           ),
         ),
         Text(

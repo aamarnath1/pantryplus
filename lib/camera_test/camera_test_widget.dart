@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -80,9 +83,44 @@ class _CameraTestWidgetState extends State<CameraTestWidget> {
          barcodeScanRes = 'Failed to get platform version.';
     }
     if(!mounted) return;
-    setState(() {
+    setState(() async {
        var _scanBarcodeResult = barcodeScanRes;
        print('scanned barcode image $_scanBarcodeResult');
+      //  var api_key='AIzaSyDR10buQg0OGxbouf1nFhOLGviOy-Da3a4';
+
+      //For US CENTRAL FOOD
+      //  var api_key='gPTBA7bVIaFjUm6WXxe77G1QLLHBxQD3YKdnj4zp';
+      // var url = 'https://api.nal.usda.gov/fdc/v1/food/$_scanBarcodeResult&api_key=$api_key';
+
+      // nutritionix api
+      var url = 'https://trackapi.nutritionix.com/v2/search/item/?upc=$_scanBarcodeResult';
+
+      var headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'x-app-id': 'c8aeece3',
+        'x-app-key': '4d4127a05b466e2f0817270c495c1ef4',
+      };
+      try {
+    var response = await http.get(Uri.parse(url), headers: headers);
+    if (response.statusCode == 200) {
+      print('response from the api ${response.body}');
+      var data = json.decode(response.body);
+      print('data obtained from scanned barcode $data');
+      // if (data['totalItems'] > 0) {
+      //   var book = data['items'][0]['volumeInfo'];
+      //   print('Title: ${book['title']}');
+      //   print('Authors: ${book['authors'].join(", ")}');
+      //   print('Published Date: ${book['publishedDate']}');
+      //   // You can extract other details in a similar way...
+      // } else {
+      //   print('No books found for that ISBN.');
+      // }
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  } catch (e) {
+    print('An error occurred: $e');
+  }
     });
   }
 
@@ -103,7 +141,7 @@ class _CameraTestWidgetState extends State<CameraTestWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: Color(0xFFEDE8DF),
         body: SafeArea(
           top: true,
           child: Column(
@@ -111,14 +149,18 @@ class _CameraTestWidgetState extends State<CameraTestWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
                 child: Text(
                   'Take a Picture',
-                  style: FlutterFlowTheme.of(context).headlineLarge.override(
-                        fontFamily: 'Readex Pro',
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        letterSpacing: 0.0,
-                      ),
+                  style: FlutterFlowTheme.of(context)
+                                .headlineMedium
+                                .override(
+                                  fontFamily: 'Comfortaa',
+                                  letterSpacing: 0,
+                                  color: const Color(0xFF000000),
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                                  .containsKey('Comfortaa'),   
+                                ),
                 ),
               ),
               Padding(
@@ -156,7 +198,7 @@ class _CameraTestWidgetState extends State<CameraTestWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
                 child: Text(
                   'Select the barcode button to scan barcode!\n',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -192,7 +234,7 @@ class _CameraTestWidgetState extends State<CameraTestWidget> {
                   ),
                 ),
               ),
-             _selectedImage != null ? Image.file(_selectedImage!) : const Text("Please select an Image")
+            //  _selectedImage != null ? Image.file(_selectedImage!) : const Text("Please select an Image")
             ],
           ),
         ),
