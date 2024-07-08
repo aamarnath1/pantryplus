@@ -17,7 +17,6 @@ export 'serialization_util.dart';
 
 const kTransitionInfoKey = '__transition_info__';
 
-late CameraDescription firstCamera;
 Map<dynamic, Future<CameraDescription>> cameraMap = {};
 Future<void> main() async {
   // Ensure that plugin services are initialized so that `availableCameras()`
@@ -133,7 +132,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) =>  GoRouter(
             FFRoute(
               name: 'Dashboard',
               path: 'dashboard',
-              requireAuth: true,
+              // requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? const NavBarPage(initialPage: 'Dashboard')
                   : DashboardWidget( cameraMap: cameraMap ,camera: firstCamera),
