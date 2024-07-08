@@ -71,27 +71,30 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        AuthUserStreamWidget(builder: (context) => 
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 24.0, 0.0, 6.0),
                           child: Text(
+                           currentUserDocument != null ?
                             valueOrDefault<String>(
                               functions
                                   .returnProfileGreeting(getCurrentTimestamp),
                               'Hello,',
-                            ),
+                            ) : '',
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
                                 .override(
-                                  fontFamily: 'Inter',
+                                  fontFamily: 'Comfortaa',
                                   letterSpacing: 0.0,
                                 ),
                           ),
                         ),
+                        ),
                         AuthUserStreamWidget(
                           builder: (context) { 
                             return Text(
-                            currentUserDisplayName,
+                             currentUserDocument != null ? currentUserDisplayName : '',
                             style: FlutterFlowTheme.of(context)
                                 .displaySmall
                                 .override(
@@ -202,6 +205,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
+                                        AuthUserStreamWidget(builder: (context) =>
+                                       
                                         Padding(
                                           padding:
                                               const EdgeInsetsDirectional.fromSTEB(
@@ -217,7 +222,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               logFirebaseEvent(
                                                   'Row_navigate_to');
 
-                                              context.pushNamed('EditProfile');
+                                              currentUserDocument != null ? context.pushNamed('EditProfile') : context.pushNamed('Onboarding_CreateAccount');
                                             },
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -250,7 +255,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                       .fromSTEB(
                                                           18.0, 0.0, 0.0, 0.0),
                                                   child: Text(
-                                                    'Edit Profile',
+                                                   currentUserDocument != null ? 'Edit Profile' : 'Create Account',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyLarge
@@ -265,7 +270,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                             ),
                                           ),
                                         ),
-                                    
+                                        ),
                                       ],
                                     ),
                                   ),

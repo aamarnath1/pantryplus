@@ -140,7 +140,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                         builder: (context) => 
                         Flexible( 
                         child : Text(
-                          'Welcome, ${currentUserDisplayName}!',
+                          'Welcome${currentUserDocument != null ?  ', $currentUserDisplayName' : '' }',
                           //  softWrap: true,
                           //  overflow: TextOverflow.ellipsis,
                            style:FlutterFlowTheme.of(context)

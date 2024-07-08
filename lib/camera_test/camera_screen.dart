@@ -106,11 +106,6 @@ int _selectedCameraIdx = 0;
                     color: Colors.white,
                     onPressed: _toggleFlash,
                   ),
-                  IconButton(
-                    icon: Icon(Icons.switch_camera),
-                    color: Colors.white,
-                    onPressed: _switchCamera,
-                  ),
                 ],
               ),
               body: Stack(
@@ -151,14 +146,10 @@ Future<void> _scanImage() async{
     setState(() {
       _isLoader = true;
     });
-    print('isLoader: $_isLoader');
     final picturefile = await _controller!.takePicture();
     final file = File(picturefile.path);
-    print('file path: ${file}');
     final imageBytes = await file.readAsBytes();
-    print('imageBytes: ${imageBytes}');
-    print('model: ${_model}');
-    final prompt = TextPart("You are a grocery analysis bot who is capable of processing images of grocery items and detailed receipts. You should first identify all items in the image or text and categorize them into 'food' and 'non-food' categories. For food items, you should estimate expiry dates based on product type and purchase date  if not specified consider date of image captured, retrieve and display nutritional information, and suggest recipes that incorporate these ingredients. Each food item should also have a concise summary provided, detailing key nutritional facts and storage recommendations. You should ignore non-food items completely and not perform any analysis on them. Employ convolutional neural networks for image recognition, optical character recognition for processing receipt texts, and integrate a database for fetching food-related data. Ensure your output includes actionable insights and is presented in an easy-to-understand format suitable for end-users.");
+    final prompt = TextPart("You are a grocery analysis bot who is capable of processing images of grocery items and detailed receipts. You should first identify all items in the image or text and categorize them into 'food' and 'non-food' categories. For food items, you should estimate expiry dates based on product type and purchase date  if not specified consider date of image captured, retrieve and display nutritional information, and suggest recipes that incorporate these ingredients. Each food item should also have a concise summary provided, detailing key nutritional facts and storage recommendations. You should ignore non-food items completely and not perform any analysis on them. Employ convolutional neural networks for image recognition, optical character recognition for processing receipt texts, and integrate a database for fetching food-related data. Ensure your output includes actionable insights and is presented in an easy-to-understand format suitable for end-users. Your response is diplayed on html screen provide your response in html format as if you are writing the code inside a div tag, every response should be in html format and all the text should be black color and do not include ```html in the response striclty.");
     final imageParts = [DataPart('image/jpeg', imageBytes)];
     final response = await _model.generateContent([
       Content.multi([prompt, ...imageParts])
@@ -168,13 +159,10 @@ Future<void> _scanImage() async{
         _isLoader = false;
       });
     }
-    print('_isloder: $_isLoader');
-    print('response ${response.text}');
 
     await navigator.push(
         MaterialPageRoute(
-          // builder: (context) => ResultScreen(text: recognizedText.text),
-            builder: (context) => ResultScreen(text: response.text ?? ''),
+            builder: (context) => ResultScreen(text: response.text ?? '', imagePath: picturefile.path),
         ),
       );
 
