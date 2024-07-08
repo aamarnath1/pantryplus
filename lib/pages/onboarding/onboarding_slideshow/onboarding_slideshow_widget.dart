@@ -537,7 +537,7 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
                             HapticFeedback.lightImpact();
                             logFirebaseEvent('Button_navigate_to');
 
-                            context.pushNamed('Onboarding_CreateAccount');
+                            context.pushNamed('Dashboard');
                           } else {
                             logFirebaseEvent('Button_haptic_feedback');
                             HapticFeedback.lightImpact();

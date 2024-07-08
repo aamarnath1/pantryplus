@@ -517,7 +517,7 @@ class _OnboardingCreateAccountWidgetState
 
                         logFirebaseEvent('Button_navigate_to');
 
-                        context.pushNamedAuth('NewPantry', context.mounted);
+                        context.pushNamedAuth('Dashboard', context.mounted);
                       },
                       text: 'Create Account',
                       options: FFButtonOptions(

@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
+import 'package:keep_fresh/camera_test/result_screen.dart';
 
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -15,6 +15,8 @@ export 'camera_test_model.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:image_picker/image_picker.dart';
 import 'camera_screen.dart';
+import 'package:openfoodfacts/openfoodfacts.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CameraTestWidget extends StatefulWidget {
 
@@ -77,7 +79,7 @@ class _CameraTestWidgetState extends State<CameraTestWidget> {
   Future<void> openScanner() async {
     String barcodeScanRes;
     try{
-    barcodeScanRes = await FlutterBarcodeScanner.scanBarcode('#ff6666', 'Cancel', true, ScanMode.BARCODE,);
+    barcodeScanRes = await FlutterBarcodeScanner.scanBarcode('#ff6666', 'Cancel', false, ScanMode.BARCODE);
     debugPrint(barcodeScanRes);
     } on PlatformException {
          barcodeScanRes = 'Failed to get platform version.';
@@ -85,43 +87,67 @@ class _CameraTestWidgetState extends State<CameraTestWidget> {
     if(!mounted) return;
     setState(() async {
        var _scanBarcodeResult = barcodeScanRes;
-       print('scanned barcode image $_scanBarcodeResult');
-      //  var api_key='AIzaSyDR10buQg0OGxbouf1nFhOLGviOy-Da3a4';
-
-      //For US CENTRAL FOOD
-      //  var api_key='gPTBA7bVIaFjUm6WXxe77G1QLLHBxQD3YKdnj4zp';
-      // var url = 'https://api.nal.usda.gov/fdc/v1/food/$_scanBarcodeResult&api_key=$api_key';
-
-      // nutritionix api
-      var url = 'https://trackapi.nutritionix.com/v2/search/item/?upc=$_scanBarcodeResult';
-
-      var headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'x-app-id': 'c8aeece3',
-        'x-app-key': '4d4127a05b466e2f0817270c495c1ef4',
-      };
-      try {
-    var response = await http.get(Uri.parse(url), headers: headers);
-    if (response.statusCode == 200) {
-      print('response from the api ${response.body}');
-      var data = json.decode(response.body);
-      print('data obtained from scanned barcode $data');
-      // if (data['totalItems'] > 0) {
-      //   var book = data['items'][0]['volumeInfo'];
-      //   print('Title: ${book['title']}');
-      //   print('Authors: ${book['authors'].join(", ")}');
-      //   print('Published Date: ${book['publishedDate']}');
-      //   // You can extract other details in a similar way...
-      // } else {
-      //   print('No books found for that ISBN.');
-      // }
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
-    }
-  } catch (e) {
-    print('An error occurred: $e');
-  }
+       await getProduct(_scanBarcodeResult).then((val) async => {
+                if(val.containsKey('error')){
+                  Fluttertoast.showToast(
+                      msg: "Product not found! Please try different barcode!",
+                      toastLength: Toast.LENGTH_LONG,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 3,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                      fontSize: 16.0
+                  )
+                }
+       });
+ 
     });
+  }
+
+  Future<Map<String, Object?>> getProduct(barcode) async {
+  final navigator = Navigator.of(context);
+
+  OpenFoodAPIConfiguration.userAgent = UserAgent(name:'pantryPlus', version:'1.0.0');
+
+  final ProductQueryConfiguration configuration = ProductQueryConfiguration(
+    barcode,
+    language: OpenFoodFactsLanguage.ENGLISH,
+    fields: [ProductField.ALL],
+    version: ProductQueryVersion.v3,
+  );
+  try{
+  final ProductResultV3 result =
+      await OpenFoodAPIClient.getProductV3(configuration);
+
+  if (result.status == ProductResultV3.statusSuccess) {
+
+  var productData = {
+    "productName": result.product?.productName,
+    "brand": result.product?.brands,
+    "nutriments": result.product?.nutriments?.getValue(Nutrient.salt, PerSize.oneHundredGrams),
+    "additives": result.product?.additives?.names,
+    "allergens": result.product?.allergens?.names,
+    "ingredients": result.product?.ingredientsText,
+    "countries": result.product?.countries,
+    "noNutritionData": result.product?.noNutritionData,
+    "nutriScore": result.product?.nutriscore,
+    "imageUrl": result.product?.imageFrontUrl
+  };
+
+                  if(productData.containsKey('productName')){
+                          await navigator.push(
+                        MaterialPageRoute(
+                            builder: (context) => ResultScreen(productData: productData),
+                        ),
+                      );
+                    }
+  return productData;
+  }else {
+    throw Exception('Product not found, please try a different barcode!');
+  }
+  }catch(e){
+    return {'error': e};
+}
   }
 
   Future<void> pickImageGallery() async {
