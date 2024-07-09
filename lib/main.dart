@@ -178,60 +178,10 @@ class _NavBarPageState extends State<NavBarPage> {
       'Dashboard': DashboardWidget(cameraMap: cameraMap, camera: firstCamera),
       'Camera': CameraTestWidget(cameraMap, camera:firstCamera)
     };
-    final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
+    // final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
     return Scaffold(
       body: _currentPage ?? tabs[_currentPageName]
-    //   bottomNavigationBar: BottomNavigationBar(
-    //     currentIndex: currentIndex,
-    //     onTap: (i) => setState(() {
-    //       _currentPage = null;
-    //       _currentPageName = tabs.keys.toList()[i];
-    //     }),
-    //     backgroundColor: Color(0xFFEDE8DF),
-    //     selectedItemColor: FlutterFlowTheme.of(context).primary,
-    //     unselectedItemColor: FlutterFlowTheme.of(context).secondaryText,
-    //     showSelectedLabels: true,
-    //     showUnselectedLabels: true,
-    //     type: BottomNavigationBarType.fixed,
-    //     items: const <BottomNavigationBarItem>[
-    //       // BottomNavigationBarItem(
-    //       //   icon: Icon(
-    //       //     Icons.person_outline_rounded,
-    //       //     size: 24.0,
-    //       //   ),
-    //       //   activeIcon: Icon(
-    //       //     Icons.person_rounded,
-    //       //     size: 24.0,
-    //       //   ),
-    //       //   label: 'Profile',
-    //       //   tooltip: '',
-    //       // ),
-    //       // BottomNavigationBarItem(
-    //       //   icon: Icon(
-    //       //     Icons.kitchen,
-    //       //   ),
-    //       //   label: 'Pantry',
-    //       //   tooltip: '',
-    //       // ),
-    //       BottomNavigationBarItem(
-    //         icon: Icon(
-    //           Icons.restaurant_sharp,
-    //           size: 24.0,
-    //         ),
-    //         label: 'Meals',
-    //         tooltip: '',
-    //       ),
-    //        BottomNavigationBarItem(
-    //         icon: Icon(
-    //           Icons.camera,
-    //           size: 24.0,
-    //         ),
-    //         label: 'Camera',
-    //         tooltip: '',
-    //       )
-    //     ],
-    //   ),
     );
   }
 }

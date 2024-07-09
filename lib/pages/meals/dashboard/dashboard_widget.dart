@@ -2,10 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keep_fresh/auth/firebase_auth/auth_util.dart';
 import 'package:keep_fresh/flutter_flow/flutter_flow_widgets.dart';
-import 'package:keep_fresh/flutter_flow/nav/nav.dart';
 import 'package:keep_fresh/index.dart';
-import 'package:keep_fresh/main.dart';
-import 'package:provider/provider.dart';
 
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';

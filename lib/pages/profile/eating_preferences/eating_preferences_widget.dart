@@ -106,16 +106,16 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                             ),
                           );
                         }
-                        List<CompanyInformationRecord>
-                            columnCompanyInformationRecordList = snapshot.data!;
+                        // List<CompanyInformationRecord>
+                        //     columnCompanyInformationRecordList = snapshot.data!;
                         // Return an empty Container when the item does not exist.
                         if (snapshot.data!.isEmpty) {
                           return Container();
                         }
-                        final columnCompanyInformationRecord =
-                            columnCompanyInformationRecordList.isNotEmpty
-                                ? columnCompanyInformationRecordList.first
-                                : null;
+                        // final columnCompanyInformationRecord =
+                        //     columnCompanyInformationRecordList.isNotEmpty
+                        //         ? columnCompanyInformationRecordList.first
+                        //         : null;
                         return Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
@@ -13,7 +12,7 @@ import 'package:camera/camera.dart';
 import 'camera_test_model.dart';
 export 'camera_test_model.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 import 'camera_screen.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -33,12 +32,10 @@ class CameraTestWidget extends StatefulWidget {
 class _CameraTestWidgetState extends State<CameraTestWidget> {
   late CameraTestModel _model;
   late CameraController _controller;
-  late Future<void> _initializeControllerFuture;
   // late List<CameraDescription> _cameras;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-    File ? _selectedImage;
   @override
   void initState() {
     super.initState();
@@ -63,7 +60,6 @@ class _CameraTestWidgetState extends State<CameraTestWidget> {
                         }
                       }
                     });
-    _initializeControllerFuture = _controller.initialize();
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Camera_test'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -150,14 +146,13 @@ class _CameraTestWidgetState extends State<CameraTestWidget> {
 }
   }
 
-  Future<void> pickImageGallery() async {
+  // Future<void> pickImageGallery() async {
 
-    final returnedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //   final returnedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      _selectedImage = File(returnedImage!.path);
-    });
-  }
+  //   setState(() {
+  //   });
+  // }
  
   @override
   Widget build(BuildContext context) {

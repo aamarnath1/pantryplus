@@ -251,8 +251,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                           final chefs =
                                               columnCompanyInformationRecord
                                                       .chefInfo
-                                                      .toList() ??
-                                                  [];
+                                                      .toList();
                                           return Column(
                                             mainAxisSize: MainAxisSize.max,
                                             children: List.generate(

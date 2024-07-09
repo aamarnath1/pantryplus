@@ -1,10 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_generative_ai/google_generative_ai.dart';
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:keep_fresh/flutter_flow/flutter_flow_theme.dart';
 

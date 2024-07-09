@@ -56,7 +56,7 @@ class _MealCardLoadingWidgetState extends State<MealCardLoadingWidget> {
           scrollDirection: Axis.vertical,
           itemCount: loaderItems.length,
           itemBuilder: (context, loaderItemsIndex) {
-            final loaderItemsItem = loaderItems[loaderItemsIndex];
+            // final loaderItemsItem = loaderItems[loaderItemsIndex];
             return LoaderItemWidget(
               key: Key('Keyi8f_${loaderItemsIndex}_of_${loaderItems.length}'),
             );

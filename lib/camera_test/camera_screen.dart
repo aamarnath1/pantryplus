@@ -5,7 +5,6 @@ import 'dart:io';
 // import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:keep_fresh/camera_test/result_screen.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
-import 'package:keep_fresh/flutter_flow/flutter_flow_util.dart';
 
 
 class CameraScreen extends StatefulWidget {
@@ -138,15 +137,13 @@ int _selectedCameraIdx = 0;
     );
   }
 Future<void> _scanImage() async{
-  if(_controller == null) return;
-
   final navigator = Navigator.of(context);
 
   try{
     setState(() {
       _isLoader = true;
     });
-    final picturefile = await _controller!.takePicture();
+    final picturefile = await _controller.takePicture();
     final file = File(picturefile.path);
     final imageBytes = await file.readAsBytes();
     final prompt = TextPart("You are a grocery analysis bot who is capable of processing images of grocery items and detailed receipts. You should first identify all items in the image or text and categorize them into 'food' and 'non-food' categories. For food items, you should estimate expiry dates based on product type and purchase date  if not specified consider date of image captured, retrieve and display nutritional information, and suggest recipes that incorporate these ingredients. Each food item should also have a concise summary provided, detailing key nutritional facts and storage recommendations. You should ignore non-food items completely and not perform any analysis on them. Employ convolutional neural networks for image recognition, optical character recognition for processing receipt texts, and integrate a database for fetching food-related data. Ensure your output includes actionable insights and is presented in an easy-to-understand format suitable for end-users. Your response is diplayed on html screen provide your response in html format as if you are writing the code inside a div tag, every response should be in html format and all the text should be black color and do not include ```html in the response striclty.");
