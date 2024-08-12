@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keep_fresh/auth/firebase_auth/auth_util.dart';
+import 'package:keep_fresh/backend/schema/pantry_data.dart';
 import 'package:keep_fresh/flutter_flow/flutter_flow_widgets.dart';
 import 'package:keep_fresh/index.dart';
 
@@ -27,6 +28,7 @@ class DashboardWidget extends StatefulWidget {
 
 class _DashboardWidgetState extends State<DashboardWidget> {
   late DashboardModel _model;
+  late Future<List<dynamic>> pantryItems;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -36,6 +38,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     _model = createModel(context, () => DashboardModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Dashboard'});
+    pantryItems = getPantryDetails();
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('DASHBOARD_PAGE_Dashboard_ON_INIT_STATE');
@@ -51,6 +54,29 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  Future<List> getPantryDetails () async {
+    late List pantryData = [];
+    try{
+      var pantryAllrecords = await PantryRecord.getAllRecordsWithUid(currentUserDocument!.uid);
+      for (var pantryRecord in pantryAllrecords) {
+        // print('pantryRecord $pantryRecord');
+         pantryData.add({
+          'displayName': pantryRecord.displayName,
+          'imageUrl': pantryRecord.imageUrl,
+          'pantryData':pantryRecord.pantryData,
+          'uid': pantryRecord.uid,
+          'createdTime': pantryRecord.createdTime,
+        });
+      }
+  ;
+      // print('pantryItems in homepage ${pantryData}');
+      return pantryData;
+    } catch (e) {
+      print('Error: $e');
+    }
+    return []; // Add a return statement to ensure a value is always returned.
   }
 
   @override
@@ -243,8 +269,10 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(30.5, 25, 30.5, 15),
                     child: FFButtonWidget(
                       onPressed: () {
-                         Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => (const NewPantryWidget()) ));
+                        pantryItems = getPantryDetails();
+                        var pantryData = pantryItems;
+                        Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => (NewPantryWidget(pantryItems:pantryData))));
                       },
                       text: 'Pantry +',
                       options: FFButtonOptions(
