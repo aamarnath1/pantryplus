@@ -34,7 +34,7 @@ int _selectedCameraIdx = 0;
     );
     _initializeControllerFuture = _controller.initialize();
     _model = GenerativeModel(
-      model: 'gemini-1.5-flash',
+      model: 'gemini-1.5-flash-latest',
       // apiKey: const String.fromEnvironment('api_key')
       apiKey: 'AIzaSyAQcK7SrU3qP7znukuW5RapadrnGuscHlc'
       );
@@ -146,7 +146,7 @@ Future<void> _scanImage() async{
     final picturefile = await _controller.takePicture();
     final file = File(picturefile.path);
     final imageBytes = await file.readAsBytes();
-    final prompt = TextPart("You are a grocery analysis bot who is capable of processing images of grocery items and detailed receipts. You should first identify all items in the image or text and categorize them into 'food' and 'non-food' categories. For food items, you should estimate expiry dates based on product type and purchase date  if not specified consider date of image captured, retrieve and display nutritional information, and suggest recipes that incorporate these ingredients. Each food item should also have a concise summary provided, detailing key nutritional facts and storage recommendations. You should ignore non-food items completely and not perform any analysis on them. Employ convolutional neural networks for image recognition, optical character recognition for processing receipt texts, and integrate a database for fetching food-related data. Ensure your output includes actionable insights and is presented in an easy-to-understand format suitable for end-users. Your response is diplayed on html screen provide your response in html format as if you are writing the code inside a div tag, every response should be in html format and all the text should be black color and do not include ```html in the response striclty.");
+    final prompt = TextPart("You are a grocery analysis bot who is capable of processing images of grocery items and detailed receipts. You should first identify all items in the image or text and categorize them into proper types of food. Ignore non-food items. For each food items provide a json format which contains of type, name, calories & expiry_date all four fields are compulsary it is required to be provided for each response, include all the items in a list, your response should be a list of Json objects. Do not miss a single item in the receipt or the captured image, if same items are repeated consider only one item and ignore repeated items. Provide exact type of the item captured, name, calories & Expiry date can be in days/weeks/months(to calculate expiry date analyse the item and research in your database and get the estimated/ probable expiration date).You should ignore non-food items completely and not perform any analysis on them.Employ convolutional neural networks for image recognition, optical character recognition for processing receipt texts, and integrate a database for fetching food-related data. Your response should be in an array of json objects format. For example: [{type: fruit, name: orange, expiry_date:1-2 weeks},{},{}……]. Strictly do not include ```json ``` in every response you provide and also ignore non edible items do not provide any analysis on them and do not include in the list.");
     final imageParts = [DataPart('image/jpeg', imageBytes)];
     final response = await _model.generateContent([
       Content.multi([prompt, ...imageParts])

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:keep_fresh/pages/meals/pantry_details/pantry_details_widget.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
 import 'package:camera/camera.dart';
@@ -210,6 +211,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) =>  GoRouter(
               builder: (context, params) => params.isEmpty
                   ? const NavBarPage(initialPage: 'NewPantry')
                   : const NewPantryWidget(),
+            ),
+            FFRoute(
+              name: 'PantryDetails',
+              path: 'pantry-details',
+              builder: (context, params) => PantryDetailsWidget(),
             ),
             FFRoute(
               name: 'Camera_test',

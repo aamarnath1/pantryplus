@@ -145,14 +145,6 @@ class _CameraTestWidgetState extends State<CameraTestWidget> {
     return {'error': e};
 }
   }
-
-  // Future<void> pickImageGallery() async {
-
-  //   final returnedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-  //   setState(() {
-  //   });
-  // }
  
   @override
   Widget build(BuildContext context) {
@@ -235,6 +227,7 @@ class _CameraTestWidgetState extends State<CameraTestWidget> {
                   onPressed: () async {
                     Navigator.push(context,
                     MaterialPageRoute(builder: (context) => CameraScreen(camera: widget.camera)));
+                    dispose();
                   },
                   text: 'Open Camera',
                   options: FFButtonOptions(
