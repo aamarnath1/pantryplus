@@ -11,6 +11,39 @@ class PantryDetailsWidget extends StatefulWidget {
    final DateTime? createdTime;
  const PantryDetailsWidget({super.key, this.data, this.createdTime});
 
+ String formatDate(dateStr) {
+    DateTime date;
+    if(dateStr.runtimeType == DateTime){
+       date = dateStr;
+    }else{
+      if(dateStr == []){
+        return '';
+      }else{
+        date = dateStr[0];
+      };
+    }
+    // }
+    
+    // Extract the day and add the ordinal suffix
+    String day = date.day.toString();
+    String daySuffix;
+    if (day.endsWith('1') && !day.endsWith('11')) {
+      daySuffix = 'st';
+    } else if (day.endsWith('2') && !day.endsWith('12')) {
+      daySuffix = 'nd';
+    } else if (day.endsWith('3') && !day.endsWith('13')) {
+      daySuffix = 'rd';
+    } else {
+      daySuffix = 'th';
+    }
+
+    // Format the date
+    String formattedDate = DateFormat('d MMMM yyyy').format(date);
+
+    // Insert the day suffix
+    return formattedDate.replaceFirst(day, day + daySuffix);
+  }
+
   @override
   // ignore: library_private_types_in_public_api
   _PantryDetailsWidgetState createState() => _PantryDetailsWidgetState();
@@ -21,12 +54,7 @@ class _PantryDetailsWidgetState extends State<PantryDetailsWidget> {
 var pantryItems;
   @override
   void initState() {
-    // print(widget.data.runtimeType);
-    // print('widget data printed here ${widget.data?['pantryData']}');
-    // pantryItems = widget.data!;
-    // print('pantryItems type,${pantryItems}');
     pantryItems = jsonDecode(widget.data!);
-    // print('pantryItems type: ${pantryItems.runtimeType}');
     super.initState();
   }
 
@@ -224,31 +252,37 @@ class ShelfDesign extends StatelessWidget {
       groupedItems[type]!.add(item);
     }
 
-  String formatDate(String dateStr) {
-    DateTime date = DateTime.parse(dateStr);
-    // Extract the day and add the ordinal suffix
-    String day = date.day.toString();
-    String daySuffix;
-    if (day.endsWith('1') && !day.endsWith('11')) {
-      daySuffix = 'st';
-    } else if (day.endsWith('2') && !day.endsWith('12')) {
-      daySuffix = 'nd';
-    } else if (day.endsWith('3') && !day.endsWith('13')) {
-      daySuffix = 'rd';
-    } else {
-      daySuffix = 'th';
-    }
+  // String formatDate(dateStr) {
+  //   DateTime date;
+  //   if(dateStr.runtimeType != DateTime){
+  //    date = DateTime.parse(dateStr);
+  //   }else{
+  //      date = dateStr;
+  //   }
+    
+  //   // Extract the day and add the ordinal suffix
+  //   String day = date.day.toString();
+  //   String daySuffix;
+  //   if (day.endsWith('1') && !day.endsWith('11')) {
+  //     daySuffix = 'st';
+  //   } else if (day.endsWith('2') && !day.endsWith('12')) {
+  //     daySuffix = 'nd';
+  //   } else if (day.endsWith('3') && !day.endsWith('13')) {
+  //     daySuffix = 'rd';
+  //   } else {
+  //     daySuffix = 'th';
+  //   }
 
-    // Format the date
-    String formattedDate = DateFormat('d MMMM yyyy').format(date);
+  //   // Format the date
+  //   String formattedDate = DateFormat('d MMMM yyyy').format(date);
 
-    // Insert the day suffix
-    return formattedDate.replaceFirst(day, day + daySuffix);
-  }
+  //   // Insert the day suffix
+  //   return formattedDate.replaceFirst(day, day + daySuffix);
+  // }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('${formatDate(this.date.toString())}',
+        title: Text('${PantryDetailsWidget().formatDate(this.date)}',
         style: FlutterFlowTheme.of(context)
                                 .headlineMedium
                                 .override(
@@ -272,6 +306,7 @@ class ShelfDesign extends StatelessWidget {
             return Shelf(
               type: entry.key,
               items: entry.value,
+              date: this.date,
             );
           }).toList(),
         ),
@@ -284,8 +319,10 @@ class ShelfDesign extends StatelessWidget {
 class Shelf extends StatelessWidget {
   final String type;
   final List<dynamic> items;
+  final date;
 
-  Shelf({required this.type, required this.items});
+  Shelf({required this.type, required this.items, this.date});
+  
 
   @override
   Widget build(BuildContext context) {
@@ -317,7 +354,7 @@ class Shelf extends StatelessWidget {
     for (int i = 0; i < items.length; i += itemsPerRack) {
       List<dynamic> rackItems = items.skip(i).take(itemsPerRack).toList();
       racks.add(
-        Rack(items: rackItems),
+        Rack(items: rackItems, date: this.date),
       );
     }
 
@@ -325,13 +362,53 @@ class Shelf extends StatelessWidget {
   }
 }
 
-  void showFoodItemDetails(BuildContext context,item) {
+  void showFoodItemDetails(BuildContext context,item, date) {
+  List<DateTime> calculateDateRange(DateTime createdAt, String input) {
+    print("expiryDate: $input");
+  RegExp regExp = RegExp(r'(\d+)(?:-(\d+))?\s*(day|week|month|days|weeks|months)', caseSensitive: false);
+  // RegExp regExp = RegExp(r'(\d+)-(\d+)\s*(days|weeks|months)');
+  Match? match = regExp.firstMatch(input);
+
+  if (match != null) {
+    int startValue = int.parse(match.group(1)!);
+    int endValue = match.group(2) != null ? int.parse(match.group(2)!) : startValue;
+    // int endValue = int.parse(match.group(2)!);
+    String unit = match.group(3)!;
+
+    DateTime startDate;
+    DateTime endDate;
+
+    switch (unit) {
+      case 'day':
+      case 'days':
+        startDate = createdAt.add(Duration(days: startValue));
+        endDate = createdAt.add(Duration(days: endValue));
+        break;
+      case 'week':
+      case 'weeks':
+        startDate = createdAt.add(Duration(days: startValue * 7));
+        endDate = createdAt.add(Duration(days: endValue * 7));
+        break;
+      case 'month':
+      case 'months':
+        startDate = DateTime(createdAt.year, createdAt.month + startValue, createdAt.day);
+        endDate = DateTime(createdAt.year, createdAt.month + endValue, createdAt.day);
+        break;
+      default:
+        return [];
+    }
+    return [endDate];
+  }
+  return [];
+}
+
+   var  itemVal = calculateDateRange( date ,'${item['expiry_date']}');
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return SimpleDialog(
           title:
-Text('Pantry Item',
+    Text('Pantry Item',
           style: FlutterFlowTheme.of(context)
                                         .headlineSmall
                                         .override(
@@ -376,7 +453,7 @@ Text('Pantry Item',
                   Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                  Text("Use by: ${item['expiry_date']}",
+                  Text("Use by: ${ itemVal.length == 0 ? item['expiry_date'] : PantryDetailsWidget().formatDate(itemVal[0]) }",
                   style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -399,26 +476,18 @@ Text('Pantry Item',
                 ],
               ),
             ),
-            // SimpleDialogOption(
-            //   onPressed: () {
-            //     Navigator.of(context).pop(); // Close the dialog
-            //   },
-            //   child: const Padding(
-            //     padding: EdgeInsets.symmetric(horizontal: 20.0),
-            //     child: Text('Close', style: TextStyle(fontWeight: FontWeight.bold)),
-            //   ),
-            // ),
           ],
         );
       },
-    );
+    );  
   }
 
 
 class Rack extends StatelessWidget {
   final List<dynamic> items;
+  final date;
 
-  Rack({required this.items});
+  Rack({required this.items, this.date});
 
   @override
   Widget build(BuildContext context) {
@@ -432,7 +501,7 @@ class Rack extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: items.map((item) => Expanded(child: ItemCard(item: item))).toList()
+        children: items.map((item) => Expanded(child: ItemCard(item: item, date: this.date))).toList()
       ),
     );
   }
@@ -440,15 +509,16 @@ class Rack extends StatelessWidget {
 
 class ItemCard extends StatelessWidget {
   final item;
+  final date;
 
-  ItemCard({required this.item});
+  ItemCard({required this.item, this.date});
 
   @override
   Widget build(BuildContext context) {
     return 
     GestureDetector(
       onTap: () {
-        showFoodItemDetails(context, item);
+        showFoodItemDetails(context, item , this.date);
       },
     child: Card(
       // margin: const EdgeInsets.all(4.0),

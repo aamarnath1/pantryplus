@@ -39,6 +39,7 @@ class _ResultScreenState extends State<ResultScreen> {
     try {
       var pantryAllrecords =
           await PantryRecord.getAllRecordsWithUid(currentUserDocument!.uid);
+          pantryAllrecords.sort((a, b) => b.createdTime!.compareTo(a.createdTime!));
       for (var pantryRecord in pantryAllrecords) {
         // print('pantryRecord $pantryRecord');
         pantryData.add({
