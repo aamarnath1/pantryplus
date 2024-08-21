@@ -60,7 +60,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     late List pantryData = [];
     try{
       var pantryAllrecords = await PantryRecord.getAllRecordsWithUid(currentUserDocument!.uid);
+      pantryAllrecords.sort((a, b) => b.createdTime!.compareTo(a.createdTime!));
       for (var pantryRecord in pantryAllrecords) {
+        // print('pantryRecord ${pantryRecord.createdTime}');
         // print('pantryRecord $pantryRecord');
          pantryData.add({
           'displayName': pantryRecord.displayName,
