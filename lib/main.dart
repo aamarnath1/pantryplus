@@ -31,7 +31,6 @@ void main() async {
   // Obtain a list of the available cameras on the device.
   final cameras = await availableCameras();
 
-  print('check cmaeras $cameras');
   // Get a specific camera from the list of available cameras.
   if (cameras.isNotEmpty) {
   firstCamera = cameras.first;

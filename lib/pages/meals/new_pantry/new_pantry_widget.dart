@@ -54,8 +54,6 @@ class _NewPantryWidgetState extends State<NewPantryWidget> {
     // _isLoader = true;
       // print('inside function');
       pantryDatas = await widget.pantryItems;
-      print('pantryDatas in getPantryItems ${pantryDatas?.length}');
-
   }
 
   String formatDate(String dateStr) {
@@ -231,30 +229,23 @@ class _NewPantryWidgetState extends State<NewPantryWidget> {
                                                           //   color: Colors.black,
                                                           // ),
                                                           Text(
-                                                              formatDate(pantryDatas![
-                                                                          index]
-                                                                      [
-                                                                      'createdTime']
-                                                                  .toString()),
-                                                              // ignore: deprecated_member_use_from_same_package
+                                                            'My Pantry ${ pantryDatas!.length - index}',
                                                               style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1
+                                                                      .of(context).headlineSmall
                                                                   .override(
                                                                     fontFamily:
-                                                                        'Comfortaa',
+                                                                      'Comfortaa',
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryText,
                                                                     letterSpacing:
                                                                         0.0,
                                                                   )),
-                                                          // Text(pantryDatas![index]['createdTime'])
                                                         ],
                                                       )),
-                                                  subtitle: Text(
-                                                      pantryDatas![index]
-                                                          ['displayName'],
+                                                  subtitle:
+                                                 Text(
+                                                      '${formatDate(pantryDatas![index]['createdTime'].toString())} • ${jsonDecode(pantryDatas![index]['pantryData']).length} items',
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
