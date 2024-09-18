@@ -11,7 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'camera_test_model.dart';
 export 'camera_test_model.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+// import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
+import 'package:barcode_scan2/barcode_scan2.dart';
 // import 'package:image_picker/image_picker.dart';
 import 'camera_screen.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
@@ -73,16 +74,16 @@ class _CameraTestWidgetState extends State<CameraTestWidget> {
   }
 
   Future<void> openScanner() async {
-    String barcodeScanRes;
+    String _barcodeScanRes;
     try{
-    barcodeScanRes = await FlutterBarcodeScanner.scanBarcode('#ff6666', 'Cancel', false, ScanMode.BARCODE);
-    debugPrint(barcodeScanRes);
+      final barcodeScanRes = await BarcodeScanner.scan(); 
+        _barcodeScanRes = barcodeScanRes.rawContent;
     } on PlatformException {
-         barcodeScanRes = 'Failed to get platform version.';
+         _barcodeScanRes = 'Failed to get platform version.';
     }
     if(!mounted) return;
     setState(() async {
-       var _scanBarcodeResult = barcodeScanRes;
+       var _scanBarcodeResult = _barcodeScanRes;
        await getProduct(_scanBarcodeResult).then((val) async => {
                 if(val.containsKey('error')){
                   Fluttertoast.showToast(
