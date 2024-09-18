@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keep_fresh/auth/firebase_auth/auth_util.dart';
 import 'package:keep_fresh/backend/schema/pantry_data.dart';
+import 'package:keep_fresh/backend/schema/food_items.dart';
 import 'package:keep_fresh/flutter_flow/flutter_flow_widgets.dart';
 import 'package:keep_fresh/index.dart';
 
@@ -59,21 +60,33 @@ class _DashboardWidgetState extends State<DashboardWidget> {
   Future<List> getPantryDetails () async {
     late List pantryData = [];
     try{
-      var pantryAllrecords = await PantryRecord.getAllRecordsWithUid(currentUserDocument!.uid);
-      pantryAllrecords.sort((a, b) => b.createdTime!.compareTo(a.createdTime!));
-      for (var pantryRecord in pantryAllrecords) {
-        // print('pantryRecord ${pantryRecord.createdTime}');
-        // print('pantryRecord $pantryRecord');
-         pantryData.add({
-          'displayName': pantryRecord.displayName,
-          'imageUrl': pantryRecord.imageUrl,
-          'pantryData':pantryRecord.pantryData,
-          'uid': pantryRecord.uid,
-          'createdTime': pantryRecord.createdTime,
+      // var pantryRecords = await FoodItemsRecord.getAllRecordsWithUid(currentUserDocument!.uid);
+      // print('pantryRecords, ${pantryRecords[0].displayName}');
+      // var pantryAllrecords = await PantryRecord.getAllRecordsWithUid(currentUserDocument!.uid);
+      // pantryAllrecords.sort((a, b) => b.createdTime!.compareTo(a.createdTime!));
+      // for (var pantryRecord in pantryAllrecords) {
+      //   // print('pantryRecord ${pantryRecord.createdTime}');
+      //   // print('pantryRecord $pantryRecord');
+      //    pantryData.add({
+      //     'displayName': pantryRecord.displayName,
+      //     'imageUrl': pantryRecord.imageUrl,
+      //     'pantryData':pantryRecord.pantryData,
+      //     'uid': pantryRecord.uid,
+      //     'createdTime': pantryRecord.createdTime,
+      //   });
+      // };
+    var foodItems = await FoodItemsRecord.getAllRecordsWithUid(currentUserDocument!.uid);
+      for(var item in foodItems){
+        pantryData.add({
+          'displayName': item.displayName,
+          'pantryItem': item.pantryItem,
+          'pantryItemDetails': item.pantryItemDetails,
+          'pantryItemId': item.pantryItemId,
+          'geminiExpiryDate': item.geminiExpiryDate,
+          'updatedExpiryDate': item.updatedExpiryDate,
+          'createdTime': item.createdTime,
         });
-      }
-  ;
-      // print('pantryItems in homepage ${pantryData}');
+      }     
       return pantryData;
     } catch (e) {
       print('Error: $e');

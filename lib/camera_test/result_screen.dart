@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:uuid/uuid.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keep_fresh/auth/firebase_auth/auth_util.dart';
 import 'package:keep_fresh/backend/backend.dart';
+import 'package:keep_fresh/backend/schema/food_items.dart';
 import 'package:keep_fresh/backend/schema/pantry_data.dart';
 import 'package:keep_fresh/flutter_flow/flutter_flow_theme.dart';
 import 'package:keep_fresh/flutter_flow/flutter_flow_util.dart';
@@ -37,24 +39,39 @@ class _ResultScreenState extends State<ResultScreen> {
   Future<List> getPantryDetails() async {
     late List pantryData = [];
     try {
-      var pantryAllrecords =
-          await PantryRecord.getAllRecordsWithUid(currentUserDocument!.uid);
-          pantryAllrecords.sort((a, b) => b.createdTime!.compareTo(a.createdTime!));
-      for (var pantryRecord in pantryAllrecords) {
-        // print('pantryRecord $pantryRecord');
+      var foodItems = await FoodItemsRecord.getAllRecordsWithUid(currentUserDocument!.uid);
+
+      for(var item in foodItems){
         pantryData.add({
-          'displayName': pantryRecord.displayName,
-          'imageUrl': pantryRecord.imageUrl,
-          'pantryData': pantryRecord.pantryData,
-          'uid': pantryRecord.uid,
-          'createdTime': pantryRecord.createdTime,
+          'displayName': item.displayName,
+          'pantryItem': item.pantryItem,
+          'pantryItemDetails': item.pantryItemDetails,
+          'pantryItemId': item.pantryItemId,
+          'geminiExpiryDate': item.geminiExpiryDate,
+          'updatedExpiryDate': item.updatedExpiryDate,
+          'createdTime': item.createdTime,
         });
       }
-      ;
-      // print('pantryItems in homepage ${pantryData}');
+      
+      // for(var item in foodItems){
+      //       pantryData.add(item);
+      //       }      // var pantryAllrecords =
+      //     await PantryRecord.getAllRecordsWithUid(currentUserDocument!.uid);
+      //     pantryAllrecords.sort((a, b) => b.createdTime!.compareTo(a.createdTime!));
+      // for (var pantryRecord in pantryAllrecords) {
+      //   // print('pantryRecord $pantryRecord');
+      //   pantryData.add({
+      //     'displayName': pantryRecord.displayName,
+      //     'imageUrl': pantryRecord.imageUrl,
+      //     'pantryData': pantryRecord.pantryData,
+      //     'uid': pantryRecord.uid,
+      //     'createdTime': pantryRecord.createdTime,
+      //   });
+      // }
+      // ;
       return pantryData;
     } catch (e) {
-      print('Error: $e');
+      print('Error $e');
     }
     return []; // Add a return statement to ensure a value is always returned.
   }
@@ -70,6 +87,45 @@ class _ResultScreenState extends State<ResultScreen> {
       )
     ));
   }
+
+  List<DateTime> calculateDateRange(DateTime createdAt, String input) {
+    print('input, $input createdAt, $createdAt');
+  RegExp regExp = RegExp(r'(\d+)(?:-(\d+))?\s*(day|week|month|days|weeks|months)', caseSensitive: false);
+  // RegExp regExp = RegExp(r'(\d+)-(\d+)\s*(days|weeks|months)');
+  Match? match = regExp.firstMatch(input);
+
+  if (match != null) {
+    int startValue = int.parse(match.group(1)!);
+    int endValue = match.group(2) != null ? int.parse(match.group(2)!) : startValue;
+    // int endValue = int.parse(match.group(2)!);
+    String unit = match.group(3)!;
+
+    DateTime startDate;
+    DateTime endDate;
+
+    switch (unit) {
+      case 'day':
+      case 'days':
+        startDate = createdAt.add(Duration(days: startValue));
+        endDate = createdAt.add(Duration(days: endValue));
+        break;
+      case 'week':
+      case 'weeks':
+        startDate = createdAt.add(Duration(days: startValue * 7));
+        endDate = createdAt.add(Duration(days: endValue * 7));
+        break;
+      case 'month':
+      case 'months':
+        startDate = DateTime(createdAt.year, createdAt.month + startValue, createdAt.day);
+        endDate = DateTime(createdAt.year, createdAt.month + endValue, createdAt.day);
+        break;
+      default:
+        return [];
+    }
+    return [endDate];
+  }
+  return [];
+}
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -281,49 +337,31 @@ class _ResultScreenState extends State<ResultScreen> {
                             onPressed: () async {
                               final navigator = Navigator.of(context);
                               if (currentUserDocument != null) {
-                                print('user login details, ${currentUserDocument}');
-                                //  var pantryData = pantryItems;
-                               var pantrydata = await PantryRecord.collection.doc().set({
-                                  ...createPantryRecord(
-                                    displayName: currentUserDocument?.displayName,
-                                    imageUrl: widget.imagePath,
-                                    pantryData: widget.text,
+                                var totalFoodItems = jsonDecode(widget.text);
+                              for( var item in totalFoodItems){
+                               try{
+                                var actual_expiry_date = calculateDateRange(DateTime.now(), item['expiry_date']);
+                                print('actual_expiry_date, $actual_expiry_date');
+                                var batch = FirebaseFirestore.instance.batch();
+                                var foodRef = FoodItemsRecord.collection.doc(); // Create a new document reference
+                                batch.set(foodRef, {
+                                  ...createFoodItemsRecordData(
                                     uid: currentUserDocument?.uid,
+                                    displayName: currentUserDocument?.displayName,
+                                    pantryItem: item['name'],
+                                    pantryItemId: const Uuid().v4(),
+                                    geminiExpiryDate: item['expiry_date'],
+                                    pantryItemDetails: jsonEncode([item]),
+                                    updatedExpiryDate: actual_expiry_date,
                                     createdTime: DateTime.now(),
                                   )
-                                }).whenComplete(() =>  
-                                  // pantryItems = getPantryDetails()
-                                  // Navigator.push(context, MaterialPageRoute(builder: (context) => NewPantryWidget(pantryItems: pantryItems)));
-                                  moveToPantry() 
-                                );
-                                // .then((value) async => {
-                                //   return 'value added to table',
-                                //       // print("value added to table"),
-                                
-                                //       // print('pantryItems $pantryItems'),
-                                     
-                                //       // navigator.push(
-                                //       //   MaterialPageRoute(
-                                //       //     builder: (context) => (NewPantryWidget()),
-                                //       //   ),
-                                //       // )
-                                //     });
-                                    // print('pantrydata $pantrydata');
-                                    // Navigator.push(
-                                    //       context,
-                                    //       MaterialPageRoute(
-                                    //           builder: (context) => NewPantryWidget(
-                                    //                 pantryItems: pantryItems,
-                                    //               ),
-                                    //           settings: RouteSettings(
-                                    //               arguments:pantryItems)
-                                    //           ));
-                                // var pantryData = jsonDecode(widget.text);
-                                // navigator.push(
-                                //   MaterialPageRoute(
-                                //     builder: (context) => NewPantryWidget(pantryItems: pantryData),
-                                //   ),
-                                // );
+                                });
+                                await batch.commit();   // moveToPantry();
+                                }catch(e){
+                                  print('error adding food item to pantry, $e');
+                                }
+                              }
+                              moveToPantry();
                               } else {
                                 context.pushNamed('Onboarding_CreateAccount');
                               }
