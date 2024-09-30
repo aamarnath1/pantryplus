@@ -46,6 +46,10 @@ class FoodItemsRecord extends FirestoreRecord {
   String? get geminiExpiryDate => _gemini_expiry_date;
   bool hasGeminiExpiryDate() => _gemini_expiry_date != null;
 
+  String? _image_url;
+  String? get imageUrl => _image_url;
+  bool hasImageUrl() => _image_url != null;
+
   //"updated_expiry_date" field.
   List<dynamic>? _updated_expiry_date;
   List<dynamic>? get updatedExpiryDate => _updated_expiry_date;
@@ -63,6 +67,7 @@ class FoodItemsRecord extends FirestoreRecord {
     _pantry_item = snapshotData['pantry_item'] as String?;
     _pantry_item_details = snapshotData['pantry_item_details'] as String?;
     _gemini_expiry_date = snapshotData['gemini_expiry_date'] as String?;
+    _image_url = snapshotData['image_url'] as String?;
     _updated_expiry_date = snapshotData['updated_expiry_date'] as List<dynamic>?;
     _createdTime = snapshotData['created_time'] as DateTime?;
   }
@@ -100,6 +105,7 @@ Map<String, dynamic> createFoodItemsRecordData({
   DateTime? createdTime,
   String? pantryItem,
   String? pantryItemDetails,
+  String? imageUrl,
   String? pantryItemId,
   String? geminiExpiryDate,
   List<dynamic>? updatedExpiryDate,
@@ -112,6 +118,7 @@ Map<String, dynamic> createFoodItemsRecordData({
       'pantry_item': pantryItem,
       'pantry_item_id': pantryItemId,
       'pantry_item_details': pantryItemDetails,
+      'image_url': imageUrl,
       'gemini_expiry_date': geminiExpiryDate,
       'updated_expiry_date': updatedExpiryDate,
     }.withoutNulls,
@@ -140,6 +147,7 @@ class FoodItemsRecorDocumentEquality implements Equality<FoodItemsRecord> {
         e?.pantryItem,
         e?.pantryItemDetails,
         e?.pantryItemId,
+        e?.imageUrl,
         e?.geminiExpiryDate,
         e?.updatedExpiryDate,
         e?.createdTime
