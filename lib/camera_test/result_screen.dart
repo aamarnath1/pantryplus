@@ -47,6 +47,7 @@ class _ResultScreenState extends State<ResultScreen> {
           'pantryItem': item.pantryItem,
           'pantryItemDetails': item.pantryItemDetails,
           'pantryItemId': item.pantryItemId,
+          'imageUrl': item.imageUrl,
           'geminiExpiryDate': item.geminiExpiryDate,
           'updatedExpiryDate': item.updatedExpiryDate,
           'createdTime': item.createdTime,
@@ -126,6 +127,25 @@ class _ResultScreenState extends State<ResultScreen> {
   }
   return [];
 }
+
+getImages(String itemName) async {
+  var httpClient = HttpClient();
+  //  String encodedItemName = Uri.encodeComponent(itemName);
+    var request = await httpClient.getUrl(Uri.parse('https://api.pexels.com/v1/search?query=$itemName&per_page=1'));
+    request.headers.set('Authorization', 'UX8wpVU2YBEYfM4BV2qAJLXhySJ7m5gI6D6BGfhbmBnENT1DtpUVBhBl');
+
+  // Close the request to get the response
+  var response = await request.close(); // Close the request to get the response
+    if (response.statusCode == 200) {
+      var responseBody = await response.transform(utf8.decoder).join(); 
+      var url = jsonDecode(responseBody)['photos'][0]['src']['original'].toString();
+      // var url = jsonDecode(responseBody)['hits'][0]['webformatURL'].toString();
+      return url;
+    } else {
+      print("response, ${response.reasonPhrase}");
+      print('Failed to load images: ${response.statusCode}'); // Handle error
+    }
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -339,6 +359,7 @@ class _ResultScreenState extends State<ResultScreen> {
                               if (currentUserDocument != null) {
                                 var totalFoodItems = jsonDecode(widget.text);
                               for( var item in totalFoodItems){
+                                var imageUrl = await getImages(item['name']);
                                try{
                                 var actual_expiry_date = calculateDateRange(DateTime.now(), item['expiry_date']);
                                 print('actual_expiry_date, $actual_expiry_date');
@@ -351,6 +372,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                     pantryItem: item['name'],
                                     pantryItemId: const Uuid().v4(),
                                     geminiExpiryDate: item['expiry_date'],
+                                    imageUrl: imageUrl,
                                     pantryItemDetails: jsonEncode([item]),
                                     updatedExpiryDate: actual_expiry_date,
                                     createdTime: DateTime.now(),
