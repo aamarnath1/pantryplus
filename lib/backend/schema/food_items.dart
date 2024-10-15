@@ -92,12 +92,29 @@ class FoodItemsRecord extends FirestoreRecord {
         .map((snapshot) => FoodItemsRecord.fromSnapshot(snapshot))
         .toList();
   }
-  
 
-        
-      
-}
+  static Future<List<FoodItemsRecord>> getPantryDetails(String? pantryItemId) async {
+     var querySnapshot = await collection.where('pantry_item_id', isEqualTo: pantryItemId).get();
+     return querySnapshot.docs
+            .map((snapshot) => FoodItemsRecord.fromSnapshot(snapshot))
+            .toList();
+  }
 
+  static Future<void> updatePantryDetails(String pantryItemId, Map<String, dynamic> updatedData) async {
+    try {
+        await collection.where('pantry_item_id', isEqualTo: pantryItemId).get().then((snapshot) {
+          for (var doc in snapshot.docs) {
+            doc.reference.update(updatedData);
+          }
+        });
+    } catch (e) {
+        print('Error updating document: $e');
+        if (e is FirebaseException && e.code == 'not-found') {
+            print('Document with pantryItemId $pantryItemId not found.');
+        }
+    }
+  }
+  }
 
 Map<String, dynamic> createFoodItemsRecordData({
   String? uid,
@@ -123,6 +140,7 @@ Map<String, dynamic> createFoodItemsRecordData({
       'updated_expiry_date': updatedExpiryDate,
     }.withoutNulls,
   );
+  print("firestore data printed here, ${firestoreData}");
   return firestoreData;
 }
 
