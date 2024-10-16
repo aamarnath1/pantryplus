@@ -43,12 +43,12 @@ class _NewPantryWidgetState extends State<NewPantryWidget> with SingleTickerProv
   void initState() {
     super.initState();
     _model = createModel(context, () => NewPantryModel());
-    // _tabController = TabController(length: 3, vsync: this);
-    // _tabController.addListener(() {
-    //   if (_tabController.indexIsChanging) {
-    //     setState(() {});
-    //   }
-    // });
+    _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging) {
+        setState(() {});
+      }
+    });
     getPantryItems(true);
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'NewPantry'});
   }
@@ -60,7 +60,7 @@ class _NewPantryWidgetState extends State<NewPantryWidget> with SingleTickerProv
     _itemNameController.dispose();
     _typeController.dispose();
     _categoryController.dispose();
-    // _tabController.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
