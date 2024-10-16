@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:keep_fresh/backend/schema/pantry_data.dart';
 import 'package:keep_fresh/flutter_flow/flutter_flow_theme.dart';
 import 'package:keep_fresh/backend/schema/food_items.dart';
 
@@ -18,11 +19,11 @@ class _PantryItemDetailsState extends State<PantryItemDetails> {
   final TextEditingController _dateController = TextEditingController();
   DateTime? _selectedExpiryDate;
   String? _categoryValue;
+ bool isRefreshed = false;
 
   @override
   void initState() {
     super.initState();
-    print('item ${widget.itemDetails.runtimeType}');
     _pantryDetailsFuture = _getPantryDetails(widget.itemDetails['pantryItemId']);
   }
 
@@ -66,38 +67,22 @@ class _PantryItemDetailsState extends State<PantryItemDetails> {
   @override
   Widget build(BuildContext context) {
 
-    // return GridView.builder(
-    //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    //     crossAxisCount: 1, // Adjust as needed
-    //     childAspectRatio: 2, // Adjust as needed
-    //   ),
-    //   itemCount: 1, // Since we are displaying a single item
-    //   itemBuilder: (context, index) {
-    //     return _buildContent(context, {
-    //       'uid': widget.itemDetails['uid'],
-    //       'displayName': widget.itemDetails['displayName'],
-    //       'pantryItem': widget.itemDetails['pantryItem'],
-    //       'pantryItemDetails': widget.itemDetails['pantryItemDetails'],
-    //       'pantryItemId': widget.itemDetails['pantryItemId'],
-    //       'imageUrl': widget.itemDetails['imageUrl'],
-    //       'geminiExpiryDate': widget.itemDetails['geminiExpiryDate'],
-    //       'updatedExpiryDate': widget.itemDetails['updatedExpiryDate'],
-    //       'createdTime': widget.itemDetails['createdTime'],
-    //     });
-    //   },
-    // );
     return FutureBuilder<Map<String, dynamic>>(
       future: _pantryDetailsFuture,
+      
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          print('Error obtained here');
-          return Center(child: Text('Error: ${snapshot.error}'));
+          if(snapshot.hasError && widget.itemDetails.isNotEmpty){
+            isRefreshed = true;
+              return _buildContent(context, widget.itemDetails);
+          }
+          // return Center(child: Text('Error: ${snapshot.error}'));
         } else if (!snapshot.hasData) {
           return const Center(child: Text('No data available'));
         }
-
+        isRefreshed = false;
         final pantryRecord = snapshot.data!;
         return _buildContent(context, pantryRecord);
       },
@@ -120,6 +105,7 @@ class _PantryItemDetailsState extends State<PantryItemDetails> {
                   _buildItemType(pantryRecord),
                   _buildCalories(pantryRecord),
                   _buildExpiryDate(pantryRecord),
+                  if(!isRefreshed)
                   _buildEditButton(pantryRecord),
                 ],
               ),
@@ -280,16 +266,16 @@ class _PantryItemDetailsState extends State<PantryItemDetails> {
       lastDate: DateTime(2301),
       builder: (BuildContext context, Widget? child) {
         return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: Color(0xFF26AE61),
-              onPrimary: Colors.white,
-              onSurface: Colors.black,
-            ),
-            dialogBackgroundColor: Colors.white,
-          ),
-          child: child!,
-        );
+                      data: Theme.of(context).copyWith(
+                      colorScheme: ColorScheme.light(
+                        primary: Color.fromARGB(255 , 38, 174, 97), // Header background color
+                        onPrimary: Colors.white, // Header text color
+                        onSurface: Colors.black, // Body text color
+                      ),
+                      dialogBackgroundColor: Colors.white, // Background color of the dialog
+                    ),
+                    child: child!
+                    );
       },
     ).then((selectedDate) {
       if (selectedDate != null) {
