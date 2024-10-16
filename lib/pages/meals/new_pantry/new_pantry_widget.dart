@@ -124,11 +124,10 @@ class _NewPantryWidgetState extends State<NewPantryWidget> with SingleTickerProv
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      print('url ${data['photos'][0]['src']['original'].toString()}');
       return data['photos'][0]['src']['original'].toString();
     } else {
       print('Failed to load images: ${response.statusCode}');
-      return 'noImage';
+      return '';
     }
   }
 
@@ -213,18 +212,7 @@ class _NewPantryWidgetState extends State<NewPantryWidget> with SingleTickerProv
               ],
             ),
           ),
-          
-          // actions: [
-          //   // TextButton(
-          //   //   child: Text('Cancel'),
-          //   //   onPressed: () => Navigator.of(context).pop(),
-          //   // ),
-          //   // TextButton(
-          //   //   child: Text('Add'),
-          //   //   onPressed: () => _addItem(_categoryController.text),
-          //   // ),
 
-          // ],
         );
       },
     );
@@ -324,6 +312,12 @@ InputDecoration _getInputDecoration(String label) {
           controller: controller,
           readOnly: readOnly,
           onTap: onTap,
+          style: FlutterFlowTheme.of(context).labelMedium.override(
+                                                        fontFamily: 'Comfortaa',
+                                                        color: Colors.black,
+                                                        fontSize: 16,
+                                                        fontWeight: FontWeight.w500,
+                                                      ),
           decoration: InputDecoration(
                                                       filled: true,
                                                           // fillColor: Color(0xFFEDE8DF), // Light gray background for better visibility
@@ -368,6 +362,19 @@ InputDecoration _getInputDecoration(String label) {
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
       lastDate: DateTime(2101),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+                      data: Theme.of(context).copyWith(
+                      colorScheme: ColorScheme.light(
+                        primary: Color.fromARGB(255 , 38, 174, 97), // Header background color
+                        onPrimary: Colors.white, // Header text color
+                        onSurface: Colors.black, // Body text color
+                      ),
+                      dialogBackgroundColor: Colors.white, // Background color of the dialog
+                    ),
+                    child: child!
+                    );
+      }
     );
     if (picked != null) {
       setState(() {
@@ -378,7 +385,7 @@ InputDecoration _getInputDecoration(String label) {
   }
 
   Future<void> _addItem(String category) async {
-    if (_itemNameController.text.isNotEmpty && _dateController.text.isNotEmpty && _typeController.text.isNotEmpty) {
+    if (_itemNameController.text.isNotEmpty && _dateController.text.isNotEmpty && _typeController.text.isNotEmpty && _categoryController.text.isNotEmpty) {
       var imageUrl = await getImages(_itemNameController.text);
       if (imageUrl != null) {
         final newItem = {
@@ -409,13 +416,12 @@ InputDecoration _getInputDecoration(String label) {
           }]),
           "created_time": DateTime.now(),
           "updated_expiry_date": [selectedExpiryDate],
-        }).then((value) => 
-        print("data added to database succcesfully..!!!"));
+        });
                 // Update the local state
         setState(() {
           switch (category.toLowerCase()) {
             case 'pantry':
-              pantryItems.add(newItem);
+              pantryItems.add(newItem);              
               break;
             case 'fridge':
               fridgeItems.add(newItem);
@@ -441,7 +447,13 @@ InputDecoration _getInputDecoration(String label) {
 
   Widget _buildItemGrid(List<dynamic> items) {
     return items.isEmpty
-      ? Center(child: Text('No items', style: TextStyle(color: Colors.white)))
+      ? Center(child: Text('No items', style: FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .override(
+                      fontFamily: 'Comfortaa',
+                      letterSpacing: 0.0,
+                                      color: Colors.white
+                    ),))
       : FutureBuilder<List<dynamic>>(
           future: Future.value(items), // Convert the list to a Future
           builder: (context, snapshot) {
@@ -450,7 +462,13 @@ InputDecoration _getInputDecoration(String label) {
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(child: Text('No items', style: TextStyle(color: Colors.white)));
+              return Center(child: Text('No items', style: FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .override(
+                      fontFamily: 'Comfortaa',
+                      letterSpacing: 0.0,
+                                      color: Colors.white
+                    ),));
             } else {
               return GridView.builder(
                 padding: EdgeInsets.all(10),
@@ -476,7 +494,6 @@ InputDecoration _getInputDecoration(String label) {
       child: InkWell(
         borderRadius: BorderRadius.circular(10),
         onTap: () => {
-        print('item, $item'),
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => PantryItemDetails(itemDetails: item)),
@@ -498,7 +515,8 @@ InputDecoration _getInputDecoration(String label) {
               child: Text(
                 item['pantryItem'],
                 textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(fontWeight: FontWeight.bold,
+                color: Colors.white),
               ),
             ),
           ],
@@ -560,10 +578,10 @@ InputDecoration _getInputDecoration(String label) {
         TabBar(
           controller: _tabController,
           indicator: BoxDecoration(
-            color: FlutterFlowTheme.of(context).secondary, // Changed background color for the indicator to a clean light color
+            color: Color.fromARGB(255, 202, 201, 199), // Changed background color for the indicator to match the background color
             borderRadius: BorderRadius.circular(8),
           ),
-          labelColor: Colors.white,
+          labelColor: Colors.black,
           unselectedLabelColor: Colors.grey, // Changed unselected label color
           labelStyle: FlutterFlowTheme.of(context).bodyMedium.override(
             fontFamily: 'Comfortaa',
@@ -631,9 +649,24 @@ InputDecoration _getInputDecoration(String label) {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(Icons.account_circle, size: 100, color: Color.fromARGB(255, 38, 174, 97)),
-                Text('Create Account', style: FlutterFlowTheme.of(context).displaySmall),
+                Text('Create Account',  style:FlutterFlowTheme.of(context)
+                                    .displaySmall
+                                    .override(
+                      fontFamily: 'Comfortaa',
+                      letterSpacing: 0.0,
+                                      color: const Color(0xFF101518)
+                    ),
+                                    ),
                 SizedBox(height: 20),
-                Text('Join us to manage your pantry items effectively.', textAlign: TextAlign.center),
+                Text('Join us to manage your pantry items effectively.', textAlign: TextAlign.center,
+                style:FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .override(
+                      fontFamily: 'Comfortaa',
+                      letterSpacing: 0.0,
+                                      color: const Color(0xFF101518)
+                    ),
+                ),
                 SizedBox(height: 30),
                 FFButtonWidget(
                   text: 'Create Account',
@@ -651,7 +684,14 @@ InputDecoration _getInputDecoration(String label) {
                   ),
                 ),
                 SizedBox(height: 40),
-                Text('You can still access camera features. Try exploring!', textAlign: TextAlign.center),
+                Text('You can still access camera features. Try exploring!', textAlign: TextAlign.center,
+                 style:FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .override(
+                      fontFamily: 'Comfortaa',
+                      letterSpacing: 0.0,
+                                      color: const Color(0xFF101518)
+                    ),),
                 SizedBox(height: 40),
                 FFButtonWidget(
                   text: 'Explore Camera Features',
