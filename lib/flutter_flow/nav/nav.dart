@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:keep_fresh/pages/meals/pantry_details/pantry_details_widget.dart';
+import 'package:keep_fresh/pages/profile/eating_preferences/preferences/Diet/diet_widget.dart';
+import 'package:keep_fresh/pages/profile/eating_preferences/preferences/allergens/allergens_widget.dart';
+import 'package:keep_fresh/pages/profile/eating_preferences/preferences/food_dislikes/food_dislikes_widget.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
 import 'package:camera/camera.dart';
@@ -213,14 +215,24 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) =>  GoRouter(
                   : const NewPantryWidget(),
             ),
             FFRoute(
-              name: 'PantryDetails',
-              path: 'pantry-details',
-              builder: (context, params) => PantryDetailsWidget(),
-            ),
-            FFRoute(
               name: 'Camera_test',
               path: 'cameraTest',
               builder: (context, params) { return CameraTestWidget(cameraMap, camera: firstCamera);},
+            ),
+            FFRoute(
+              name: 'diet',
+              path: 'diet',
+              builder: (context, params) { return DietWidget();}
+            ),
+            FFRoute(
+              name:'allergens',
+              path:'allergens',
+              builder: (context, params) { return AllergensWidget();}
+            ),
+            FFRoute(
+              name:'dislike_ingredients',
+              path:'dislike_ingredients',
+              builder: (context, params){ return FoodDislikesScreen();}
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
