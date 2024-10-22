@@ -131,15 +131,8 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                                     logFirebaseEvent(
                                         'EATING_PREFERENCES_Container_5vzne7wd_ON');
                                     logFirebaseEvent('Container_navigate_to');
-
                                     context.pushNamed(
-                                      'EditPreferences',
-                                      queryParameters: {
-                                        'page': serializeParam(
-                                          0,
-                                          ParamType.int,
-                                        ),
-                                      }.withoutNulls,
+                                      'diet' // Navigate to the diet screen
                                     );
                                   },
                                   child: Container(
@@ -176,7 +169,7 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     18.0, 0.0, 0.0, 0.0),
                                             child: Text(
-                                              'Diet',                                      
+                                              'Diet',
                                               style: FlutterFlowTheme.of(context)
                                                                       .bodyLarge
                                                                       .override(
@@ -205,17 +198,10 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     logFirebaseEvent(
-                                        'EATING_PREFERENCES_Container_5uwgtvf0_ON');
+                                        'EATING_PREFERENCES_Container_5vzne7wd_ON');
                                     logFirebaseEvent('Container_navigate_to');
-
                                     context.pushNamed(
-                                      'EditPreferences',
-                                      queryParameters: {
-                                        'page': serializeParam(
-                                          1,
-                                          ParamType.int,
-                                        ),
-                                      }.withoutNulls,
+                                      'allergens' // Navigate to the diet screen
                                     );
                                   },
                                   child: Container(
@@ -274,24 +260,17 @@ class _EatingPreferencesWidgetState extends State<EatingPreferencesWidget> {
                             Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                InkWell(
+                                  InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     logFirebaseEvent(
-                                        'EATING_PREFERENCES_Container_k93592n4_ON');
+                                        'EATING_PREFERENCES_Container_5vzne7wd_ON');
                                     logFirebaseEvent('Container_navigate_to');
-
                                     context.pushNamed(
-                                      'EditPreferences',
-                                      queryParameters: {
-                                        'page': serializeParam(
-                                          2,
-                                          ParamType.int,
-                                        ),
-                                      }.withoutNulls,
+                                      'dislike_ingredients' // Navigate to the diet screen
                                     );
                                   },
                                   child: Container(
