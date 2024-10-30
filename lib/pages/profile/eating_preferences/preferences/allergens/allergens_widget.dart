@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:keep_fresh/auth/firebase_auth/auth_util.dart';
+import 'package:keep_fresh/backend/schema/users_record.dart';
 import 'package:keep_fresh/flutter_flow/flutter_flow_theme.dart';
+import 'package:keep_fresh/flutter_flow/flutter_flow_widgets.dart';
 
 class AllergensWidget extends StatefulWidget {
   const AllergensWidget({Key? key}) : super(key: key);
@@ -9,204 +12,196 @@ class AllergensWidget extends StatefulWidget {
 }
 
 class _AllergensWidgetState extends State<AllergensWidget> {
-  final List<String> _predefinedAllergens = [
-    'Peanuts',
-    'Tree Nuts',
-    'Milk',
-    'Eggs',
-    'Fish',
-    'Shellfish',
-    'Soy',
-    'Wheat',
-  ];
+  List<String> selectedAllergens = [];
+  TextEditingController _controller = TextEditingController();
 
-  final Set<String> _selectedAllergens = {};
-  final TextEditingController _customAllergenController = TextEditingController();
+  final List<String> commonAllergens = [
+    'Peanuts', 'Tree Nuts', 'Milk', 'Eggs', 'Fish',
+    'Shellfish', 'Soy', 'Wheat', 'Sesame', 'Mustard'
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Allergens Preferences',
-        style: FlutterFlowTheme.of(context).titleMedium.override(
-              fontFamily: 'Comfortaa',
-              color: const Color(0xFF000000),
-              letterSpacing: 0.0,
-            ),
+          style: FlutterFlowTheme.of(context).titleMedium.override(
+            fontFamily: 'Comfortaa',
+            color: const Color(0xFF000000),
+            letterSpacing: 0.0,
+          ),
         ),
-         iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Color(0xFFEDE8DF),
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       backgroundColor: Color(0xFFEDE8DF),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Text(
-                    'Select your allergens:',
-                    style:FlutterFlowTheme.of(context)
-                                    .bodyLarge
-                                    .override(
+      body:
+      AuthUserStreamWidget(builder: (context) {
+        if (selectedAllergens.isEmpty && currentUserDocument?.allergens != null) {
+          selectedAllergens = List.from(currentUserDocument!.allergens);
+        }
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0, bottom: 10.0),
+              child: Text(
+                'Select common allergens:',
+                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                  fontFamily: 'Comfortaa',
+                  letterSpacing: 0.0,
+                  color: const Color(0xFF101518)
+                ),
+              ),
+            ),
+            Wrap(
+              spacing: 8,
+              children: commonAllergens.map((allergen) {
+                return FilterChip(
+                  label: Text(allergen,
+                    style: FlutterFlowTheme.of(context).bodyLarge.override(
                       fontFamily: 'Comfortaa',
                       letterSpacing: 0.0,
-                                      color: const Color(0xFF101518)
+                      color: (currentUserDocument!.allergens.contains(allergen) && selectedAllergens.length == 0) ||  selectedAllergens.contains(allergen) ? Colors.white : const Color(0xFF101518)
                     ),
                   ),
-                ),
-                _buildSelectedAllergenChips(),
-                ..._predefinedAllergens.map(_buildAllergenCheckbox).toList(),
-                _buildCustomAllergenInput(),
-              ],
+                  backgroundColor: Colors.green[400],
+                  selected:(currentUserDocument!.allergens.contains(allergen) && selectedAllergens.length == 0) || selectedAllergens.contains(allergen),
+                  onSelected: (selected) {
+                    setState(() {
+                      if (selected) {
+                        selectedAllergens.add(allergen);
+                      } else {
+                        selectedAllergens.remove(allergen);
+                      }
+                    });
+                  },
+                );
+              }).toList(),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSelectedAllergenChips() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Wrap(
-            spacing: 8.0,
-            runSpacing: 4.0,
-            children: _selectedAllergens.map((allergen) {
-              return Chip(
-                label: Text(allergen,
-                style:FlutterFlowTheme.of(context)
-                                        .bodyLarge
-                                        .override(
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Enter a custom allergen',
+                        hintStyle: FlutterFlowTheme.of(context).bodySmall.override(
                           fontFamily: 'Comfortaa',
                           letterSpacing: 0.0,
-                          color: const Color(0xFF101518)
+                          color: const Color(0xFF101518),
                         ),
-                ),
-                deleteIcon: const Icon(Icons.cancel, size: 18),
-                backgroundColor: Colors.green[400], // Change background color for this chip
-                onDeleted: () {
-                  setState(() {
-                    _selectedAllergens.remove(allergen);
-                  });
-                },
-              );
-            }).toList(),
-          ),
-          const SizedBox(height: 16), // Add some space between chips and button
-          ElevatedButton(
-            onPressed: () {
-              // TODO: Implement save functionality
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Allergens saved: ${_selectedAllergens.join(', ')}')),
-              );
-            },
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.green), // Green background
-            ),
-            child: Text('Save Allergens',
-              style: FlutterFlowTheme.of(context)
-                  .bodySmall
-                  .override(
-                    fontFamily: 'Comfortaa',
-                    letterSpacing: 0.0,
-                    color: Colors.white,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                        ),
+                      ),
+                      controller: _controller,
+                      style: FlutterFlowTheme.of(context).bodyLarge.override(
+                        fontFamily: 'Comfortaa',
+                        letterSpacing: 0.0,
+                        color: const Color(0xFF101518),
+                      ),
+                    ),
                   ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAllergenCheckbox(String allergen) {
-    return CheckboxListTile(
-      title: Text(allergen,
-        style:FlutterFlowTheme.of(context)
-                                    .bodyLarge
-                                    .override(
-                      fontFamily: 'Comfortaa',
-                      letterSpacing: 0.0,
-                                      color: const Color(0xFF101518)
+                  SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: _addCustomAllergen,
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.green),
                     ),
-      ),
-      value: _selectedAllergens.contains(allergen),   
-      activeColor: FlutterFlowTheme.of(context).secondary,
-      checkboxShape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4),
-      ),
-      side: const BorderSide(color: Colors.black, width: 1.5),
-      onChanged: (bool? value) {
-        setState(() {
-          if (value == true) {
-            _selectedAllergens.add(allergen);
-          } else {
-            _selectedAllergens.remove(allergen);
-          }
-        });
-      },
-    );
-  }
-
-  Widget _buildCustomAllergenInput() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              controller: _customAllergenController,
-              decoration: InputDecoration(
-                labelText: 'Add custom allergen',
-                labelStyle: FlutterFlowTheme.of(context)
-                    .bodyLarge
-                    .override(
-                      fontFamily: 'Comfortaa',
-                      letterSpacing: 0.0,
-                      color: const Color(0xFF101518),
+                    child: Text('Add',
+                      style: FlutterFlowTheme.of(context).bodySmall.override(
+                        fontFamily: 'Comfortaa',
+                        letterSpacing: 0.0,
+                        color: Colors.white,
+                      ),
                     ),
-                // contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-                hintText: 'Enter allergen name',
-                hintStyle: FlutterFlowTheme.of(context)
-                    .bodySmall
-                    .override(
-                      fontFamily: 'Comfortaa',
-                      letterSpacing: 0.0,
-                      color: const Color(0xFF101518),
-                    ), // Added padding
+                  ),
+                ],
               ),
-              style: FlutterFlowTheme.of(context)
-                                    .bodySmall
-                                    .override(
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: selectedAllergens.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(
+                      selectedAllergens[index],
+                      style: FlutterFlowTheme.of(context).bodyLarge.override(
+                        fontFamily: 'Comfortaa',
+                        letterSpacing: 0.0,
+                        color: const Color(0xFF101518)
+                      ),
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      color: Colors.red[300],
+                      onPressed: () => _removeAllergen(index),
+                    ),
+                  );
+                },
+              ),
+            ),
+
+
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20.0), 
+              child: FFButtonWidget(
+              onPressed: () async {
+                await UsersRecord.collection.doc(currentUserDocument?.uid).update({
+                    ...createUsersRecordData(
+                      allergens: selectedAllergens
+                    )
+                  });
+                // TODO: Implement save functionality
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Allergens saved: ${selectedAllergens.join(', ')}')),
+                );
+              },
+              text: 'Save Allergens',
+              options: FFButtonOptions(
+                width: 300, // Set a specific width instead of maxFinite
+                height: 40,
+                color: Colors.green, // Change button color to blue
+                textStyle: FlutterFlowTheme.of(context)
+                        .bodySmall
+                        .override(
                       fontFamily: 'Comfortaa',
                       letterSpacing: 0.0,
-                                      color: const Color(0xFF101518)
-                    ) ,
+                      color: Colors.white,
+                    ),
+                borderSide: BorderSide(
+                  color: Colors.transparent,
+                  width: 1,
+                ),
+                borderRadius: BorderRadius.circular(8),
+              ),
+            )
             ),
-          ),
-          IconButton(
-            icon: Icon(Icons.add, color: const Color(0xFF101518)),
-            onPressed: () {
-              final String newAllergen = _customAllergenController.text.trim();
-              if (newAllergen.isNotEmpty) {
-                setState(() {
-                  _selectedAllergens.add(newAllergen);
-                  _customAllergenController.clear();
-                });
-              }
-            },
-          ),
-        ],
-      ),
+          ],
+        );
+      }),
     );
   }
 
-  @override
-  void dispose() {
-    _customAllergenController.dispose();
-    super.dispose();
+  void _addCustomAllergen() {
+    if (_controller.text.isNotEmpty) {
+      setState(() {
+        selectedAllergens.add(_controller.text);
+        _controller.clear();
+      });
+    }
+  }
+
+  void _removeAllergen(int index) {
+    setState(() {
+      selectedAllergens.removeAt(index); 
+    });
   }
 }

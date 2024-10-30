@@ -126,6 +126,8 @@ Map<String, dynamic> createUsersRecordData({
   DateTime? createdTime,
   String? phoneNumber,
   String? diet,
+  List<String>? allergens,
+  List<String>? dislikedIngredients
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -138,6 +140,8 @@ Map<String, dynamic> createUsersRecordData({
       'created_time': createdTime,
       'phone_number': phoneNumber,
       'diet': diet,
+      'allergens':allergens,
+      'ingredient_dislikes':dislikedIngredients
     }.withoutNulls,
   );
 
