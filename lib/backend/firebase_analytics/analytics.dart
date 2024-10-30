@@ -15,7 +15,7 @@ void logFirebaseEvent(String eventName, {Map<String?, dynamic>? parameters}) {
   parameters.putIfAbsent(
       'user', () => currentUserUid.isEmpty ? 'unset' : currentUserUid);
   parameters.removeWhere((k, v) => k == null || v == null);
-  final params = parameters.map((k, v) => MapEntry(k!, v));
+  final params = parameters.map((k, v) => MapEntry(k!, v as Object));
 
   // FB Analytics allows num values but others need to be converted to strings
   // and cannot be more than 100 characters.
@@ -28,7 +28,6 @@ void logFirebaseEvent(String eventName, {Map<String?, dynamic>? parameters}) {
       params[entry.key] = valStr;
     }
   }
-
   FirebaseAnalytics.instance.logEvent(name: eventName, parameters: params);
 }
 

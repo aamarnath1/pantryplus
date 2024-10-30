@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:keep_fresh/auth/firebase_auth/auth_util.dart';
+import 'package:keep_fresh/backend/schema/users_record.dart';
 import 'package:keep_fresh/flutter_flow/flutter_flow_theme.dart';
+import 'package:keep_fresh/flutter_flow/flutter_flow_widgets.dart';
 
 class FoodDislikesScreen extends StatefulWidget {
   @override
@@ -31,7 +34,12 @@ class _FoodDislikesScreenState extends State<FoodDislikesScreen> {
         iconTheme: IconThemeData(color: Colors.black),
       ),
       backgroundColor: Color(0xFFEDE8DF),
-      body: Column(
+      body: AuthUserStreamWidget(
+      builder: (context) { 
+      if (dislikedIngredients.isEmpty && currentUserDocument?.ingredientDislikes != null) {
+          dislikedIngredients = List.from(currentUserDocument!.ingredientDislikes);
+        }   
+       return Column(
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0, bottom: 10.0),
@@ -56,11 +64,11 @@ class _FoodDislikesScreenState extends State<FoodDislikesScreen> {
                                     .override(
                       fontFamily: 'Comfortaa',
                       letterSpacing: 0.0,
-                                      color: dislikedIngredients.contains(ingredient) ? Colors.white : const Color(0xFF101518)
+                                      color: (currentUserDocument!.ingredientDislikes.contains(ingredient)) || dislikedIngredients.contains(ingredient) ? Colors.white : const Color(0xFF101518)
                     ),
                 ),
                 backgroundColor: Colors.green[400],
-                selected: dislikedIngredients.contains(ingredient),
+                selected: (currentUserDocument!.ingredientDislikes.contains(ingredient)) || dislikedIngredients.contains(ingredient),
                 onSelected: (selected) {
                   setState(() {
                     if (selected) {
@@ -154,28 +162,43 @@ class _FoodDislikesScreenState extends State<FoodDislikesScreen> {
               },
             ),
           ),
-          ElevatedButton(
-            onPressed: () {
+          Padding(
+              padding: const EdgeInsets.only(bottom: 20.0), 
+              child: FFButtonWidget(
+              onPressed: () async {
+                await UsersRecord.collection.doc(currentUserDocument?.uid).update({
+                    ...createUsersRecordData(
+                      dislikedIngredients: dislikedIngredients
+                    )
+                  });
               // TODO: Implement save functionality
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('Disliked ingredients saved: ${dislikedIngredients.join(', ')}')),
               );
-            },
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.blue), // Change button color to blue
-            ),
-            child: Text('Save Ingredients',
-            style: FlutterFlowTheme.of(context)
-                    .bodySmall
-                    .override(
-                  fontFamily: 'Comfortaa',
-                  letterSpacing: 0.0,
-                  color: Colors.white,
+              },
+              text: 'Save Ingredients',
+              options: FFButtonOptions(
+                width: 300, // Set a specific width instead of maxFinite
+                height: 40,
+                color: Colors.green, // Change button color to blue
+                textStyle: FlutterFlowTheme.of(context)
+                        .bodySmall
+                        .override(
+                      fontFamily: 'Comfortaa',
+                      letterSpacing: 0.0,
+                      color: Colors.white,
+                    ),
+                borderSide: BorderSide(
+                  color: Colors.transparent,
+                  width: 1,
                 ),
+                borderRadius: BorderRadius.circular(8),
+              ),
+            )
             ),
-          ),
         ],
-      ),
+      );}
+    )
     );
   }
 
