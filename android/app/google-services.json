@@ -7,12 +7,25 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:714769292366:android:363957f4262670f244771f",
+        "mobilesdk_app_id": "1:714769292366:android:e4ea169cae451e2c44771f",
         "android_client_info": {
-          "package_name": "com.mealplanner.app"
+          "package_name": "com.mealplan.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "714769292366-t6q6m2fvq4c46t20a17vna263njha6t8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mealplan.app",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "714769292366-g7dpi3555q1hnmb40uhshkgp3durcer5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCjQXw3BERDOHBz2F72gBQ-UQ-E5x4vivE"
@@ -20,7 +33,99 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714769292366-g7dpi3555q1hnmb40uhshkgp3durcer5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714769292366:android:363957f4262670f244771f",
+        "android_client_info": {
+          "package_name": "com.mealplanner.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714769292366-g7dpi3555q1hnmb40uhshkgp3durcer5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjQXw3BERDOHBz2F72gBQ-UQ-E5x4vivE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714769292366-g7dpi3555q1hnmb40uhshkgp3durcer5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714769292366:android:8d250abce7a42b5b44771f",
+        "android_client_info": {
+          "package_name": "com.pantryplus.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714769292366-g7dpi3555q1hnmb40uhshkgp3durcer5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjQXw3BERDOHBz2F72gBQ-UQ-E5x4vivE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714769292366-g7dpi3555q1hnmb40uhshkgp3durcer5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714769292366:android:1a9f1b6f5fc6978b44771f",
+        "android_client_info": {
+          "package_name": "com.pantryplus.mealplanner.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714769292366-g7dpi3555q1hnmb40uhshkgp3durcer5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjQXw3BERDOHBz2F72gBQ-UQ-E5x4vivE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714769292366-g7dpi3555q1hnmb40uhshkgp3durcer5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

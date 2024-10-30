@@ -162,34 +162,21 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                               print('snapshot $snapshot');
                               // Customize what your widget looks like when it's loading.
                               if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 25.0,
-                                    height: 25.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }
-                              List<CompanyInformationRecord>
-                                  columnCompanyInformationRecordList =
-                                  snapshot.data!;
-                              // Return an empty Container when the item does not exist.
-                              if (snapshot.data!.isEmpty) {
-                                print('-----inside the container code------');
-                                return Container();
-                              }
-                              final columnCompanyInformationRecord =
-                                  columnCompanyInformationRecordList.isNotEmpty
-                                      ? columnCompanyInformationRecordList.first
-                                      : null;
-                              return Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  InkWell(
+                                // return Center(
+                                //   child: SizedBox(
+                                //     width: 25.0,
+                                //     height: 25.0,
+                                //     child: CircularProgressIndicator(
+                                //       valueColor: AlwaysStoppedAnimation<Color>(
+                                //         FlutterFlowTheme.of(context).primary,
+                                //       ),
+                                //     ),
+                                //   ),
+                                // );
+                                return Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
                                     hoverColor: Colors.transparent,
@@ -274,6 +261,237 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                       ],
                                     ),
                                   ),
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      logFirebaseEvent(
+                                          'PROFILE_PAGE_SupportCenterTile_ON_TAP');
+                                      logFirebaseEvent(
+                                          'SupportCenterTile_navigate_to');
+
+                                      context.pushNamed('SupportCenter');
+                                    },
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 12.0, 0.0, 12.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Container(
+                                                width: 40.0,
+                                                height: 40.0,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .accent1,
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(4.0),
+                                                  child: Icon(
+                                                    Icons.support_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    size: 20.0,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        18.0, 0.0, 0.0, 0.0),
+                                                child: Text(
+                                                  'Support Center',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyLarge
+                                                      .override(
+                                                        fontFamily: 'Comfortaa',
+                                                        letterSpacing: 0.0,
+                                                        color: const Color(0xFF101518)
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 12.0, 0.0, 12.0),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        logFirebaseEvent(
+                                            'PROFILE_PAGE_LogoutTile_ON_TAP');
+                                        logFirebaseEvent('LogoutTile_auth');
+                                        GoRouter.of(context).prepareAuthEvent();
+                                        await authManager.signOut();
+                                        GoRouter.of(context)
+                                            .clearRedirectLocation();
+
+                                        context.goNamedAuth(
+                                            'Splash', context.mounted);
+                                      },
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Container(
+                                            width: 40.0,
+                                            height: 40.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .accent1,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Icon(
+                                                Icons.logout,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                size: 18.0,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    18.0, 0.0, 0.0, 0.0),
+                                            child: Text(
+                                              'Log out',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyLarge
+                                                      .override(
+                                                        fontFamily: 'Comfortaa',
+                                                        letterSpacing: 0.0,
+                                                        color: const Color(0xFF101518)
+                                                      ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  ]
+                                );
+                              }
+                              List<CompanyInformationRecord>
+                                  columnCompanyInformationRecordList =
+                                  snapshot.data!;
+                              // Return an empty Container when the item does not exist.
+                              if (snapshot.data!.isEmpty) {
+                                print('-----inside the container code------');
+                                return Container();
+                              }
+                              final columnCompanyInformationRecord =
+                                  columnCompanyInformationRecordList.isNotEmpty
+                                      ? columnCompanyInformationRecordList.first
+                                      : null;
+                              return Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      logFirebaseEvent(
+                                          'PROFILE_PAGE_EditProfileTile_ON_TAP');
+                                      logFirebaseEvent(
+                                          'EditProfileTile_navigate_to');
+
+                                      context.pushNamed('EditProfile');
+                                    },
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        AuthUserStreamWidget(builder: (context) =>
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 12.0, 0.0, 12.0),
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              logFirebaseEvent(
+                                                  'PROFILE_PAGE_Row_ya8doloq_ON_TAP');
+                                              logFirebaseEvent(
+                                                  'Row_navigate_to');
+
+                                              currentUserDocument != null ? context.pushNamed('EditProfile') : context.pushNamed('Onboarding_CreateAccount');
+                                            },
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Container(
+                                                  width: 40.0,
+                                                  height: 40.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .accent1,
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(4.0),
+                                                    child: Icon(
+                                                      Icons
+                                                          .person_outline_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      size: 20.0,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          18.0, 0.0, 0.0, 0.0),
+                                                  child: Text(
+                                                   currentUserDocument != null ? 'Edit Profile' : 'Create Account',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyLarge
+                                                        .override(
+                                                          fontFamily: 'Comfortaa',
+                                                          color: const Color(0xFF101518),
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  if(currentUserDocument != null)
                                   InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
