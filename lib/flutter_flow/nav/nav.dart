@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:keep_fresh/pages/meals/recipes/recipes_widget.dart';
 import 'package:keep_fresh/pages/profile/eating_preferences/preferences/Diet/diet_widget.dart';
 import 'package:keep_fresh/pages/profile/eating_preferences/preferences/allergens/allergens_widget.dart';
 import 'package:keep_fresh/pages/profile/eating_preferences/preferences/food_dislikes/food_dislikes_widget.dart';
@@ -233,7 +234,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) =>  GoRouter(
               name:'dislike_ingredients',
               path:'dislike_ingredients',
               builder: (context, params){ return FoodDislikesScreen();}
-            )
+            ),
+            FFRoute(
+              name: 'Recipes',
+              path: 'recipes',
+              builder: (context, params) => const RecipesWidget(),
+            ),
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
