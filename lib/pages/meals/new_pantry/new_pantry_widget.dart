@@ -565,6 +565,11 @@ InputDecoration _getInputDecoration(String label) {
             color: Colors.black,
             onPressed: () => _showAddItemDialog(),
           ),
+        IconButton(
+          icon: Icon(Icons.food_bank_outlined), // Using a receipt icon to represent recipes
+          color: Colors.black,
+          onPressed: () => context.pushNamed('Recipes') // Updated to match the correct route name
+        ),
           FlutterFlowIconButton(
             borderRadius: 20,
             buttonSize: 40,
