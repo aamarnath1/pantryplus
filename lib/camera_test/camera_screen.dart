@@ -157,9 +157,16 @@ Future<void> _scanImage() async{
       });
     }
 
+    String? data = response.text;
+      String? trimmedData = data!.trim();
+      if (trimmedData.startsWith('```json') && trimmedData.endsWith('```')) {
+        trimmedData = trimmedData.replaceFirst('```json', '').replaceFirst('```', '').trim();
+      }
+
+
     await navigator.push(
         MaterialPageRoute(
-            builder: (context) => ResultScreen(text: response.text ?? '', imagePath: picturefile.path),
+            builder: (context) => ResultScreen(text: trimmedData ?? '', imagePath: picturefile.path),
         ),
       );
 
