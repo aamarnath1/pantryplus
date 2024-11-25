@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:keep_fresh/pages/meals/generated_recipes/generated_recipes_widget.dart';
 import 'package:keep_fresh/pages/meals/recipes/recipes_widget.dart';
 import 'package:keep_fresh/pages/profile/eating_preferences/preferences/Diet/diet_widget.dart';
 import 'package:keep_fresh/pages/profile/eating_preferences/preferences/allergens/allergens_widget.dart';
@@ -240,6 +241,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) =>  GoRouter(
               path: 'recipes',
               builder: (context, params) => const RecipesWidget(),
             ),
+          FFRoute(
+            name: 'GeneratedRecipes',
+            path: 'generated-recipes',
+            builder: (context, params) => GeneratedRecipes(recipeData: params.getParam('recipeData', ParamType.String)),
+          ),
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
