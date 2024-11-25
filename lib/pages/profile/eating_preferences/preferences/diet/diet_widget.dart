@@ -174,7 +174,7 @@ Widget build(BuildContext context) {
                   SnackBar(content: Text('Diet preference saved: $_selectedDiet')),
                 );
               },
-              text: 'Save Ingredients',
+              text: 'Save Diet',
               options: FFButtonOptions(
                 width: 300, // Set a specific width instead of maxFinite
                 height: 40,

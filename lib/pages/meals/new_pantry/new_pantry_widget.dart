@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:keep_fresh/auth/firebase_auth/auth_util.dart';
 import 'package:intl/intl.dart';
@@ -565,11 +566,14 @@ InputDecoration _getInputDecoration(String label) {
             color: Colors.black,
             onPressed: () => _showAddItemDialog(),
           ),
-        IconButton(
-          icon: Icon(Icons.food_bank_outlined), // Using a receipt icon to represent recipes
-          color: Colors.black,
-          onPressed: () => context.pushNamed('Recipes') // Updated to match the correct route name
-        ),
+          AuthUserStreamWidget(builder: (context) => 
+            IconButton(
+              icon: Icon(Icons.food_bank_outlined), // Using a receipt icon to represent recipes
+              color: Colors.black,
+              onPressed: () => (currentUserDocument?.allergens.length != 0 && currentUserDocument?.diet.length != 0 && currentUserDocument?.ingredientDislikes.length != 0) ?  context.pushNamed('Recipes') : Navigator.of(context).push(MaterialPageRoute(builder: (context) => EatingPreferencesWidget()),
+) // Updated to match the correct route name
+            ),
+          ),
           FlutterFlowIconButton(
             borderRadius: 20,
             buttonSize: 40,
@@ -729,17 +733,4 @@ InputDecoration _getInputDecoration(String label) {
     );
   }
 
-  // Color _getSelectedColor() {
-  //   print('inside select color ');
-  //   switch (_tabController.index) {
-  //     case 0:
-  //       return Color.fromARGB(255, 38, 174, 97); // Pantry color
-  //     case 1:
-  //       return Color.fromARGB(255, 86, 117, 160); // Fridge color
-  //     case 2:
-  //       return Color.fromARGB(255, 130, 222, 238); // Freezer color
-  //     default:
-  //       return Color.fromARGB(255, 38, 174, 97); // Default to Pantry color
-  //   }
-  // }
 }
