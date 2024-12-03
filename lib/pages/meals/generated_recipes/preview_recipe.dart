@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:keep_fresh/auth/firebase_auth/auth_util.dart';
+import 'package:keep_fresh/backend/schema/recipes.dart';
 import 'package:keep_fresh/flutter_flow/flutter_flow_theme.dart';
+import 'package:keep_fresh/flutter_flow/flutter_flow_util.dart';
 import 'package:keep_fresh/flutter_flow/flutter_flow_widgets.dart';
+import 'package:uuid/uuid.dart';
+import 'package:keep_fresh/pages/meals/generated_recipes/Nutritional_info/nutritional_info_widget.dart';
 
+// ignore: must_be_immutable
 class PreviewRecipePage extends StatefulWidget {
   final Map<String, dynamic>? recipeData;
+  bool isSavedRecipes;
 
-  PreviewRecipePage({required this.recipeData}) {
+  PreviewRecipePage({required this.recipeData, required this.isSavedRecipes}) {
   }
 
   @override
@@ -17,7 +24,6 @@ class _PreviewRecipePageState extends State<PreviewRecipePage> {
   @override
   Widget build(BuildContext context) {
     final recipeData = widget.recipeData ?? {};
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -115,6 +121,119 @@ class _PreviewRecipePageState extends State<PreviewRecipePage> {
                                     ),
                     ),
                   ),
+                Center(
+                    child: InkWell(
+                      onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NutritionalInfoScreen(
+                                      nutritionalData: recipeData['recipe_nutritional_info'],
+                                    ),
+                                  ),
+                                );
+                              },
+                      child: Stack(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            child: Card(
+                              color: Color(0xFFD3D3D3), // Light cement color
+                              margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Nutritional Facts',
+                                      style: FlutterFlowTheme.of(context).headlineMedium.override(
+                                        fontFamily: 'Comfortaa',
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black, // Text color set to black
+                                      ),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      'Calories: ${recipeData['recipe_nutritional_info']['calories'] ?? 'N/A'}',
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        fontFamily: 'Comfortaa',
+                                        fontSize: 16,
+                                        color: Colors.black, // Text color set to black
+                                      ),
+                                    ),
+                                    Text(
+                                      'Protein: ${recipeData['recipe_nutritional_info']['protein'] ?? 'N/A'}',
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        fontFamily: 'Comfortaa',
+                                        fontSize: 16,
+                                        color: Colors.black, // Text color set to black
+                                      ),
+                                    ),
+                                    Text(
+                                      'Total Carbohydrates: ${recipeData['recipe_nutritional_info']['total_carbohydrate'] ?? 'N/A'}',
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        fontFamily: 'Comfortaa',
+                                        fontSize: 16,
+                                        color: Colors.black, // Text color set to black
+                                      ),
+                                    ),
+                                    Text(
+                                      'Total Fat: ${recipeData['recipe_nutritional_info']['total_fat'] ?? 'N/A'}',
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        fontFamily: 'Comfortaa',
+                                        fontSize: 16,
+                                        color: Colors.black, // Text color set to black
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 8,
+                            right: 8,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => NutritionalInfoScreen(
+                                          nutritionalData: recipeData['recipe_nutritional_info'],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0), // Added padding
+                                    child: Text(
+                                      'More Info',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height:10),
+
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Center(
@@ -191,12 +310,22 @@ class _PreviewRecipePageState extends State<PreviewRecipePage> {
                         ),
                     ],
                   ),
+                  if(!widget.isSavedRecipes)
                   Padding(
                   padding: const EdgeInsets.only(bottom: 30, top:10),
                   child: Center(
                     child: FFButtonWidget(
-                      onPressed: () {
-                        // Add your save recipe logic here
+                      onPressed: () async {
+                        final recipe = createRecipesRecordData(
+                          uid: currentUserDocument?.uid,
+                          recipeId: 'recipe_${Uuid().v4()}',
+                          displayName: currentUserDocument?.displayName,
+                          recipeObj: recipeData,
+                          createdTime: DateTime.now(),
+                        );
+                      await RecipesRecord.addRecipe(recipe).then((val) =>{
+                      context.pushNamed('Recipes')
+                      });
                       },
                       text: 'Save Recipe',
                       options: FFButtonOptions(
