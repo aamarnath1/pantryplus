@@ -157,7 +157,7 @@ getRecipeImages(String itemName) async {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => PreviewRecipePage(recipeData: selectedRecipe),
+                                      builder: (context) => PreviewRecipePage(recipeData: selectedRecipe, isSavedRecipes: true,),
                                     ),
                                   );
                                 },
@@ -326,7 +326,7 @@ getRecipeImages(String itemName) async {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => PreviewRecipePage(recipeData: recipe),
+                                      builder: (context) => PreviewRecipePage(recipeData: recipe, isSavedRecipes: true,),
                                     ),
                                   );
                                 },
