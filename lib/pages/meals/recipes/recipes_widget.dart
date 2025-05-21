@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +14,7 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:keep_fresh/pages/meals/generated_recipes/generated_recipes_widget.dart';
 import 'package:keep_fresh/pages/meals/generated_recipes/preview_recipe.dart';
 import 'package:keep_fresh/pages/profile/eating_preferences/eating_preferences_widget.dart';
+import 'package:http/http.dart' as http;
 
 class RecipesWidget extends StatefulWidget {
   const RecipesWidget({Key? key}) : super(key: key);
@@ -25,6 +27,7 @@ class _RecipesWidgetState extends State<RecipesWidget> {
   bool isSelected = false;
   TextEditingController _recipePromptController = TextEditingController();
   late final GenerativeModel _model;
+  late final GenerativeModel _imageModel;
    List<dynamic> recipes = [];
    List<dynamic>savedRecipes = [];
    List<dynamic>existingPantryItems = [];
@@ -248,6 +251,12 @@ class _RecipesWidgetState extends State<RecipesWidget> {
       model: 'gemini-1.5-flash-latest',
       apiKey: 'AIzaSyAQcK7SrU3qP7znukuW5RapadrnGuscHlc'
       );
+
+    // _imageModel = GenerativeModel(
+    //   model: 'imagen-3.0-generate-001',
+    //   apiKey:'AIzaSyAQcK7SrU3qP7znukuW5RapadrnGuscHlc'
+    // );
+    // generateImage('Cauliflower Mash');
       getSuggestedRecipes();
       getSavedRecipes();
   }
@@ -320,6 +329,53 @@ class _RecipesWidgetState extends State<RecipesWidget> {
   }
   }
 
+
+  // Future<Uint8List> _generate(String query) async {
+  //   Uint8List image = await imageGenerator(query, ImageSize.medium); 
+  //   return image;
+  // }
+
+// Future<Uint8List> generateImage(String query) async {
+//   try {
+//     // Set your API token for authentication
+//     // Authenticator.setApiToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNDEzNGZiNDMtN2IzOS00NTY2LWI1NDItNTUwODE0NzNjYzViIiwidHlwZSI6ImFwaV90b2tlbiJ9.T2I4De0osuCwz8A17wmYIuntvs44C89B04N1vVG3Ib8'); // Replace with your actual API key
+//     //   print('data authenticated here');
+//     // // Generate the image using the query and desired image size
+//     // Uint8List image = await imageGenerator(query, ImageSize.medium);
+//     // print('image generating here, ${image}');
+//     var url = Uri.parse('https://api.edenai.run/v2/image/generation'); // Replace with the actual API endpoint
+//     var headers = {
+//       'Content-Type': 'application/json',
+//       'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNDEzNGZiNDMtN2IzOS00NTY2LWI1NDItNTUwODE0NzNjYzViIiwidHlwZSI6ImFwaV90b2tlbiJ9.T2I4De0osuCwz8A17wmYIuntvs44C89B04N1vVG3Ib8', // Use the API token for authentication
+//     };
+
+//     var payload = {
+//     'providers': 'replicate,openai',
+//     'text': query,
+//     'resolution':'512x512',
+//     'fallback_providers': '',
+//   };
+//       try {
+//     print('Generating Image');
+//     var response = await http.post(
+//       url,
+//       headers: headers,
+//       body: jsonEncode(payload),
+//     );
+//     print('response ${response.body}');
+//     var result = json.decode(response.body);
+//     final bytes = base64.decode((result['openai']['items'][0])['image']);
+//     print('bytes ${bytes}');
+//     return bytes;
+//   } catch (e) {
+//     throw Exception();
+//   } // Return the generated image
+//     // return image;
+//   } catch (e) {
+//     print('Error generating image: ${e.toString()}'); // More details on the error: ${e.toString()}
+//     throw Exception('Failed to generate image');
+//   }
+// }
 
  getSuggestedRecipes() async {
         var pantryItems = await FoodItemsRecord.getAllRecordsWithUid(currentUserDocument!.uid);
