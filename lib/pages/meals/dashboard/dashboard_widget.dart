@@ -5,6 +5,9 @@ import 'package:keep_fresh/backend/schema/pantry_data.dart';
 import 'package:keep_fresh/backend/schema/food_items.dart';
 import 'package:keep_fresh/flutter_flow/flutter_flow_widgets.dart';
 import 'package:keep_fresh/index.dart';
+import 'package:keep_fresh/pages/meals/expiry_calender/expiry_calender_widget.dart';
+import 'package:keep_fresh/pages/meals/grocery_list/grocery_list_widget.dart';
+import 'package:keep_fresh/pages/meals/recipes/recipes_widget.dart';
 
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -149,162 +152,301 @@ class _DashboardWidgetState extends State<DashboardWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16, 16, 0, 16),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      AuthUserStreamWidget(
-                        builder: (context) => 
-                        Flexible( 
-                        child : Text(
+          child: Column(
+            children: [
+              // Fixed Welcome Text
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 16, 0, 16),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AuthUserStreamWidget(
+                      builder: (context) => 
+                      Flexible( 
+                        child: Text(
                           'Welcome${currentUserDocument != null ?  ', $currentUserDisplayName' : '' }',
-                          //  softWrap: true,
-                          //  overflow: TextOverflow.ellipsis,
-                           style:FlutterFlowTheme.of(context)
-                                    .displaySmall
-                                    .override(
-                                      fontFamily: 'Comfortaa',
-                                      letterSpacing: 0.0,
-                                      color: const Color(0xFF101518)
-                                    ),
+                          style: FlutterFlowTheme.of(context)
+                                  .displaySmall
+                                  .override(
+                                    fontFamily: 'Comfortaa',
+                                    letterSpacing: 0.0,
+                                    color: const Color(0xFF101518)
+                                  ),
                         ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              
+              // Scrollable Cards Section
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Expiry Calendar Card
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                        child: Material(
+                          color: Colors.transparent,
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ExpiryCalendarWidget(isPreview: false,)),
+                              );
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: 200,
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 255, 255, 255),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Stack(
+                                children: [
+                                  Positioned.fill(
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(top: 1, bottom: 1),
+                                            child: Container(
+                                              child: ExpiryCalendarWidget(isPreview: true,),
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.horizontal(
+                                                  right: Radius.circular(12),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      // Grocery List Card
+
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                        child: Material(
+                          color: Colors.transparent,
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => GroceryListWidget()),
+                              );
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: 155,
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 255, 255, 255),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Stack(
+                                children: [
+                                  Positioned.fill(
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 1,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(top:1,bottom:1),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: AssetImage('assets/images/grocery_list.png'),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                borderRadius: BorderRadius.horizontal(
+                                                  right: Radius.circular(12),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Padding(
+                                            padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'Grocery list',
+                                                  style: FlutterFlowTheme.of(context)
+                                                      .titleMedium
+                                                      .override(
+                                                        fontFamily: 'Comfortaa',
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 17,
+                                                        letterSpacing: 0.0,
+                                                        color: const Color(0xFF101518),
+                                                        useGoogleFonts: GoogleFonts.asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(context)
+                                                                    .titleMediumFamily),
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      // Recipes Card
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                        child: Material(
+                          color: Colors.transparent,
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => RecipesWidget()),
+                              );
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: 155,
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 255, 255, 255),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Stack(
+                                children: [
+                                  Positioned.fill(
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 1,
+                                          child: Padding(
+                                            padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'Recipes',
+                                                  style: FlutterFlowTheme.of(context)
+                                                      .titleMedium
+                                                      .override(
+                                                        fontFamily: 'Comfortaa',
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 17,
+                                                        letterSpacing: 0.0,
+                                                        color: const Color(0xFF101518),
+                                                        useGoogleFonts: GoogleFonts.asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(context)
+                                                                    .titleMediumFamily),
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(top:1,bottom:1),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: AssetImage('assets/images/recipe.png'),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                borderRadius: BorderRadius.horizontal(
+                                                  right: Radius.circular(12),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                  child: Material(
-                    color: Colors.transparent,
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Container(
-                      width: double.infinity,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        color:Color.fromARGB(255, 255, 255, 255),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Expiry Calendar',
-                              style: FlutterFlowTheme.of(context)
-                                  .titleMedium
-                                  .override(
-                                    fontFamily: 'Comfortaa',
-                                    letterSpacing: 0.0,
-                                    color: const Color(0xFF101518),
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .titleMediumFamily),
-                                  ),
+              ),
+
+              // Fixed Pantry Button
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(30.5, 25, 30.5, 15),
+                child: FFButtonWidget(
+                  onPressed: () {
+                    pantryItems = getPantryDetails();
+                    var pantryData = pantryItems;
+                    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => (NewPantryWidget(pantryItems:pantryData))));
+                  },
+                  text: 'Pantry +',
+                  options: FFButtonOptions(
+                    width: 332,
+                    height: 50,
+                    padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
+                    iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                    color: FlutterFlowTheme.of(context).secondary,
+                    textStyle:
+                        FlutterFlowTheme.of(context).displaySmall.override(
+                              fontFamily: FlutterFlowTheme.of(context)
+                                  .displaySmallFamily,
+                              color: Color.fromARGB(255, 235, 229, 217),
+                              letterSpacing: 0,
+                              useGoogleFonts: GoogleFonts.asMap()
+                                  .containsKey(FlutterFlowTheme.of(context)
+                                      .displaySmallFamily),
                             ),
-                          ],
-                        ),
-                      ),
+                    elevation: 3,
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
                     ),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                  child: Material(
-                    color: Colors.transparent,
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Container(
-                      width: double.infinity,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        color:Color.fromARGB(255, 255, 255, 255),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Grocery List',
-                              style: FlutterFlowTheme.of(context)
-                                  .titleMedium
-                                  .override(
-                                    fontFamily: 'Comfortaa',
-                                    letterSpacing: 0.0,
-                                    color: const Color(0xFF101518),
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .titleMediumFamily),
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ),  
-                    ), 
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(30.5, 25, 30.5, 15),
-                    child: FFButtonWidget(
-                      onPressed: () {
-                        pantryItems = getPantryDetails();
-                        var pantryData = pantryItems;
-                        Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => (NewPantryWidget(pantryItems:pantryData))));
-                      },
-                      text: 'Pantry +',
-                      options: FFButtonOptions(
-                        width: 332,
-                        height: 50,
-                        padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
-                        iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                        color: FlutterFlowTheme.of(context).secondary,
-                        textStyle:
-                            FlutterFlowTheme.of(context).displaySmall.override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .displaySmallFamily,
-                                  color: Color.fromARGB(255, 235, 229, 217),
-                                  letterSpacing: 0,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .displaySmallFamily),
-                                ),
-                        elevation: 3,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      )    
-                      ),
-                  )
-                ),
-              ],
-            ),
-            
+              ),
+            ],
           ),
         ),
       ),

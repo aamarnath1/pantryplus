@@ -29,11 +29,12 @@ class RecipesRecord extends FirestoreRecord {
   String get displayName => _displayName ?? '';
   bool hasDisplayName() => _displayName != null;
 
-    // "created_time" field.
+  // "created_time" field.
   DateTime? _createdTime;
   DateTime? get createdTime => _createdTime;
   bool hasCreatedTime() => _createdTime != null;
 
+  //recipeObj field.
   Map? _recipeObj;
   Map? get recipeObj => _recipeObj;
   bool hasrecipeObj() => _recipeObj != null;
