@@ -1,13 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-// import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keep_fresh/auth/firebase_auth/auth_util.dart';
 import 'package:keep_fresh/backend/schema/food_items.dart';
 import 'package:keep_fresh/flutter_flow/flutter_flow_theme.dart';
-// import 'package:syncfusion_flutter_calendar/calendar.dart';
-// import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
+import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:intl/intl.dart';
 import 'package:keep_fresh/flutter_flow/flutter_flow_util.dart';
 import 'package:keep_fresh/index.dart';
@@ -15,25 +14,22 @@ import 'package:uuid/uuid.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ExpiryCalendarWidget extends StatefulWidget {
+  const ExpiryCalendarWidget({
+    Key? key,
+    this.isPreview = false,
+  }) : super(key: key);
 
-  bool isPreview = false;
-
-  ExpiryCalendarWidget({super.key, required this.isPreview});
-
+  final bool isPreview;
 
   @override
-  _ExpiryCalendarWidgetState createState() => _ExpiryCalendarWidgetState( );
-  
+  _ExpiryCalendarWidgetState createState() => _ExpiryCalendarWidgetState();
 }
-
 
 class _ExpiryCalendarWidgetState extends State<ExpiryCalendarWidget> {
   DateTime _currentDate = DateTime.now();
   var pantryItemsExpiring = [];
   var _selectedExpiryDates = [];
-  // Map<DateTime, List<Event>> _markedDateMap = {
-  //   // Add more predefined dates and events as needed
-  // };
+  Map<DateTime, List<Event>> _markedDateMap = {};
 
   // Add this map to track checkbox states
   Map<String, bool> _checkedItems = {};
@@ -75,36 +71,47 @@ class _ExpiryCalendarWidgetState extends State<ExpiryCalendarWidget> {
     if (widget.isPreview) {
       _currentDate = _getStartOfWeek();
     }
-    // getPantryItems();
+    getPantryItems();
     checkGroceryListItems();
   }
 
+  getPantryItems() async {
+    var pantryData = [];
+    var pantryItems = await FoodItemsRecord.getAllRecordsWithUid(currentUserDocument!.uid);
+    for(var food in pantryItems) {
+      pantryData.add({
+        'item': '${food.pantryItem}',
+        'updatedExpiry': food.updatedExpiryDate,
+        'id': '${food.pantryItemId}', 
+        'itemDetails': '${food.pantryItemDetails}'
+      });
+    }
+    pantryItemsExpiring = pantryData;
+    setState(() {
+      for (var item in pantryItemsExpiring) {
+        DateTime originalDate = DateTime.parse('${item['updatedExpiry'][0]}');
+        DateTime formattedDate = DateTime(originalDate.year, originalDate.month, originalDate.day);
+        var updatedDesc = jsonEncode({
+          "item": "${item['item']}",
+          "itemId": "${item['id']}",
+          "updatedExpiryDate": "${item['updatedExpiry'][0]}",
+          "description": "${item['itemDetails']}"
+        });
+        
+        final event = Event(
+          date: formattedDate,
+          title: item['item'],
+          description: updatedDesc,
+        );
 
-  // getPantryItems() async {
-  //   var pantryData = [];
-  //   var pantryItems = await FoodItemsRecord.getAllRecordsWithUid(currentUserDocument!.uid);
-  //         for(var food in pantryItems){
-  //             pantryData.add({'item':'${food.pantryItem}','updatedExpiry':food.updatedExpiryDate,'id':'${food.pantryItemId}', 'itemDetails':'${food.pantryItemDetails}'});
-  //         }
-  //         pantryItemsExpiring = pantryData;
-  //         setState(() {
-  //           for (var item in pantryItemsExpiring) {
-  //             DateTime originalDate = DateTime.parse('${item['updatedExpiry'][0]}');
-  //             DateTime formattedDate = DateTime(originalDate.year, originalDate.month, originalDate.day);
-  //             var updatedDesc = jsonEncode({
-  //               "item" : "${item['item']}",
-  //               "itemId" : "${item['id']}",
-  //               "updatedExpiryDate" : "${item['updatedExpiry'][0]}",
-  //               "description" : "${item['itemDetails']}"
-  //             });
-  //             if (_markedDateMap.containsKey(formattedDate)) {
-  //                 _markedDateMap[formattedDate]!.add(Event(date: formattedDate, title: item['item'], description: updatedDesc));
-  //             } else {
-  //                 _markedDateMap[formattedDate] = [Event(date: formattedDate, title: item['item'], description: updatedDesc)];
-  //             }
-  //           }
-  //         });
-  // }
+        if (_markedDateMap.containsKey(formattedDate)) {
+          _markedDateMap[formattedDate]!.add(event);
+        } else {
+          _markedDateMap[formattedDate] = [event];
+        }
+      }
+    });
+  }
 
   void pushSelected(data) {
     var actualData = jsonDecode(data);
@@ -200,85 +207,84 @@ class _ExpiryCalendarWidgetState extends State<ExpiryCalendarWidget> {
   @override
   Widget build(BuildContext context) {
     if (widget.isPreview) {
-      return Container();
-      // return CalendarCarousel<Event>(
-      //               onDayPressed: (date, events) {
-      //                 setState(() => _currentDate = date);
-      //                 events.forEach((event) {
-      //                   pushSelected(event.description);
-      //                   Navigator.push(
-      //                     context,
-      //                     MaterialPageRoute(
-      //                       builder: (context) => ExpiryCalendarWidget(
-      //                         isPreview: false,
-      //                       ),
-      //                     ),
-      //                   );
-      //                 });
-      //               },
-      //               weekendTextStyle: TextStyle(
-      //                 color: Colors.black,
-      //               ),
-      //               thisMonthDayBorderColor: Colors.grey,
-      //               headerTextStyle: TextStyle(
-      //                 fontSize: 20,
-      //                 fontWeight: FontWeight.bold,
-      //                 color: Colors.black,
-      //               ),
-      //               daysTextStyle: TextStyle(color: Colors.black),
-      //                weekFormat: false,
-      //               markedDatesMap: EventList<Event>(events: _markedDateMap),
-      //               // viewportFraction: 1 ,
-      //               height: 370.0,
-      //               selectedDateTime: _currentDate,
-      //               showIconBehindDayText: true,
-      //               markedDateShowIcon: true,
-      //               markedDateIconMaxShown: 2,
-      //               selectedDayTextStyle: TextStyle(
-      //                 color: Colors.white,
-      //               ),
-      //               todayTextStyle: TextStyle(
-      //                 color: Colors.blue,
-      //               ),
-      //               markedDateIconBuilder: (event) {
-      //                 if (event.description != null) {
-      //                   var eventDescriptionJson = jsonDecode(event.description!);
-      //                   if(jsonDecode(eventDescriptionJson['description'])[0]["category"] == 'pantry')
-      //                   return Container(
-      //                   decoration: BoxDecoration(
-      //                     color: Color.fromARGB(255, 38, 174, 97), // Set the background color to red
-      //                     shape: BoxShape.circle, // Optional: make it circular
-      //                   ),
-      //                   width: 16.0, // Optional: set width
-      //                   height: 16.0, // Optional: set height
-      //                 );
-      //                 if(jsonDecode(eventDescriptionJson['description'])[0]["category"] == 'fridge')
-      //                 return Container(
-      //                   decoration: BoxDecoration(
-      //                     color: Color.fromARGB(255, 86, 117, 160), // Set the background color to red
-      //                     shape: BoxShape.circle, // Optional: make it circular
-      //                   ),
-      //                   width: 16.0, // Optional: set width
-      //                   height: 16.0, // Optional: set height
-      //                 );
-      //                 if(jsonDecode(eventDescriptionJson['description'])[0]["category"] == 'freezer')
-      //                 return Container(
-      //                   decoration: BoxDecoration(
-      //                     color: Color.fromARGB(255, 130, 222, 238), // Set the background color to red
-      //                     shape: BoxShape.circle, // Optional: make it circular
-      //                   ),
-      //                   width: 16.0, // Optional: set width
-      //                   height: 16.0, // Optional: set height
-      //                 );
-      //                 } else {
-      //                   print('event description is null');
-      //                 }
-      //               },
-      //               todayButtonColor: Colors.transparent,
-      //               todayBorderColor: Colors.green,
-      //               markedDateMoreShowTotal: true,
-      //               firstDayOfWeek: 1, // Monday as first day of week
-      //             ); // Return an empty container when in preview mode
+      return Container(
+        height: 370.0,
+        child: CalendarCarousel<Event>(
+          onDayPressed: (date, events) {
+            setState(() => _currentDate = date);
+            events.forEach((event) {
+              pushSelected(event.description);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ExpiryCalendarWidget(
+                    isPreview: false,
+                  ),
+                ),
+              );
+            });
+          },
+          weekendTextStyle: TextStyle(color: Colors.black),
+          thisMonthDayBorderColor: Colors.grey,
+          weekFormat: false,
+          height: 370.0,
+          selectedDateTime: _currentDate,
+          targetDateTime: _currentDate,
+          markedDatesMap: EventList<Event>(events: _markedDateMap),
+          showIconBehindDayText: true,
+          markedDateShowIcon: true,
+          markedDateIconMaxShown: 2,
+          selectedDayTextStyle: TextStyle(color: Colors.white),
+          todayTextStyle: TextStyle(color: Colors.blue),
+          markedDateIconBuilder: (event) {
+            if (event.description != null) {
+              try {
+                var eventDescriptionJson = jsonDecode(event.description!);
+                var descriptionData = jsonDecode(eventDescriptionJson['description']);
+                if (descriptionData.isNotEmpty && descriptionData[0] != null) {
+                  var category = descriptionData[0]['category'] as String?;
+                  Color markerColor;
+                  switch (category) {
+                    case 'pantry':
+                      markerColor = Color.fromARGB(255, 38, 174, 97);
+                      break;
+                    case 'fridge':
+                      markerColor = Color.fromARGB(255, 86, 117, 160);
+                      break;
+                    case 'freezer':
+                      markerColor = Color.fromARGB(255, 130, 222, 238);
+                      break;
+                    default:
+                      markerColor = Colors.grey;
+                  }
+                  return Container(
+                    width: 8.0,
+                    height: 8.0,
+                    margin: EdgeInsets.symmetric(horizontal: 0.3),
+                    decoration: BoxDecoration(
+                      color: markerColor,
+                      shape: BoxShape.circle,
+                    ),
+                  );
+                }
+              } catch (e) {
+                print('Error parsing event data: $e');
+              }
+            }
+            return SizedBox.shrink();
+          },
+          todayButtonColor: Colors.transparent,
+          todayBorderColor: Colors.green,
+          markedDateMoreShowTotal: true,
+          firstDayOfWeek: 1,
+          headerTextStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+          daysTextStyle: TextStyle(color: Colors.black),
+        ),
+      );
     }
     
     return Scaffold(
@@ -327,80 +333,76 @@ class _ExpiryCalendarWidgetState extends State<ExpiryCalendarWidget> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              // Container(
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(10),
-              //     child: CalendarCarousel<Event>(
-              //       onDayPressed: (date, events) {
-              //         setState(() => _currentDate = date);
-              //         events.forEach((event) {
-              //           pushSelected(event.description);
-              //         });
-              //       },
-              //       weekendTextStyle: TextStyle(
-              //         color: Colors.black,
-              //       ),
-              //       thisMonthDayBorderColor: Colors.grey,
-              //       headerTextStyle: TextStyle(
-              //         fontSize: 20,
-              //         fontWeight: FontWeight.bold,
-              //         color: Colors.black,
-              //       ),
-              //       daysTextStyle: TextStyle(color: Colors.black),
-              //       weekFormat: false,
-              //       markedDatesMap: EventList<Event>(events: _markedDateMap),
-              //       height: 370.0,
-              //       selectedDateTime: _currentDate,
-              //       showIconBehindDayText: true,
-              //       markedDateShowIcon: true,
-              //       markedDateIconMaxShown: 2,
-              //       selectedDayTextStyle: TextStyle(
-              //         color: Colors.white,
-              //       ),
-              //       todayTextStyle: TextStyle(
-              //         color: Colors.blue,
-              //       ),
-              //       markedDateIconBuilder: (event) {
-              //         if (event.description != null) {
-              //           var eventDescriptionJson = jsonDecode(event.description!);
-              //           if(jsonDecode(eventDescriptionJson['description'])[0]["category"] == 'pantry')
-              //           return Container(
-              //           decoration: BoxDecoration(
-              //             color: Color.fromARGB(255, 38, 174, 97), // Set the background color to red
-              //             shape: BoxShape.circle, // Optional: make it circular
-              //           ),
-              //           width: 16.0, // Optional: set width
-              //           height: 16.0, // Optional: set height
-              //         );
-              //         if(jsonDecode(eventDescriptionJson['description'])[0]["category"] == 'fridge')
-              //         return Container(
-              //           decoration: BoxDecoration(
-              //             color: Color.fromARGB(255, 86, 117, 160), // Set the background color to red
-              //             shape: BoxShape.circle, // Optional: make it circular
-              //           ),
-              //           width: 16.0, // Optional: set width
-              //           height: 16.0, // Optional: set height
-              //         );
-              //         if(jsonDecode(eventDescriptionJson['description'])[0]["category"] == 'freezer')
-              //         return Container(
-              //           decoration: BoxDecoration(
-              //             color: Color.fromARGB(255, 130, 222, 238), // Set the background color to red
-              //             shape: BoxShape.circle, // Optional: make it circular
-              //           ),
-              //           width: 16.0, // Optional: set width
-              //           height: 16.0, // Optional: set height
-              //         );
-              //         } else {
-              //           print('event description is null');
-              //         }
-              //       },
-              //       todayButtonColor: Colors.transparent,
-              //       todayBorderColor: Colors.green,
-              //       markedDateMoreShowTotal: true,
-              //       firstDayOfWeek: 1, // Monday as first day of week
-              //     ),
-              //   ),
-              // ),
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: CalendarCarousel<Event>(
+                  onDayPressed: (date, events) {
+                    setState(() => _currentDate = date);
+                    events.forEach((event) {
+                      pushSelected(event.description);
+                    });
+                  },
+                  weekendTextStyle: TextStyle(color: Colors.black),
+                  thisMonthDayBorderColor: Colors.grey,
+                  weekFormat: false,
+                  height: 370.0,
+                  selectedDateTime: _currentDate,
+                  targetDateTime: _currentDate,
+                  markedDatesMap: EventList<Event>(events: _markedDateMap),
+                  showIconBehindDayText: true,
+                  markedDateShowIcon: true,
+                  markedDateIconMaxShown: 2,
+                  selectedDayTextStyle: TextStyle(color: Colors.white),
+                  todayTextStyle: TextStyle(color: Colors.blue),
+                  markedDateIconBuilder: (event) {
+                    if (event.description != null) {
+                      try {
+                        var eventDescriptionJson = jsonDecode(event.description!);
+                        var descriptionData = jsonDecode(eventDescriptionJson['description']);
+                        if (descriptionData.isNotEmpty && descriptionData[0] != null) {
+                          var category = descriptionData[0]['category'] as String?;
+                          Color markerColor;
+                          switch (category) {
+                            case 'pantry':
+                              markerColor = Color.fromARGB(255, 38, 174, 97);
+                              break;
+                            case 'fridge':
+                              markerColor = Color.fromARGB(255, 86, 117, 160);
+                              break;
+                            case 'freezer':
+                              markerColor = Color.fromARGB(255, 130, 222, 238);
+                              break;
+                            default:
+                              markerColor = Colors.grey;
+                          }
+                          return Container(
+                            width: 8.0,
+                            height: 8.0,
+                            margin: EdgeInsets.symmetric(horizontal: 0.3),
+                            decoration: BoxDecoration(
+                              color: markerColor,
+                              shape: BoxShape.circle,
+                            ),
+                          );
+                        }
+                      } catch (e) {
+                        print('Error parsing event data: $e');
+                      }
+                    }
+                    return SizedBox.shrink();
+                  },
+                  todayButtonColor: Colors.transparent,
+                  todayBorderColor: Colors.green,
+                  markedDateMoreShowTotal: true,
+                  firstDayOfWeek: 1,
+                  headerTextStyle: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                  daysTextStyle: TextStyle(color: Colors.black),
+                ),
+              ),
               Container(
                 padding: const EdgeInsets.all(10),
                 height: 250,
@@ -538,31 +540,5 @@ class _ExpiryCalendarWidgetState extends State<ExpiryCalendarWidget> {
       ),
     );
   }
-
-  // MeetingDataSource _getCalendarDataSource() {
-  //   List<Appointment> appointments = <Appointment>[];
-  //   appointments.add(Appointment(
-  //     isAllDay: true,
-  //     notes:'add color',
-  //     startTime: DateTime(2024, 10, 10, 0, 0),
-  //     endTime: DateTime(2024, 10, 10, 12, 0),
-  //     subject: '🔔 Expiry Date',
-  //     color: Colors.redAccent,
-  //   ));
-  //   // appointments.add(Ap)
-  //   // Add more appointments as needed
-  //   return MeetingDataSource(appointments);
-  // }
 }
-// class MeetingDataSource extends CalendarDataSource {
-//   MeetingDataSource(List<Appointment> source) {
-//     appointments = source;
-//   }
-// }
-
-// void main() {
-//   runApp(MaterialApp(
-//     home: ExpiryCalendarWidget(),
-//   ));
-// }
 
